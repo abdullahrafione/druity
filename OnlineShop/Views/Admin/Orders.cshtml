@@ -1,0 +1,94 @@
+
+﻿@model OnlineShop.Models.OrderHistory
+
+@{
+    string values = Model.StartDate + "|" + Model.EndDate + "|" + Model.SearchText + "|" + Model.IsFilter;
+}
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('~/Content/assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Dashboard<span>Orders</span></h1>
+        </div>
+    </div>
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+        <div class="container">
+            <ol class="breadcrumb">
+
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Orders</li>
+
+            </ol>
+        </div>
+    </nav>
+    <div class="page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <form action="/admin/ApplyFilter" method="post">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Start Date</label>
+                                @*<input type="text" class="form-control" required="">*@
+                                @Html.TextBoxFor(x => x.StartDate, new { @Class = "form-control" , type = "date" })
+                            </div><!-- End .col-sm-6 -->
+
+                            <div class="col-sm-3">
+                                <label>End Date</label>
+                                @*<input type="date" class="form-control" required="">*@
+                                @Html.TextBoxFor(x => x.EndDate, new { @Class = "form-control", type = "date" })
+                            </div><!-- End .col-sm-6 -->
+
+                            <div class="col-sm-3">
+                                <label>Search Text</label>
+                                @*<input type="text" class="form-control" required="">*@
+                                @Html.TextBoxFor(x => x.SearchText, new { @Class = "form-control", type = "text" })
+                            </div><!-- End .col-sm-6 -->
+
+                            <div class="col-sm-3">
+                                <button type="submit" style="margin-top:13%" class="btn btn-outline-primary-2">
+                                    <span>Apply</span>
+                                    <i class="icon-long-arrow-right"></i>
+                                </button>
+                            </div><!-- End .col-sm-6 -->
+                        </div><!-- End .row -->
+                    </form>
+
+                    <div id="loadorders">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div class="modal"></div>
+
+<script>
+    $(document).ready(function () {
+        @*$.ajax({
+            url: "/admin/LoadOrders",
+            type: "POST",
+            success: function (data) {
+                $('#loadorders').html(data);
+            }
+        })*@
+
+        data = { "filterValues": "@values" };
+        $.ajax({
+            type: "Post",
+            url: '/admin/LoadOrders',
+            data: data,//"{'test'}", // pass in data usually
+            //contentType: "application/json; charset=utf-8",
+            //dataType: "json",
+            success: function (data) {
+                $('#loadorders').html(data);
+            }
+        });
+
+    });
+
+
+</script>

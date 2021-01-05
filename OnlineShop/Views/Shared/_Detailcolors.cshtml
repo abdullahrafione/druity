@@ -1,0 +1,26 @@
+﻿@*@model List<OnlineShop.Models.Colour>
+@if (Model.Any())
+{
+    <input type="text" style="display:none" id="colortxt" value="@Model.FirstOrDefault().ColourId" />
+}
+<div class="details-filter-row details-row-size">
+
+    <label for="size">Colour:</label>
+    <div class="select-custom">
+        <select name="size" id="colorSelect" class="form-control">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <option value="@item.ColourId">@item.Name</option>
+                }
+            }
+        </select>
+    </div>
+</div>
+<script>
+    $('#colorSelect').on('change', function () {
+        var value = $(this).val();
+        $("#colortxt").val(value);
+    });
+</script>*@

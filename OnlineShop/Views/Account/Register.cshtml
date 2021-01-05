@@ -1,0 +1,93 @@
+﻿@model OnlineShop.Models.RegisterSignin
+
+@{
+    string error = (string)TempData["Error"];
+}
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Register<span></span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Register</a></li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+    <div class="page-content">
+        <div class="checkout">
+            <div class="container">
+                @if (error != null)
+                {
+                    @Html.Partial("~/Views/Shared/_ErrorTempData.cshtml", error);
+                }
+                <form action="~/account/register" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h2 class="checkout-title">Register</h2><!-- End .checkout-title -->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>First Name *</label>              @Html.ValidationMessageFor(x => Model.FirstName, "", new { @style = "color:red" })
+                                    @Html.TextBoxFor(x => x.FirstName, new { @Class = "form-control" })
+                                </div><!-- End .col-sm-6 -->
+                                <div class="col-sm-6">
+                                    <label>Last Name *</label>         @Html.ValidationMessageFor(x => Model.LastName, "", new { @style = "color:red" })
+                                    @Html.TextBoxFor(x => x.LastName, new { @Class = "form-control" })
+                                </div><!-- End .col-sm-6 -->
+                            </div><!-- End .row -->
+                            <label>Country *</label>     @Html.ValidationMessageFor(x => Model.Country, "", new { @style = "color:red" })
+                            @Html.TextBoxFor(x => x.Country, new { @Class = "form-control" })
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Town / City *</label>     @Html.ValidationMessageFor(x => Model.City, "", new { @style = "color:red" })
+                                    @Html.TextBoxFor(x => x.City, new { @Class = "form-control" })
+                                </div><!-- End .col-sm-6 -->
+                                <div class="col-sm-6">
+                                    <label>State *</label>  @Html.ValidationMessageFor(x => Model.State, "", new { @style = "color:red" })
+                                    @Html.TextBoxFor(x => x.State, new { @Class = "form-control" })
+                                </div><!-- End .col-sm-6 -->
+                            </div><!-- End .row -->
+                            <label>Street *</label> @Html.ValidationMessageFor(x => Model.Street, "", new { @style = "color:red" })
+                            @Html.TextBoxFor(x => x.Street, new { @Class = "form-control" })
+                            <label>Address *</label> @Html.ValidationMessageFor(x => Model.Address, "", new { @style = "color:red" })
+                            @Html.TextBoxFor(x => x.Address, new { @Class = "form-control" })
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Postcode / ZIP *</label> @Html.ValidationMessageFor(x => Model.PostalCode, "", new { @style = "color:red" })
+                                    @Html.TextBoxFor(x => x.PostalCode, new { @Class = "form-control" })
+                                </div><!-- End .col-sm-6 -->
+                                <div class="col-sm-6">
+                                    <label>Phone *</label>   @Html.ValidationMessageFor(x => Model.Phone, "", new { @style = "color:red" })
+                                    @Html.TextBoxFor(x => x.Phone, new { @Class = "form-control" })
+                                </div><!-- End .col-sm-6 -->
+                            </div><!-- End .row -->
+                            <label>Email address *</label>@Html.ValidationMessageFor(x => Model.EmailAddress, "", new { @style = "color:red" })
+                            @Html.TextBoxFor(x => x.EmailAddress, new { @Class = "form-control" })
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Password *</label>   @Html.ValidationMessageFor(x => Model.Password, "", new { @style = "color:red" })
+                                    @Html.PasswordFor(x => x.Password, new { @Class = "form-control" })
+
+                                </div><!-- End .col-sm-6 -->
+                                <div class="col-sm-6">
+                                    <label>Confirm Password *</label>  @Html.ValidationMessageFor(x => Model.ConfirmPassword, "", new { @style = "color:red" })
+                                    @Html.PasswordFor(x => x.ConfirmPassword, new { @Class = "form-control" })
+
+                                </div><!-- End .col-sm-6 -->
+                            </div><!-- End .row -->
+                            <button type="submit" class="btn btn-outline-primary-2">
+                                <span>Register</span>
+                                <i class="icon-long-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

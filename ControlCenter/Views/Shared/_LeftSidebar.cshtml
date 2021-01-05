@@ -1,0 +1,77 @@
+﻿<div class="side-content-wrap">
+    <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar="" data-suppress-scroll-x="true">
+        <ul class="navigation-left">
+            <li class="nav-item">
+                <a class="nav-item-hold" href="@Url.Action("Index", "Home" )"><i class="nav-icon i-Bar-Chart"></i><span class="nav-text">Dashboard</span></a>
+                <div class="triangle"></div>
+            </li>
+            <li class="nav-item" data-item="products">
+                <a class="nav-item-hold" href="#"><i class="nav-icon i-Library"></i><span class="nav-text">Products</span></a>
+                <div class="triangle"></div>
+            </li>
+            <li class="nav-item" data-item="orders">
+                <a class="nav-item-hold" href="#"><i class="nav-icon i-File-Clipboard-File--Text"></i><span class="nav-text">Orders</span></a>
+                <div class="triangle"></div>
+            </li>
+            <li class="nav-item" data-item="users">
+                <a class="nav-item-hold" href="#"><i class="nav-icon i-Computer-Secure"></i><span class="nav-text">Users</span></a>
+                <div class="triangle"></div>
+            </li>
+            <li class="nav-item" data-item="category">
+                <a class="nav-item-hold" href="#"><i class="nav-icon i-Computer-Secure"></i><span class="nav-text">Categories</span></a>
+                <div class="triangle"></div>
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar-left-secondary rtl-ps-none" data-perfect-scrollbar="" data-suppress-scroll-x="true">
+        <ul class="childNav" data-parent="Broker">
+            <li class="nav-item"><a href="chat.html"><i class="nav-icon i-Speach-Bubble-3"></i><span class="item-name">Broker Balance</span></a></li>
+        </ul>
+        <ul class="childNav" data-parent="widgets">
+            <li class="nav-item"><a href="widget-card.html"><i class="nav-icon i-Receipt-4"></i><span class="item-name">widget card</span></a></li>
+            <li class="nav-item"><a href="widget-statistics.html"><i class="nav-icon i-Receipt-4"></i><span class="item-name">widget statistics</span></a></li>
+            <li class="nav-item"><a href="widget-list.html"><i class="nav-icon i-Receipt-4"></i><span class="item-name">Widget List <span class="ml-2 badge badge-pill badge-danger">New</span></span></a></li>
+            <li class="nav-item"><a href="widget-app.html"><i class="nav-icon i-Receipt-4"></i><span class="item-name">Widget App <span class="ml-2 badge badge-pill badge-danger"> New</span></span></a></li>
+            <li class="nav-item"><a href="weather-card.html"><i class="nav-icon i-Receipt-4"></i><span class="item-name">Weather App <span class="ml-2 badge badge-pill badge-danger"> New</span></span></a></li>
+        </ul>
+        <ul class="childNav" data-parent="charts">
+            <li class="nav-item"><a href="charts.echarts.html"><i class="nav-icon i-File-Clipboard-Text--Image"></i><span class="item-name">echarts</span></a></li>
+            <li class="nav-item"><a href="charts.chartsjs.html"><i class="nav-icon i-File-Clipboard-Text--Image"></i><span class="item-name">ChartJs</span></a></li>
+            <li class="nav-item dropdown-sidemenu">
+                <a href="#"><i class="nav-icon i-File-Clipboard-Text--Image"></i><span class="item-name">Apex Charts</span><i class="dd-arrow i-Arrow-Down"></i></a>
+                <ul class="submenu">
+                    <li><a href="charts.apexAreaCharts.html">Area Charts</a></li>
+                    <li><a href="charts.apexBarCharts.html">Bar Charts</a></li>
+                    <li><a href="charts.apexBubbleCharts.html">Bubble Charts</a></li>
+                    <li><a href="charts.apexColumnCharts.html">Column Charts</a></li>
+                    <li><a href="charts.apexCandleStickCharts.html">CandleStick Charts</a></li>
+                    <li><a href="charts.apexLineCharts.html">Line Charts</a></li>
+                    <li><a href="charts.apexMixCharts.html">Mix Charts</a></li>
+                    <li><a href="charts.apexPieDonutCharts.html">PieDonut Charts</a></li>
+                    <li><a href="charts.apexRadarCharts.html">Radar Charts</a></li>
+                    <li><a href="charts.apexRadialBarCharts.html">RadialBar Charts</a></li>
+                    <li><a href="charts.apexScatterCharts.html">Scatter Charts</a></li>
+                    <li><a href="charts.apexSparklineCharts.html">Sparkline Charts</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="childNav" data-parent="extrakits">
+            <li class="nav-item"><a href="@Url.Action("Categories", "Common")"><i class="nav-icon i-Crop-2"></i><span class="item-name">Register</span></a></li>
+        </ul>
+        <ul class="childNav" data-parent="products">
+            <li class="nav-item"><a href="@Url.Action("AddProduct", "Product" )"><i class="nav-icon i-Bell1"></i><span class="item-name">Add Products to Marketplace</span></a></li>
+            <li class="nav-item"><a href="@Url.Action("Index", "Product" )"><i class="nav-icon i-Bell1"></i><span class="item-name">View / Edit Products</span></a></li>
+        </ul>
+        <ul class="childNav" data-parent="category">
+            <li class="nav-item"><a href="@Url.Action("Add","Category")"><i class="nav-icon i-Male"></i><span class="item-name">Add Main & Sub Category</span></a></li>
+            <li class="nav-item"><a href="@Url.Action("AddSubCategoryImage","Category")"><i class="nav-icon i-Male"></i><span class="item-name">Add SubCategory Image</span></a></li>
+        </ul>
+        <ul class="childNav" data-parent="orders">
+            <li class="nav-item"><a href="@Url.Action("Index","Order")"><i class="nav-icon i-Male"></i><span class="item-name">View Orders</span></a></li>
+        </ul>
+        <ul class="childNav" data-parent="users">
+            <li class="nav-item"><a href="@Url.Action("MarketPlaceUsers","User")"><i class="nav-icon i-Male"></i><span class="item-name">Marketplace Users</span></a></li>
+        </ul>
+    </div>
+    <div class="sidebar-overlay"></div>
+</div>

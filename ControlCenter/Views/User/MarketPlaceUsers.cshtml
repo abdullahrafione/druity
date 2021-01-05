@@ -1,0 +1,49 @@
+﻿@model List<ControlCenter.Models.UserModel>
+@{
+    ViewBag.Title = "MarketPlaceUsers";
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <h1>All Users</h1>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row mb-4">
+            <div class="col-md-12 mb-4">
+                <div class="card text-left">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="display table table-striped table-bordered" id="zero_configuration_table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email Address</th>
+                                        <th>Phone No</th>
+                                        <th>City</th>
+                                        <th>Address</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                    <tr>
+                                        <td>@item.FirstName  @item.LastName</td>
+                                        <td>@item.EmailAddress</td>
+                                        <td>@item.PhoneNo</td>
+                                        <td>@item.City</td>
+                                        <td>@item.Address</td>
+                                    </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,67 @@
+﻿@model ControlCenter.Models.UserModel
+
+@{ Layout = null; }
+
+<html>
+<head>
+    <title>Druity | Control Center</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet" />
+    <link href="~/Content/dist-assets/css/themes/lite-purple.min.css" rel="stylesheet" />
+    <link href="~/Content/dist-assets/css/plugins/perfect-scrollbar.min.css" rel="stylesheet" />
+    <link href="~/Content/dist-assets/fonts/iconsmind/iconsmind.css" rel="stylesheet" />
+</head>
+
+<body class="  text-left">
+    <div class="loading_wrap" id="loading_wrap" style="display: none;">
+        <div class="loader_logo">
+            <img src="~/Content/dist-assets/images/logo.png" class="" alt="logo">
+        </div>
+        <div class="loading">
+        </div>
+    </div>
+    <div>
+        <div class="auth-layout-wrap" style="background-image: url(&quot;/Content/dist-assets/images/products/weather-2.jpg&quot;);">
+            <div class="auth-content">
+                <div class="card o-hidden">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="p-4">
+                                <div class="auth-logo text-center mb-30">
+                                    <img src="~/Content/dist-assets/images/products/logo.jpg">
+                                </div>
+                                <h1 class="mb-3 text-18">Sign In</h1>
+                                <form class="" action="~/account/login" method="post">
+                                    <fieldset class="form-group text-12" id="__BVID__139">
+                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__139__BV_label_">Email Address</legend>
+                                        <div tabindex="-1" role="group" class="bv-no-focus-ring">
+                                            <input type="text" required="required" aria-required="true" class="form-control-rounded form-control" name="EmailAddress" placeholder="Email ...">
+                                        </div>
+                                    </fieldset>
+                                    <fieldset class="form-group text-12" id="__BVID__141">
+                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__141__BV_label_">Password</legend>
+                                        <div tabindex="-1" role="group" class="bv-no-focus-ring">
+                                            <input type="password" class="form-control-rounded form-control" name="Password" placeholder="Password ...">
+                                        </div>
+                                    </fieldset>
+                                    <button type="submit" class="btn btn-rounded btn-block mt-2 btn-primary mt-2"> SignIn </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="text-center col-md-6" style="background-size: cover; background-image: url(&quot;/Content/dist-assets/images/products/LoginCard.jpg&quot;);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Content/dist-assets/js/plugins/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/dist-assets/js/plugins/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/dist-assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="~/Content/dist-assets/js/scripts/script.min.js"></script>
+    <script src="~/Content/dist-assets/js/scripts/sidebar.large.script.min.js"></script>
+    <script src="~/Content/dist-assets/js/plugins/echarts.min.js"></script>
+    <script src="~/Content/dist-assets/js/scripts/echart.options.min.js"></script>
+    <script src="~/Content/dist-assets/js/scripts/dashboard.v1.script.min.js"></script>
+    <script src="~/Content/dist-assets/js/scripts/customizer.script.min.js"></script>
+</body>
+</html>

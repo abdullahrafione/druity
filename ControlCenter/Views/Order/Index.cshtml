@@ -1,0 +1,50 @@
+﻿@model List<ControlCenter.Models.OrderModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <h1>All Orders</h1>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row mb-4">
+            <div class="col-md-12 mb-4">
+                <div class="card text-left">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="display table table-striped table-bordered" id="zero_configuration_table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>OrderId</th>
+                                        <th>Total Amount</th>
+                                        <th>Created On</th>
+                                        <th>User Email</th>
+                                        <th>Click to View</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.OrderId</td>
+                                            <td>@item.TotalAmount</td>
+                                            <td>@item.CreatedOn</td>
+                                            <td>@item.UserEmail</td>
+                                            <td class="text-left" style="">
+                                                <a href="@Url.Action("ViewOrders", "Order", new {orderId = item.OrderId} )">View</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

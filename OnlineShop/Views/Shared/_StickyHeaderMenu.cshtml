@@ -1,0 +1,48 @@
+﻿@model List<OnlineShop.Models.ParentChildCategory>
+<div class="container">
+    <div class="header-left">
+        <div class="dropdown category-dropdown">
+            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
+                Categories
+            </a>
+            @if (Model.Any())
+            {
+                @Html.Partial("~/Views/Shared/_CategoriesMenu.cshtml", Model.FirstOrDefault().ParentCategories);
+            }
+        </div>
+    </div>
+    <div class="header-center">
+        <nav class="main-nav">
+            <ul class="menu sf-arrows">
+                <li>
+                    <a href="~/product/shop" class="sf-with-ul">Explore Categories</a>
+                    <div class="megamenu megamenu-md">
+                        <div class="row no-gutters">
+                            <div class="col-md-10">
+                                <div class="menu-col">
+                                    <div class="row">
+                                        @foreach (var item in Model)
+                                        {
+                                            <div class="col-md-3">
+                                                <div class="menu-title">@item.ParentCategoryName</div><!-- End .menu-title -->
+                                                <ul>
+                                                    @foreach (var item2 in item.ChildCategories)
+                                                    {
+                                                        <li><a href="~/product/shop?category=@item2.CategoryId">@item2.CategoryName</a></li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul><!-- End .menu -->
+        </nav><!-- End .main-nav -->
+    </div>
+    <div class="header-right">
+        <i class="la la-lightbulb-o"></i><p>Sale<span class="highlight">&nbsp;Up to 10% Off</span></p>
+    </div>
+</div>

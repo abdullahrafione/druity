@@ -1,0 +1,131 @@
+﻿@model List<OnlineShop.Models.OrderHistory>
+@if (Model.Any())
+{
+    foreach (var item in Model)
+    {
+      
+            var sss = Guid.NewGuid().ToString();
+  
+        <div class="row" style="border-bottom:solid;margin-bottom:10px;border-width:thin;">
+            <div class="col-lg-6">
+                <div class="store">
+                    <div class="row">
+                        <div class="col-sm-5 col-xl-6">
+                            <figure class="store-media mb-2 mb-lg-0">
+                                <span class="product-label label-new">Order# @item.OrderId</span>
+                               
+                                <img src="@item.ImageUrl" alt="image">
+                            </figure><!-- End .store-media -->
+                        </div><!-- End .col-xl-6 -->
+                        <div class="col-sm-7 col-xl-6">
+                            <div class="store-content">
+                                <h3 class="store-title">@item.FirstName @item.LastName (@item.Country)</h3><!-- End .store-title -->
+                                <address>@item.Address, @item.Street, @item.City, @item.State, @item.Country.</address>
+                                <div>@item.Phone (@item.Email)</div>
+
+                                <h4 class="store-subtitle">Order Detail:</h4><!-- End .store-subtitle -->
+                                <div>@item.CreationDate</div>
+                                <div>@item.ProductName</div>
+                                <div>@item.ColorName - @item.SizeName</div>
+                                <div>@item.CurrencySymbol @item.UnitPrice X @item.Quantity = @item.CurrencySymbol@(item.Quantity*item.UnitPrice)</div>
+                            </div><!-- End .store-content -->
+                        </div><!-- End .col-xl-6 -->
+                    </div><!-- End .row -->
+                </div><!-- End .store -->
+            </div><!-- End .col-lg-6 -->
+
+            <div class="col-lg-6">
+                <div class="store">
+                    <div class="row">
+                        <div class="col-sm-5 col-xl-6">
+                            <h3 class="store-title">Status ( @item.Status ) </h3>
+                            <h3 class="store-title">ref # @item.OrderDetailId</h3>
+                            <div>@item.CreationDate</div>
+                            <div>Delivery Date</div>
+                            <div>Remaining Days</div>
+                            <div class="store-content">
+                                <h4 class="store-subtitle">Internal info</h4><!-- End .store-subtitle -->
+                                <div>Manufacture:</div>
+                                <div>Given Date</div>
+                                <div>Deadline</div>
+
+
+                            </div><!-- End .store-content -->
+
+                        </div><!-- End .col-xl-6 -->
+
+                        <div class="col-sm-7 col-xl-6">
+                            <div class="store-content">
+                                <h3 class="store-title">Change Status</h3><!-- End .store-title -->
+                            <input type="text" id="@("orderStatustxt"+sss)"/>
+                                <div>
+                                    <select name="OrderstatusId" id="@("orderStatusdrop"+sss)">
+                                        <option >---@item.Status---</option>
+                                        @foreach (var status in Model.FirstOrDefault().OrderStatuses)
+                                        {
+                                            <option value="@status.Id">@status.Name</option>
+                                        }
+                                    </select>
+                                    <input type="submit" onclick="ChangeStatus('@sss','@item.OrderDetailId')" value="Change" />
+                                    @*<a href="#" class="btn btn-link" target="_blank"><span>Change</span><i class="icon-long-arrow-right"></i></a>*@
+                                </div>
+                                <h4 class="store-subtitle">Internal Info Form</h4><!-- End .store-subtitle -->
+                                <div class="row" style="border-style:solid;border-width:thin;border-color:#a6c76c;padding:2px;">
+                                    <div class="col-md-4">
+                                        <div>Manufacture: </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                  
+                                    <div class="col-md-4">
+                                        <div>Today: </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="date" class="form-control"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div>Deadline: </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="date" class="form-control"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="submit" value="Save"/>
+                                    </div>
+                                </div>
+                              
+                                <div class="store-content">
+
+                                </div><!-- End .store-content -->
+                            </div><!-- End .store-content -->
+                        </div><!-- End .col-xl-6 -->
+                    </div><!-- End .row -->
+                </div><!-- End .store -->
+            </div><!-- End .col-lg-6 -->
+        </div>
+    }
+}
+<script>
+    $('#orderStatus').on('change', function (sss) {
+       
+        var value = $("orderStatus"+sss).val();
+       // var value = $(this).val();
+        $("#orderStatustxt" + sss).val(value);
+        
+    });
+
+    function ChangeStatus(sss, orderDetailid) {
+        var status = $("#orderStatusdrop" + sss).val();
+        $.ajax({
+            type: "get",
+            url: "/admin/changestatus",
+            data: {
+                "statusId": status,
+                "orderDetailid": orderDetailid
+            }, success: function (data) {
+                alert("status changed")
+            }
+        })
+    }
+</script>

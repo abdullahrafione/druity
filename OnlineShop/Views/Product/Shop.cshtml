@@ -1,0 +1,84 @@
+﻿@model OnlineShop.Models.ProductReponse
+<input type="text" style="display:none" id="ParentSelectedCategoryId" value="@Model.ParentSelectedCategoryId" />
+@if (Model.IsMainSelected)
+{
+    <input type="text" id="IsMainSelected" value="true"  style="display:none"/>
+}
+else
+{
+    <input type="text" id="IsMainSelected" value="false" style="display:none"/>
+}
+<input type="text" id="ChildSelectedCategory" value="@Model.ChildSelectedCategory" style="display:none"/>
+@if (Model.IsChildSelected)
+{
+    <input type="text" id="IsChildSelected" value="true" style="display:none"/>
+}
+else
+{
+    <input type="text" id="IsChildSelected" value="false" style="display:none"/>
+}
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('/Content/assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Products <span>Shop</span></h1>
+        </div>
+    </div>
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+        <div class="container">
+            <ol class="breadcrumb">
+
+                <li class="breadcrumb-item"><a href="~/home/index">Home</a></li>
+                <li class="breadcrumb-item"><a href="~/product/shop">Shop</a></li>
+               
+
+            </ol>
+        </div>
+    </nav>
+    <div class="page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    @*@Html.Partial("~/Views/Product/_ShopToolbar.cshtml")*@
+                    <div id="gridforShop">
+                        @Html.Partial("~/Views/Product/_ShopGridView.cshtml", Model)
+                    </div>
+                </div>
+                <aside class="col-lg-3 order-lg-first">
+                    <div class="sidebar sidebar-shop">
+                        <div class="widget widget-clean">
+                            <label>Filters:</label>
+                            <a href="~/product/shop">Reset Filters</a>
+                        </div>
+                        @Html.Partial("~/Views/Product/_ShopSideFilter.cshtml", new OnlineShop.Models.CategoriesSizeColoursFilter())
+
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</main>
+<div class="modal"></div>
+<script>
+    $(document).ready(function () {
+        var ParentSelectedCategoryId = $("#ParentSelectedCategoryId").val();
+        var IsMainSelected = $("#IsMainSelected").val();
+        var ChildSelectedCategory = $("#ChildSelectedCategory").val();
+        var IsChildSelected = $("#IsChildSelected").val();
+        $.ajax({
+            type: "Post",
+            url: "/Product/GetCategoriesSizeColoursFilter",
+            data: {
+                "ParentSelectedCategoryId": ParentSelectedCategoryId,
+                "IsMainSelected": IsMainSelected,
+                "ChildSelectedCategory": ChildSelectedCategory,
+                "IsChildSelected": IsChildSelected,
+            },
+            success: function (data) {
+                $('#ShopFilter').html(data);
+            }
+        })
+    });
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

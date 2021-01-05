@@ -1,0 +1,129 @@
+﻿@model List<OnlineShop.Models.Category>
+@{
+    string error = (string)TempData["Error"];
+}
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">My Account<span>Shop</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Admin</a></li>
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">My Account</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+    <div class="page-content">
+        <div class="dashboard">
+            <div class="container">
+                @if (error != null)
+                {
+                    @Html.Partial("~/Views/Shared/_ErrorTempData.cshtml", error);
+                }
+                <div class="row">
+                    @Html.Partial("_AdminDashboardSideMenu")
+                    <div class="col-md-8 col-lg-9">
+                        <p>The following addresses will be used on the checkout page by default.</p>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card card-dashboard">
+                                    <div class="card-body">
+                                        <h3 class="card-title">Products</h3>
+                                        <form action="~/admin/addproduct" method="post">
+                                            <div class="row">
+
+                                                <div class="col-sm-6">
+                                                    <label>Select Category</label>
+                                                    <select id="mySelect" class="form-control">
+                                                        <option>--Please select--</option>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <option value="@item.CategoryId">@item.CategoryName</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div id="subcatdrop">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div id="genderdrop">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label>Product Name</label>
+                                                    <input type="text" name="Name" class="form-control">
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label>Product Short Description</label>
+                                                    <input type="text" name="shortDescription" class="form-control">
+                                                </div>
+                                            </div>
+                                            <label>Detail *</label>
+                                            <textarea class="form-control" name="Detail"></textarea>
+
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>SAVE CHANGES</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    $('#mySelect').on('change', function () {
+        var value = $(this).val();
+        $.ajax({
+            type: "Get",
+            data: { "id": value },
+            url: "/admin/GetChildCategories/",
+            success: function (data) {
+                $('#subcatdrop').html(data);
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "get",
+            url: "/admin/Getgendertags",
+            data: {
+              
+            },
+            success: function (data) {
+                $('#genderdrop').html(data);
+            }
+        })
+    });
+   
+</script>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>

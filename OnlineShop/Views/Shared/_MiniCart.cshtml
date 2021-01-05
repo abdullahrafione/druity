@@ -1,0 +1,76 @@
+﻿@model List<OnlineShop.Models.MiniCartModel>
+@{
+    decimal total = 0;
+    Model.ForEach(x =>
+    {
+        total += x.Quantity * x.Price;
+    });
+}
+    <div class="dropdown cart-dropdown">
+        <a href="~/shoppingcart/cart" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+            <div class="icon">
+                <i class="icon-shopping-cart"></i>
+                <span class="cart-count">@Model.Sum(x => x.Quantity)</span>
+            </div>
+            <p>Cart</p>
+        </a>
+        @if (Model.Any())
+        {
+            <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-cart-products">
+                    @foreach (var item in Model)
+                    {
+                        <div class="product">
+                            <div class="product-cart-details">
+                                <h4 class="product-title">
+                                    <a href="~/product/detail/@item.ProductId">@item.ProductName </a>
+
+                                </h4>
+                                <p>@item.ColorName - @item.SizeName </p>
+                                <span class="cart-product-info">
+                                    <span class="cart-product-qty">@item.Quantity</span>
+                                    <input type="text" id="@("qty"+item.ProductStockId)" value="@item.Quantity" style="display:none" />
+                                    x @item.CurrencySymbol@item.Price
+                                </span>
+                            </div><!-- End .product-cart-details -->
+                            <figure class="product-image-container">
+                                <a href="~/product/detail/@item.ProductId" class="product-image">
+                                    <img src="@item.ImageUrl" alt="product">
+                                </a>
+                            </figure>
+                            <a style="cursor:pointer" onclick="DeleteFromCart(@item.ProductStockId)" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                        </div>
+                    }
+                </div>
+                <div class="dropdown-cart-total">
+                    <span>Total</span>
+                    <span class="cart-total-price">@Model.FirstOrDefault().CurrencySymbol @total</span>
+                </div>
+                <div class="dropdown-cart-action">
+                    <a href="~/shoppingcart/cart" class="btn btn-primary">View Cart</a>
+                    <a href="~/order/checkout" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                </div>
+            </div>
+        }
+    </div>
+
+
+<script>
+
+    function DeleteFromCart(productStockId)
+    {
+        $.ajax({
+            type: "Get",
+            url: "/shoppingcart/DeleteFromCart",
+            data: {
+                "productStockId": productStockId,
+            },
+            success: function (data1)
+            {
+                $('#minicartsection').html(data1);
+            }
+        })
+    }
+
+    
+</script>

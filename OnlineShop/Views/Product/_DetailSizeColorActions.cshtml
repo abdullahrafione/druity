@@ -1,0 +1,57 @@
+﻿@*@model OnlineShop.Models.ColorsSizes
+@{
+    int sizeId = 0;
+    int colorId = 0;
+    if (Model.Sizes.Any())
+    {
+        sizeId = Model.Sizes.FirstOrDefault().SizeId;
+    }
+    if (Model.Colours.Any())
+    {
+        colorId = Model.Colours.FirstOrDefault().ColourId;
+    }
+}*@
+
+@*<input type="text" value="@Model.ProductId" id="productId" style="display:none" />
+<input type="text" style="display:none" id="colortxt" value="@colorId" />
+<input type="text" style="display:none" id="sizetxt" value="@sizeId" />
+
+<div class="details-filter-row details-row-size">
+    <label for="size">Size:</label>
+    <div class="select-custom">
+        <select name="size" id="sizeSelect" class="form-control">
+            @if (Model != null)
+            {
+                foreach (var item in Model.Sizes)
+                {
+                    <option class="form-control" value="@item.SizeId">@item.Name</option>
+                }
+            }
+        </select>
+    </div>
+</div>
+<div id="getcolor">
+    @Html.Partial("~/Views/Shared/_Detailcolors.cshtml",Model.Colours)
+</div>*@
+
+@*<script>
+  
+
+    $('#sizeSelect').on('change', function () {
+        var value = $(this).val();
+        $("#sizetxt").val(value);
+        var productid = $("#productId").val();
+      
+        $.ajax({
+            type: "get",
+            url: "/product/getcolor",
+            data: {
+                "sizeid": value,
+                "productid": productid,
+            }, success: function (data) {
+                $('#getcolor').html(data);
+            }
+        })
+    });
+
+</script>*@

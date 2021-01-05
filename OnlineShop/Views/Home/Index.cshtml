@@ -1,0 +1,126 @@
+﻿@model OnlineShop.Models.LandingPage
+    @{ 
+        int electronics = 18;
+        int dryfruits = 28;
+    }
+<main class="main">
+    <div class="intro-slider-container">
+        <div class="owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl" data-owl-options='{"nav": false}'>
+            <div class="intro-slide" style="background-image: url(Content/assets/images/demos/demo-2/slider/slide-1.jpg);">
+                <div class="container intro-content">
+                    <h3 class="intro-subtitle">Druity Electronics</h3><!-- End .h3 intro-subtitle -->
+                    <h1 class="intro-title">Choose wide range<br>of Accessories</h1><!-- End .intro-title -->
+                    <a href="~/product/shop?category=@electronics&&main=true" class="btn btn-primary">
+                        <span>Shop Now</span>
+                        <i class="icon-long-arrow-right"></i>
+                    </a>
+                </div><!-- End .container intro-content -->
+            </div><!-- End .intro-slide -->
+            <div class="intro-slide" style="background-image: url(Content/assets/images/demos/demo-2/slider/slide-2.jpg);">
+                <div class="container intro-content">
+                    <h3 class="intro-subtitle">Druity Foods</h3><!-- End .h3 intro-subtitle -->
+                    <h1 class="intro-title">Packed Foods<br>Premium Quality<br><span class="text-primary">@*<sup>$</sup>49,99*@</span></h1><!-- End .intro-title -->
+                    <a href="~/product/shop?category=@dryfruits&&main=true" class="btn btn-primary">
+                        <span>Shop Now</span>
+                        <i class="icon-long-arrow-right"></i>
+                    </a>
+                </div><!-- End .container intro-content -->
+            </div><!-- End .intro-slide -->
+            <div class="intro-slide" style="background-image: url(Content/assets/images/demos/demo-2/slider/slide-3.jpg);">
+                <div class="container intro-content">
+                    <h3 class="intro-subtitle">Druity Delivery</h3><!-- End .h3 intro-subtitle -->
+                    <h1 class="intro-title">
+                        Get Fastest Delivery<br>Nationwide<br>
+                        @*<span class="text-primary">
+                                <sup class="text-white font-weight-light">from</sup><sup>$</sup>9,99
+                            </span>*@
+                    </h1><!-- End .intro-title -->
+                </div><!-- End .container intro-content -->
+            </div><!-- End .intro-slide -->
+        </div><!-- End .owl-carousel owl-simple -->
+        <span class="slider-loader text-white"></span><!-- End .slider-loader -->
+    </div><!-- End .intro-slider-container -->
+    <div class="container">
+        <h2 class="title text-center mb-3"></h2><!-- End .title mb-2 -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="banner banner-cat">
+                    <a href="#">
+                        <img src="~/Content/assets/images/category/banner-1.jpg" alt="Banner">
+                    </a>
+                    <div class="banner-content">
+                        <h3 class="banner-title">Android</h3><!-- End .banner-title -->
+                        @*<h4 class="banner-subtitle">18 Products</h4>*@<!-- End .banner-subtitle -->
+                        <a href="#" class="banner-link">Download Now</a>
+                    </div><!-- End .banner-content -->
+                </div><!-- End .banner -->
+            </div><!-- End .col-md-6 -->
+            <div class="col-md-6">
+                <div class="banner banner-cat">
+                    <a href="#">
+                        <img src="~/Content/assets/images/category/banner-2.jpg" alt="Banner">
+                    </a>
+                    <div class="banner-content">
+                        <h3 class="banner-title">IOS</h3><!-- End .banner-title -->
+                        @*<h4 class="banner-subtitle">12 Products</h4>*@<!-- End .banner-subtitle -->
+                        <a href="#" class="banner-link">Download Now</a>
+                    </div><!-- End .banner-content -->
+                </div><!-- End .banner -->
+            </div><!-- End .col-md-6 -->
+        </div><!-- End .row -->
+        <hr class="mb-4">
+
+        @*@Html.Partial("~/Views/Home/_CarosalImages.cshtml", Model.products.Products)*@
+    </div>
+    <div class="mb-3 mb-lg-5"></div><!-- End .mb-3 mb-lg-5 -->
+    <div class="mb-3"></div><!-- End .mb-6 -->
+    @*@Html.Partial("~/Views/Home/_Products.cshtml", Model.products.Products)*@
+
+    @*<div class="mb-5"></div>
+        <div class="bg-light deal-container pt-5 pb-3 mb-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="deal">
+                            <div class="deal-content">
+                                <h4>Limited Quantities</h4>
+                                <h2>Deal of the Day</h2>
+                                <h3 class="product-title"><a href="product.html">POÄNG</a></h3><!-- End .product-title -->
+                                <div class="product-price">
+                                    <span class="new-price">$149.00</span>
+                                    <span class="old-price">Was $240.00</span>
+                                </div><!-- End .product-price -->
+                                <div class="deal-countdown" data-until="+10h"></div><!-- End .deal-countdown -->
+                                <a href="product.html" class="btn btn-primary">
+                                    <span>Shop Now</span><i class="icon-long-arrow-right"></i>
+                                </a>
+                            </div><!-- End .deal-content -->
+                            <div class="deal-image">
+                                <a href="product.html">
+                                    <img src="~/Content/assets/images/demos/demo-2/deal/product-1.jpg" alt="image">
+                                </a>
+                            </div><!-- End .deal-image -->
+                        </div><!-- End .deal -->
+                    </div><!-- End .col-lg-9 -->
+                    <div class="col-lg-3">
+                        <div class="banner banner-overlay banner-overlay-light text-center d-none d-lg-block">
+                            <a href="#">
+                                <img src="~/Content/assets/images/demos/demo-2/banners/banner-5.jpg" alt="Banner">
+                            </a>
+                            <div class="banner-content banner-content-top banner-content-center">
+                                <h4 class="banner-subtitle">The Best Choice</h4><!-- End .banner-subtitle -->
+                                <h3 class="banner-title">AGEN</h3><!-- End .banner-title -->
+                                <div class="banner-text text-primary">$49.99</div><!-- End .banner-text -->
+                                <a href="#" class="btn btn-outline-gray banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
+                            </div><!-- End .banner-content -->
+                        </div><!-- End .banner -->
+                    </div><!-- End .col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div>
+        <div class="mb-6"></div>*@
+    @Html.Partial("~/Views/Home/_TopSellingProduct.cshtml", Model)
+    <div class="container">
+        <hr class="mt-1 mb-6">
+    </div><!-- End .container -->
+</main>

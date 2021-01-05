@@ -1,0 +1,34 @@
+﻿@model List<OnlineShop.Models.Image>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <article class="entry entry-grid text-center col-md-4" style="border:solid;border-color:whitesmoke;padding:20px;">
+            <figure class="entry-media">
+                <a href="single.html">
+                    <img src="@item.Url" alt="image desc">
+                </a>
+            </figure><!-- End .entry-media -->
+
+            <div class="entry-body">
+                <div class="entry-meta">
+                    @if (item.IsPrimary)
+                    {<span class="badge badge-info">Primary image</span>}
+                    <span>&nbsp;&nbsp;</span>
+                    @if (item.IsSizeGuide)
+                    {<span class="badge badge-warning">Size Guide</span>}
+                </div><!-- End .entry-meta -->
+                @if (item.Name != "default")
+                {
+                    <h2 class="entry-title">
+                        <a onclick="DeleteImage(@item.ImageId,@item.ProductId)" href="#">Delete</a>
+                    </h2>
+                    <div class="entry-content">
+                        <p>Display Order: @item.DisplayOrder </p>
+                    </div>
+                }
+            </div>
+        </article>
+
+    }
+</div>
