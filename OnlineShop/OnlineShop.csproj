@@ -167,6 +167,8 @@
     <Compile Include="DomainEntities\ProductStock.cs" />
     <Compile Include="DomainEntities\Size.cs" />
     <Compile Include="DomainEntities\User.cs" />
+    <Compile Include="Enums\MessageType.cs" />
+    <Compile Include="Enums\StateConstants.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1101,6 +1103,7 @@
     <Content Include="Content\assets\images\demos\demo-2\slider\slide-1.jpg" />
     <Content Include="Content\assets\images\demos\demo-2\slider\slide-2.jpg" />
     <Content Include="Content\assets\images\demos\demo-2\slider\slide-3.jpg" />
+    <Content Include="Content\assets\images\demos\demo-2\slider\slide-m.jpg" />
     <Content Include="Content\assets\images\demos\demo-3\banners\banner-1.jpg" />
     <Content Include="Content\assets\images\demos\demo-3\banners\banner-2.jpg" />
     <Content Include="Content\assets\images\demos\demo-3\banners\banner-3.jpg" />
@@ -1793,6 +1796,7 @@
     <Content Include="Views\Home\_CarosalImages.cshtml" />
     <Content Include="Views\Product\_ShopProductGrid.cshtml" />
     <Content Include="Views\Shared\_MobileViewCategories.cshtml" />
+    <Content Include="Views\Shared\_MessageBlock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

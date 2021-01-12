@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using System.Globalization;
 
 namespace OnlineShop.DAL
 {
@@ -644,7 +645,7 @@ namespace OnlineShop.DAL
                         ColourId = x.ColourId,
                         ColourName = x.Colour.Name,
                         CurrencySymbol = x.CurrencySymbol,
-                        CurrentPrice = x.CurrentPrice,
+                        CurrentPrice = Convert.ToInt32(x.CurrentPrice),
                         ProductStockId = x.Id,
                         IsFeatured = x.IsFeatured,
                         OldPrice = x.OldPrice,
@@ -668,7 +669,7 @@ namespace OnlineShop.DAL
                 ColourId = x.ColourId,
                 ColourName = x.Colour.Name,
                 CurrencySymbol = x.CurrencySymbol,
-                CurrentPrice = x.CurrentPrice,
+                CurrentPrice = Convert.ToInt32(x.CurrentPrice),
                 ProductStockId = x.Id,
                 IsFeatured = x.IsFeatured,
                 OldPrice = x.OldPrice,
@@ -757,7 +758,8 @@ namespace OnlineShop.DAL
                     Detail = x.Detail,
                     OrganisationId = x.OrganisationId,
                     ShortDescription = x.ShortDescription,
-                    ProductId = x.Id
+                    ProductId = x.Id,
+                    
                 };
 
                 List<OnlineShop.Models.ProductStock> stockList = new List<OnlineShop.Models.ProductStock>();
@@ -774,11 +776,14 @@ namespace OnlineShop.DAL
                         ProductId = p.ProductId,
                         ColourName = p.Colour.Name,
                         CurrencySymbol = p.CurrencySymbol,
-                        CurrentPrice = p.CurrentPrice,
+                        CurrentPrice = Convert.ToInt32(p.CurrentPrice),
                         OldPrice = p.OldPrice,
                         SizeID = p.SizeID,
                         SizeName = p.Size.Name,
-                        StockCount = p.StockCount
+                        StockCount = p.StockCount,
+                        ProductPrice = Convert.ToInt32(p.CurrentPrice).ToString("#,##0"),
+                        OldProductPrice = Convert.ToInt32(p.OldPrice).ToString("#,##0"),
+                        Discount = Convert.ToInt32(CalculateDiscount(p.CurrentPrice, p.OldPrice))
                     };
                     stockList.Add(stockModel);
                 });
@@ -786,6 +791,17 @@ namespace OnlineShop.DAL
                 reponse.Products.Add(model);
             });
             return reponse;
+        }
+
+        public decimal CalculateDiscount(decimal currentPrice, decimal oldPrice)
+        {
+            if (oldPrice != 0)
+            {
+                decimal difference = oldPrice - currentPrice;
+                decimal discount = difference / oldPrice * 100;
+                return discount;
+            }
+            return 0;
         }
 
         #endregion

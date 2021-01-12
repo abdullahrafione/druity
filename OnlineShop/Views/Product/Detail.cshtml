@@ -50,8 +50,8 @@
                             <h1 class="product-title">@Model.Name</h1>
                             <div class="ratings-container">
                             </div>
-                            <div class="product-price">
-                                @Model.ProductStock.FirstOrDefault().CurrencySymbol@Model.ProductStock.FirstOrDefault().CurrentPrice
+                            <div class="product-price" style="color:black">
+                                @Model.ProductStock.FirstOrDefault().CurrencySymbol@Model.ProductStock.FirstOrDefault().ProductPrice
                             </div>
                             <div class="product-content">
                                 <p>@Model.ShortDescription</p>

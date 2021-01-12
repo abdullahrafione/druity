@@ -8,7 +8,7 @@ namespace OnlineShop.Models
     public class ProductStock
     {
         public int ProductStockId { get; set; }
-        public decimal CurrentPrice { get; set; }
+        public int CurrentPrice { get; set; }
         public decimal OldPrice { get; set; }
         public bool OnSale { get; set; }
         public bool IsFeatured { get; set; }
@@ -21,5 +21,8 @@ namespace OnlineShop.Models
         public int SizeID { get; set; }
         public string SizeName { get; set; }
         public int ProductId { get; set; }
+        public string ProductPrice { get; set; }
+        public string OldProductPrice { get; set; }
+        public int Discount { get; set; }
     }
 }

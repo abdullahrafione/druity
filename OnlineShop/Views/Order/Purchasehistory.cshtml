@@ -1,6 +1,10 @@
-﻿
+﻿@using OnlineShop.Enums
 @{
-    ViewBag.Title = "Purchasehistory";
+    string containerClass = string.Empty;
+    string iconClass = string.Empty;
+
+    // Read the message and type from TempData
+    string messageError = (string)(TempData[StateConstants.TempDataErrorBlockMessageKey] ?? string.Empty);
 }
 
 <main class="main">
@@ -17,6 +21,7 @@
             </ol>
         </div>
     </nav>
+    @Html.Partial("~/Views/Shared/_MessageBlock.cshtml")
     <div class="page-content">
         <div class="dashboard">
             <div class="container">

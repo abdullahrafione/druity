@@ -1,7 +1,6 @@
 ﻿@model OnlineShop.Models.LandingPage
 
 @{
-    var allProducts = Model.products.Products.ToList();
 
     int Accessories_Id = Model.parentCategories.Where(x => x.CategoryName.ToLower() == "Accessories".ToLower()).FirstOrDefault().CategoryId;
     int Leather_Products_Id = Model.parentCategories.Where(x => x.CategoryName.ToLower() == "Leather Products".ToLower()).FirstOrDefault().CategoryId;
@@ -10,11 +9,13 @@
     var Accessories = Model.products.Products.Where(x => x.CategoryId == Accessories_Id || x.ParentCategoryId == Accessories_Id).Take(5).ToList();
     var Leather_products = Model.products.Products.Where(x => x.CategoryId == Leather_Products_Id || x.ParentCategoryId == Leather_Products_Id).Take(5).ToList();
     var Packed_Foods = Model.products.Products.Where(x => x.CategoryId == Packed_Foods_Id || x.ParentCategoryId == Packed_Foods_Id).Take(5).ToList();
+
+    var allProducts = Model.products.Products.Where(x => x.CategoryId == Packed_Foods_Id || x.ParentCategoryId == Packed_Foods_Id).ToList();
 }
 
 <div class="container">
     <div class="heading heading-center mb-3">
-        <h2 class="title">New Products</h2><!-- End .title -->
+        <h2 class="title">Dry Fruits</h2><!-- End .title -->
         @*<ul class="nav nav-pills nav-border-anim justify-content-center" role="tablist">
 
             @foreach (var item in Model.parentCategories)
@@ -53,7 +54,7 @@
                                     </div><!-- End .product-cat -->
                                     <h3 class="product-title"><a href="@Url.Action("detail","product",new {id = item.ProductId })">@item.Name</a></h3><!-- End .product-title -->
                                     <div class="product-price">
-                                        @item.ProductStock.FirstOrDefault().CurrentPrice @item.ProductStock.FirstOrDefault().CurrencySymbol
+                                        @item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().ProductPrice
                                     </div><!-- End .product-price -->
                                 </div><!-- End .product-body -->
                                 @*<div class="product-action">

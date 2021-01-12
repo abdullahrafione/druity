@@ -103,10 +103,9 @@ namespace OnlineShop.Controllers
             }
             else if (category > 0 && !main)
             {
-                var shopResponse = productProvider.GetProductsForShop(currentpage, new List<int>(),0, category);
+                var shopResponse = productProvider.GetProductsForShop(currentpage, new List<int>(), 0, category);
                 shopResponse.Products.ForEach(x => { x.Image = imageProvider.GetImages(x.ProductId); });
                 shopResponse.ChildSelectedCategory = category; shopResponse.IsChildSelected = true;
-
                 return View(shopResponse);
             }
             else
@@ -213,6 +212,8 @@ namespace OnlineShop.Controllers
 
             return criteria;
         }
+        
+
         #endregion
     }
 }

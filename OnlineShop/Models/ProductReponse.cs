@@ -19,5 +19,6 @@ namespace OnlineShop.Models
         public bool IsMainSelected { get; set; }
         public int ChildSelectedCategory { get; set; }
         public bool IsChildSelected { get; set; }
+        public string ProductPrice { get; set; }
     }
 }

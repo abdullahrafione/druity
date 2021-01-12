@@ -6,29 +6,29 @@
     <div class="header-top">
         <div class="container">
             <div class="header-left">
-                <p>Pakistan's Best Online Shop</p>
+                <p>Free Shipping Nationwide for orders above Rs.500</p>
             </div><!-- End .header-left -->
             <div class="header-right">
                 <ul class="top-menu">
                     <li>
-                        <a href="#">Links</a>
-                        <ul>
-                            <li>
-                                <div class="">
-                                    <a href="#">@Html.GetCurrentUserName()</a>
+                        <a href="#">Login / Register</a>
+                            <ul>
+                                <li>
+                                    <div class="">
+                                        <a href="#">@Html.GetCurrentUserName()</a>
 
-                                </div>
-                            </li>
-                            @if (user != null)
-                            {
-                                <li><a href="~/account/signout">Sign out</a></li>
-                            }
-                            else
-                            {
-                                <li><a href="~/account/signin">Sign in</a></li>
-                                <li><a href="~/account/Register">Register</a></li>
-                            }
-                        </ul>
+                                    </div>
+                                </li>
+                                @if (user != null)
+                                {
+                                    <li><a href="~/account/signout">Logout</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="~/account/signin">Login</a></li>
+                                    <li><a href="~/account/Register">Register</a></li>
+                                }
+                            </ul>
                     </li>
                 </ul><!-- End .top-menu -->
             </div><!-- End .header-right -->
@@ -42,8 +42,8 @@
                     <i class="icon-bars"></i>
                 </button>
 
-                <a href="https://druity.com" class="logo">
-                    <img src="~/Content/assets/images/demos/demo-2/logo.png" alt="Molla Logo" width="105" height="25">
+                <a href="https://druity.com" class="logo" >
+                    <img  src="~/Content/assets/images/demos/demo-2/logo.png" alt="Molla Logo" width="105" height="25">
                 </a>
             </div><!-- End .header-left -->
             <div class="header-center">

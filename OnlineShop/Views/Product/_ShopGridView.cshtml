@@ -12,8 +12,9 @@
                     <div class="col-6 col-md-4 col-lg-4">
                         <div class="product product-7 text-center">
                             <figure class="product-media">
-                                <span class="product-label label-new">New</span>
-
+                            @if(item.ProductStock.FirstOrDefault().Discount != 0) { 
+                                <span class="product-label label-sale" style="font-style:normal">@item.ProductStock.FirstOrDefault().Discount% OFF</span>
+                            }
                                 <a href="~/product/detail/@item.ProductId">
                                     <img src="@item.Image.FirstOrDefault().Url" id="@("set"+item.ProductId)" alt="Product image" class="product-image">
                                 </a>
@@ -27,20 +28,25 @@
                                     <a href="#">@item.CategoryName</a>
                                 </div><!-- End .product-cat -->
                                 <h3 class="product-title"><a href="~/product/detail/@item.ProductId">@item.Name</a></h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    @item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().CurrentPrice
-                                </div>
-                                @*<div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 90%;"></div>
+
+                                @if (item.ProductStock.FirstOrDefault().OldProductPrice != "0")
+                                {
+                                    <div class="product-price">
+                                        <span class="new-price" style="color:black">@item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().ProductPrice</span>
+                                        <span class="old-price" style="color:red">@item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().OldProductPrice</span>
                                     </div>
-                                    <span class="ratings-text">( 2 Reviews )</span>
-                                </div>*@
+                                }
+                                else
+                                {
+                                    <div class="product-price" style="color:black">
+                                        @item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().ProductPrice
+                                    </div>
+                                }
 
                                 <div class="product-nav product-nav-dots">
-                                   @{
-                                       var dis = item.ProductStock.GroupBy(w => w.ColourName).Select(g => g.First()).ToList();
-                                   }
+                                    @{
+                                        var dis = item.ProductStock.GroupBy(w => w.ColourName).Select(g => g.First()).ToList();
+                                    }
                                     @foreach (var stock in dis)
                                     {
                                         <a href="#" class="active" title="@stock.ColourName" style="background: @stock.ColourCode;"><span class="sr-only">@stock.ColourName</span></a>
@@ -48,13 +54,13 @@
                                 </div>
 
                                 <div class="product-nav product-nav-thumbs">
-                                    
+
                                     @if (item.Image.Any())
                                     {
                                         foreach (var img in item.Image.Where(x => x.IsPrimary == false).ToList())
                                         {
                                             <a onclick="SelectImage('@item.ProductId','@img.Url')">
-                                                <img  src="@img.Url" alt="product desc">
+                                                <img src="@img.Url" alt="product desc">
                                             </a>
                                         }
                                     }
