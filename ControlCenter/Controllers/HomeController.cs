@@ -25,8 +25,9 @@ namespace ControlCenter.Controllers
             int producsCount = commonProvider.GetProductsCount();
             int activeOrders = commonProvider.ActiveOrders();
             int ordersCount = commonProvider.GetOrdersCount();
+            int outofStock = commonProvider.OutOfStock();
 
-            return View(Mapping(usersCount, producsCount, activeOrders, ordersCount));
+            return View(Mapping(usersCount, producsCount, activeOrders, ordersCount, outofStock));
 
         }
 
@@ -42,14 +43,15 @@ namespace ControlCenter.Controllers
         #endregion
 
         #region Private
-        private DashboardModel Mapping(int usersCount, int producsCount, int activeOrders, int ordersCount)
+        private DashboardModel Mapping(int usersCount, int producsCount, int activeOrders, int ordersCount, int outOfStock)
         {
             return new DashboardModel
             {
                 UsersCount = usersCount,
                 ProductsCount = producsCount,
                 ActiveOrdersCount = activeOrders,
-                OrdersCount = ordersCount
+                OrdersCount = ordersCount,
+                outOfStock = outOfStock
             };
         }
         #endregion

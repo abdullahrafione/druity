@@ -42,6 +42,14 @@ namespace DataAccess.Providers
             }
         }
 
+        public int OutOfStock()
+        {
+            using (DataDbContext context = new DataDbContext())
+            {
+                return context.Product.Include("ProductStock").Where(x => x.ProductStock.FirstOrDefault().StockCount == 0).Count();
+            }
+        }
+
         //public int InProgressOrders()
         //{
         //    using (DataDbContext context = new DataDbContext())

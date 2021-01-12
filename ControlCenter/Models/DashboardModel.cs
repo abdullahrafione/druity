@@ -14,5 +14,6 @@ namespace ControlCenter.Models
         public int InProgressOrdersCount { get; set; }
         public int DeliveredOrdersCount { get; set; }
         public int DispatchedOrdersCount { get; set; }
+        public int outOfStock { get; set; }
     }
 }

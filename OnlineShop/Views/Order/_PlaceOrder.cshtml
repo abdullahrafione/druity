@@ -1,11 +1,14 @@
 ﻿@model List<OnlineShop.Models.MiniCartModel>
 
 @{
-    decimal Total = 0;
+    int Total = 0;
+    int shippingFee = 150;
     foreach (var item in Model)
     {
-        Total += item.Price * item.Quantity;
+        Total += Convert.ToInt32(item.Price) * Convert.ToInt32(item.Quantity);
     }
+
+    
 }
 @if (Model.Any())
 {
@@ -21,16 +24,29 @@
 
             @foreach (var item in Model)
             {
-            <tr>
-                <td><a href="#">@item.ProductName</a></td>
-                <td>@item.CurrencySymbol@(item.Quantity * item.Price)</td>
-            </tr>
+                <tr>
+                    <td><a href="#">@item.ProductName</a></td>
+                    <td>@item.CurrencySymbol@(item.Quantity * item.Price)</td>
+                </tr>
             }
-            <tr class="summary-total">
-                <td>Total:</td>
-                <td>@Model.FirstOrDefault().CurrencySymbol@Total</td>
-            </tr>
-
+            @if (Total < 500)
+            {
+                <tr class="summary-shipping">
+                    <td>Shipping Fee</td>
+                    <td>Rs. 150</td>
+                </tr>
+                <tr class="summary-subtotal">
+                    <td>Total:</td>
+                    <td>@Model.FirstOrDefault().CurrencySymbol @(Total + shippingFee)</td>
+                </tr>
+            }
+            else
+            {
+                <tr class="summary-subtotal">
+                    <td>Total:</td>
+                    <td>@Model.FirstOrDefault().CurrencySymbol@Total</td>
+                </tr>
+            }
         </tbody>
     </table>
     <a href="~/order/PlaceOrder" class="btn btn-outline-primary-2 btn-order btn-block">

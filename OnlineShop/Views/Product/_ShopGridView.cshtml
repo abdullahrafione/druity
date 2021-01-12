@@ -12,15 +12,27 @@
                     <div class="col-6 col-md-4 col-lg-4">
                         <div class="product product-7 text-center">
                             <figure class="product-media">
-                            @if(item.ProductStock.FirstOrDefault().Discount != 0) { 
-                                <span class="product-label label-sale" style="font-style:normal">@item.ProductStock.FirstOrDefault().Discount% OFF</span>
-                            }
+                                @if (item.ProductStock.FirstOrDefault().StockCount == 0)
+                                {
+                                    <span class="product-label label-sale" style="font-style:normal">Out of Stock</span>
+
+                                }
+                                else
+                                {
+                                    if (item.ProductStock.FirstOrDefault().Discount != 0)
+                                    {
+                                        <span class="product-label label-sale" style="font-style:normal">@item.ProductStock.FirstOrDefault().Discount% OFF</span>
+                                    }
+                                }
+
                                 <a href="~/product/detail/@item.ProductId">
                                     <img src="@item.Image.FirstOrDefault().Url" id="@("set"+item.ProductId)" alt="Product image" class="product-image">
                                 </a>
+                            @if(item.ProductStock.FirstOrDefault().StockCount != 0) { 
                                 <div class="product-action">
                                     <a style="cursor:pointer" onclick="AddToCart(@item.ProductStock.FirstOrDefault().ProductStockId,1)" class="btn-product btn-cart"><span>add to cart</span></a>
                                 </div><!-- End .product-action -->
+                            }
                             </figure><!-- End .product-media -->
 
                             <div class="product-body">
