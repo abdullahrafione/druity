@@ -85,8 +85,6 @@ namespace OnlineShop.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterSignin registerUser)
         {
-            if (ModelState.IsValid)
-            {
                 if (!userProvider.IsUserExist(registerUser.EmailAddress))
                 {
                     string uniqueId = userProvider.Register(MapUserToDomain(registerUser));
@@ -109,8 +107,7 @@ namespace OnlineShop.Controllers
                     }
                 }
                 TempData["Error"] = "Email address alreay exists. Please try another email address";
-                return View(registerUser);
-            }
+
             return View(registerUser);
         }
 
@@ -290,11 +287,11 @@ namespace OnlineShop.Controllers
                 EmailAddress = user.EmailAddress,
                 Address = user.Address,
                 City = user.City,
-                Country = user.Country,
+                Country = "Pakistan",
                 Phone = user.Phone,
-                PostalCode = user.PostalCode,
-                State = user.State,
-                Street = user.Street,
+                PostalCode = "Default",
+                State = "Default",
+                Street = "Default",
                 CreationTime = DateTime.Now,
                 IsActive = true,
                 Password = Encode(user.Password),

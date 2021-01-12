@@ -1,9 +1,9 @@
 ﻿@model OnlineShop.Models.RegisterSignin
-
 @{
-    string error = (string)TempData["Error"];
-}
+                /**/
 
+                string error = (string)TempData["Error"];
+}
 <main class="main">
     <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         <div class="container">
@@ -40,27 +40,17 @@
                                     @Html.TextBoxFor(x => x.LastName, new { @Class = "form-control" })
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
-                            <label>Country *</label>     @Html.ValidationMessageFor(x => Model.Country, "", new { @style = "color:red" })
-                            @Html.TextBoxFor(x => x.Country, new { @Class = "form-control" })
+
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <label>Town / City *</label>     @Html.ValidationMessageFor(x => Model.City, "", new { @style = "color:red" })
+                                    <label>City *</label>     @Html.ValidationMessageFor(x => Model.City, "", new { @style = "color:red" })
                                     @Html.TextBoxFor(x => x.City, new { @Class = "form-control" })
                                 </div><!-- End .col-sm-6 -->
-                                <div class="col-sm-6">
-                                    <label>State *</label>  @Html.ValidationMessageFor(x => Model.State, "", new { @style = "color:red" })
-                                    @Html.TextBoxFor(x => x.State, new { @Class = "form-control" })
-                                </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
-                            <label>Street *</label> @Html.ValidationMessageFor(x => Model.Street, "", new { @style = "color:red" })
-                            @Html.TextBoxFor(x => x.Street, new { @Class = "form-control" })
+
                             <label>Address *</label> @Html.ValidationMessageFor(x => Model.Address, "", new { @style = "color:red" })
                             @Html.TextBoxFor(x => x.Address, new { @Class = "form-control" })
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <label>Postcode / ZIP *</label> @Html.ValidationMessageFor(x => Model.PostalCode, "", new { @style = "color:red" })
-                                    @Html.TextBoxFor(x => x.PostalCode, new { @Class = "form-control" })
-                                </div><!-- End .col-sm-6 -->
                                 <div class="col-sm-6">
                                     <label>Phone *</label>   @Html.ValidationMessageFor(x => Model.Phone, "", new { @style = "color:red" })
                                     @Html.TextBoxFor(x => x.Phone, new { @Class = "form-control" })
@@ -72,12 +62,10 @@
                                 <div class="col-sm-6">
                                     <label>Password *</label>   @Html.ValidationMessageFor(x => Model.Password, "", new { @style = "color:red" })
                                     @Html.PasswordFor(x => x.Password, new { @Class = "form-control" })
-
                                 </div><!-- End .col-sm-6 -->
                                 <div class="col-sm-6">
                                     <label>Confirm Password *</label>  @Html.ValidationMessageFor(x => Model.ConfirmPassword, "", new { @style = "color:red" })
                                     @Html.PasswordFor(x => x.ConfirmPassword, new { @Class = "form-control" })
-
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
                             <button type="submit" class="btn btn-outline-primary-2">

@@ -14,14 +14,6 @@ namespace OnlineShop.DAL
         {
             using (ShopDbContext context = new ShopDbContext())
             {
-                //var org = context.Organisation.Add(new Organisation
-                //{
-                //    CreationTime = DateTime.Now,
-                //    Name = user.EmailAddress,
-                //    RoleName = "Buyer"
-                //});
-                //context.SaveChanges();
-
                 //2 is the organisation id of Marketplace
                 user.OrganisationId = 2;
 
