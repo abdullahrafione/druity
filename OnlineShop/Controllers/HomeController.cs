@@ -47,5 +47,10 @@ namespace OnlineShop.Controllers
 
             return View();
         }
+
+        public ActionResult Faqs()
+        {
+            return View();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using OnlineShop.DAL;
+﻿
+using OnlineShop.DAL;
 using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace OnlineShop.Controllers
                 mappedList.Add(model);
             });
             mappedList.FirstOrDefault().ParentCategories = parentcategories;
-            return PartialView("~/Views/Shared/_StickyHeaderMenu.cshtml", mappedList);
+            return PartialView("~/Views/Shared/_StickyCategoriesMenu.cshtml", mappedList);
         }
 
         public PartialViewResult GetCategoriesForMobileView()
@@ -120,7 +121,7 @@ namespace OnlineShop.Controllers
         public ActionResult Detail(int id)
         {
             var products = productProvider.GetbyId(id);
-            products.Products.ForEach(x => 
+            products.Products.ForEach(x =>
             {
                 x.Image = imageProvider.GetImages(x.ProductId);
             });
@@ -213,7 +214,6 @@ namespace OnlineShop.Controllers
             return criteria;
         }
         
-
         #endregion
     }
 }

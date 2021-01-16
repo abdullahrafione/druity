@@ -1,0 +1,34 @@
+﻿@model OnlineShop.Models.ProductDetails
+    @{ 
+        var relatedProducts = Model.Products.ToList().Take(5);
+    }
+<aside class="col-lg-3">
+    <div class="sidebar sidebar-product">
+        <div class="widget widget-products">
+            <h4 class="widget-title">Related Product</h4>
+
+        @foreach (var item in relatedProducts)
+        {
+            <div class="products">
+                <div class="product product-sm">
+                    <figure class="product-media">
+                        <a href="product.html">
+                            <img src="/Content/assets/images/products/single/sidebar/1.jpg" alt="Product image" class="product-image">
+                        </a>
+                    </figure>
+                    <div class="product-body">
+                        <h5 class="product-title"><a href="product.html">@item.Name</a></h5>
+                        <div class="product-price">
+                            <span class="new-price">@item.ProductStock.FirstOrDefault().CurrentPrice</span>
+                            <span class="old-price">$110.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                }
+            <a href="category.html" class="btn btn-outline-dark-3"><span>View More Products</span><i class="icon-long-arrow-right"></i></a>
+        </div>
+        <!--Advertisement Banner Starts Here-->
+        @Html.Partial("~/Views/Product/_AdProductDetail.cshtml")
+    </div>
+</aside>

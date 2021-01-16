@@ -40,9 +40,9 @@
                     </div>
                     <div class="col-md-6">
                         @*@if (error != null)
-                        {
-                            @Html.Partial("~/Views/Shared/_ErrorTempData.cshtml", error);
-                        }*@
+                            {
+                                @Html.Partial("~/Views/Shared/_ErrorTempData.cshtml", error);
+                            }*@
                         <div id="msg">
 
                         </div>
@@ -95,20 +95,20 @@
                                     <a style="cursor:pointer;color:white" onclick="AddToCartFromDetail()" class="btn btn-primary"><span>Add to cart</span></a>
                                 </div>
                             }
-                                <div class="product-details-footer">
-                                    <div class="product-cat">
-                                        <span>Category:</span>
-                                        <a href="#">@Model.CategoryName</a>,
-                                    </div>
-                                    <div class="social-icons social-icons-sm">
-                                        <span class="social-label">Share:</span>
-                                        <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-                                        <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-                                        <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-                                        <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
-                                    </div>
+                            <div class="product-details-footer">
+                                <div class="product-cat">
+                                    <span>Category:</span>
+                                    <a href="#">@Model.CategoryName</a>,
+                                </div>
+                                <div class="social-icons social-icons-sm">
+                                    <span class="social-label">Share:</span>
+                                    <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                                    <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                                    <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                                    <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
                                 </div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -148,8 +148,7 @@
         })
     });
 
-    function AddToCartFromDetail()
-    {
+    function AddToCartFromDetail() {
         var ProductId = $("#productId").val();
         var Quantity = $("#qty").val();
         $.ajax({
@@ -158,11 +157,9 @@
             data: {
                 "ProductId": ProductId,
                 "Quantity": Quantity
-            }, success: function ()
-            {
-               location.reload(true);
-            }, error: function ()
-            {
+            }, success: function () {
+                location.reload(true);
+            }, error: function () {
                 alert("Product is out of stock");
             }
         })
@@ -174,48 +171,48 @@
 
 
 @*<script>
-    $(document).ready(function () {
-        var productId = $("#productId").val();
+        $(document).ready(function () {
+            var productId = $("#productId").val();
 
-        $.ajax({
-            type: "Get",
-            url: "/Product/GetSizesColours",
-            data: {
-                "productId": productId,
-            },
-            success: function (data) {
-                $('#colorSize').html(data);
-            }
-        })
-    });
-
-    function AddToCartFromDetail() {
-        var ProductId = $("#productId").val();
-        var SizeId = $("#sizetxt").val();
-        var ColorId = $("#colortxt").val();
-        var Quantity = $("#qty").val();
-        if (SizeId == 0) {
-            alert("Select Size")
-        }
-        if (ColorId == 0) {
-            alert("Select Color")
-        }
-        else if (ColorId > 0 && SizeId > 0) {
             $.ajax({
                 type: "Get",
-                url: "/shoppingcart/AddTocartFromDetail",
+                url: "/Product/GetSizesColours",
                 data: {
-                    "ProductId": ProductId,
-                    "SizeId": SizeId,
-                    "ColorId": ColorId,
-                    "Quantity": Quantity
-                }, success: function () {
-                    location.reload(true);
-                }, error: function () {
-                    alert("product is out of stock with selected color and size");
+                    "productId": productId,
+                },
+                success: function (data) {
+                    $('#colorSize').html(data);
                 }
             })
-        }
-    }
+        });
 
-</script>*@
+        function AddToCartFromDetail() {
+            var ProductId = $("#productId").val();
+            var SizeId = $("#sizetxt").val();
+            var ColorId = $("#colortxt").val();
+            var Quantity = $("#qty").val();
+            if (SizeId == 0) {
+                alert("Select Size")
+            }
+            if (ColorId == 0) {
+                alert("Select Color")
+            }
+            else if (ColorId > 0 && SizeId > 0) {
+                $.ajax({
+                    type: "Get",
+                    url: "/shoppingcart/AddTocartFromDetail",
+                    data: {
+                        "ProductId": ProductId,
+                        "SizeId": SizeId,
+                        "ColorId": ColorId,
+                        "Quantity": Quantity
+                    }, success: function () {
+                        location.reload(true);
+                    }, error: function () {
+                        alert("product is out of stock with selected color and size");
+                    }
+                })
+            }
+        }
+
+    </script>*@

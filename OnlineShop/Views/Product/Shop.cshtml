@@ -21,7 +21,7 @@ else
 <main class="main">
     <div class="page-header text-center" style="background-image: url('/Content/assets/images/page-header-bg.jpg')">
         <div class="container">
-            <h1 class="page-title">Products <span>Shop</span></h1>
+            <h1 class="page-title">@Model.Products.FirstOrDefault().CategoryName <span>Shop</span></h1>
         </div>
     </div>
     <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">

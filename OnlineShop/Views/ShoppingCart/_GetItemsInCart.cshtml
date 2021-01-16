@@ -89,13 +89,13 @@
                         <tr class="summary-total">
                             <td>Total:</td>
                             <td>@Model.FirstOrDefault().CurrencySymbol@total</td>
-                        </tr><!-- End .summary-total -->
+                        </tr>
                     </tbody>
-                </table><!-- End .table table-summary -->
-
+                </table>
                 <a href="~/order/checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
-            </div><!-- End .summary -->
+            </div>
         }
+        <a href="@Url.Action("checkout","order")" class="btn btn-outline-dark-2 btn-block mb-3"><span>Proceed to Checkout</span></a> 
         <a href="~/product/shop" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
     </aside>
 </div>

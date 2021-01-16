@@ -128,7 +128,7 @@ namespace OnlineShop.DAL
                                    || product.Category.Name.Contains(searchText)
                                    || product.GenderTag.Name.Contains(searchText)
                                  )
-                                && (genderTagIds.Contains(product.CategoryId))
+                                && (genderTagIds.Contains(product.GenderTagId))
                                 select product).OrderByDescending(x => x.CreationTime).Skip((currentPage - 1) * maxRows)
                           .Take(maxRows).ToList();
                 }
@@ -345,6 +345,19 @@ namespace OnlineShop.DAL
                 return response;
             }
         }
+
+        public OnlineShop.Models.ProductReponse GetRelatedProducts(int categoryId)
+        {
+            using (ShopDbContext context = new ShopDbContext())
+            {
+                var product = context.Product.Include("Category").Include("ProductStock").Include("ProductStock.Colour").Include("ProductStock.Size").Where(x => x.CategoryId == categoryId && x.IsDeleted == false && x.IsActive == true).ToList();
+                OnlineShop.Models.ProductReponse response = new Models.ProductReponse();
+                response = MapResponseToProducts(product);
+
+                return response;
+            }
+        }
+
 
         public OnlineShop.Models.ColorsSizes GetColorsSizes(int productId)
         {
@@ -760,6 +773,57 @@ namespace OnlineShop.DAL
                     ShortDescription = x.ShortDescription,
                     ProductId = x.Id,
                     
+                };
+
+                List<OnlineShop.Models.ProductStock> stockList = new List<OnlineShop.Models.ProductStock>();
+                x.ProductStock.Where(d => d.IsDeleted == false).ToList().ForEach(p =>
+                {
+                    OnlineShop.Models.ProductStock stockModel = new Models.ProductStock
+                    {
+                        ProductStockId = p.Id,
+                        IsFeatured = p.IsFeatured,
+                        OnSale = p.OnSale,
+                        TopRated = p.TopRated,
+                        ColourCode = p.Colour.Code,
+                        ColourId = p.ColourId,
+                        ProductId = p.ProductId,
+                        ColourName = p.Colour.Name,
+                        CurrencySymbol = p.CurrencySymbol,
+                        CurrentPrice = Convert.ToInt32(p.CurrentPrice),
+                        OldPrice = p.OldPrice,
+                        SizeID = p.SizeID,
+                        SizeName = p.Size.Name,
+                        StockCount = p.StockCount,
+                        ProductPrice = Convert.ToInt32(p.CurrentPrice).ToString("#,##0"),
+                        OldProductPrice = Convert.ToInt32(p.OldPrice).ToString("#,##0"),
+                        Discount = Convert.ToInt32(CalculateDiscount(p.CurrentPrice, p.OldPrice))
+                    };
+                    stockList.Add(stockModel);
+                });
+                model.ProductStock.AddRange(stockList);
+                reponse.Products.Add(model);
+            });
+            return reponse;
+        }
+
+        private Models.ProductReponse MapResponseToProducts(List<Product> products)
+        {
+            OnlineShop.Models.ProductReponse reponse = new OnlineShop.Models.ProductReponse();
+            products.ForEach(x =>
+            {
+
+                var model = new Models.Product
+                {
+                    CategoryId = x.CategoryId,
+                    CategoryName = x.Category.Name,
+                    ParentCategoryId = x.Category.ParentCategoryId,
+                    isActive = x.IsActive,
+                    Name = x.Name,
+                    Detail = x.Detail,
+                    OrganisationId = x.OrganisationId,
+                    ShortDescription = x.ShortDescription,
+                    ProductId = x.Id,
+
                 };
 
                 List<OnlineShop.Models.ProductStock> stockList = new List<OnlineShop.Models.ProductStock>();

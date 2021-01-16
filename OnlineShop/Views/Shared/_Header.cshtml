@@ -2,38 +2,41 @@
 @{
     var user = (OnlineShop.Models.User)Session[OnlineShop.CommonConstants.Constants.User];
 }
-<header class="header header-2 header-intro-clearance">
+<header class="header header-intro-clearance header-4">
+
+    <!-- Header Top Starts Here -->
     <div class="header-top">
         <div class="container">
             <div class="header-left">
-                <p>Free Shipping Nationwide for orders above Rs.500</p>
-            </div><!-- End .header-left -->
+                <a href="tel:#"><i class="icon-shopping-cart"></i>Free Shipping Nationwide over Rs.500</a>
+            </div>
             <div class="header-right">
                 <ul class="top-menu">
                     <li>
                         <a href="#">Login / Register</a>
-                            <ul>
-                                <li>
-                                    <div class="">
-                                        <a href="#">@Html.GetCurrentUserName()</a>
-
-                                    </div>
-                                </li>
-                                @if (user != null)
-                                {
-                                    <li><a href="~/account/signout">Logout</a></li>
-                                }
-                                else
-                                {
-                                    <li><a href="~/account/signin">Login</a></li>
-                                    <li><a href="~/account/Register">Register</a></li>
-                                }
-                            </ul>
+                        <ul>
+                            <li>
+                                <div class="">
+                                    <a>@Html.GetCurrentUserName()</a>
+                                </div>
+                            </li>
+                            @if (user != null)
+                            {
+                                <li><a href="~/account/signout">Logout</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="~/account/signin">Login</a></li>
+                                <li><a href="~/account/register">Register</a></li>
+                            }
+                        </ul>
                     </li>
-                </ul><!-- End .top-menu -->
-            </div><!-- End .header-right -->
-        </div><!-- End .container -->
-    </div><!-- End .header-top -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Header Top Ends Here -->
+    <!--Header Middle Starts Here-->
     <div class="header-middle">
         <div class="container">
             <div class="header-left">
@@ -42,67 +45,72 @@
                     <i class="icon-bars"></i>
                 </button>
 
-                <a href="https://druity.com" class="logo" >
-                    <img  src="~/Content/assets/images/demos/demo-2/logo.png" alt="Molla Logo" width="105" height="25">
+                <a href="~/home/index" class="logo">
+                    <img src="~/Content/Icons/logonew.png" alt="Druity Logo" width="105" height="25">
                 </a>
             </div><!-- End .header-left -->
             <div class="header-center">
-                <div class="header-search header-search-extended header-search-visible header-search-no-radius d-none d-lg-block">
+                <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
                     <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
                     <form action="~/product/Shop" method="get">
                         <div class="header-search-wrapper search-wrapper-wide">
                             <label for="q" class="sr-only">Search</label>
-                            <input type="search" class="form-control" name="searchtext" id="q" placeholder="Search product ..." required>
                             <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+                            <input type="search" class="form-control" name="searchtext" id="q" placeholder="Search product ..." required>
                         </div><!-- End .header-search-wrapper -->
                     </form>
                 </div><!-- End .header-search -->
             </div>
 
             <div class="header-right">
-                @if (user != null && user.Role == OnlineShop.CommonConstants.Constants.AdminRole)
-                {
-                    <div class="account">
-                        <a href="~/admin/dashboard" title="My account">
-                            <div class="icon">
-                                <i class="icon-user"></i>
-                            </div>
-                            <p>Account</p>
-                        </a>
-                    </div>
-                }
-                @*<div class="wishlist">
-                    <a href="wishlist.html" title="Wishlist">
-                        <div class="icon">
-                            <i class="icon-heart-o"></i>
-                            <span class="wishlist-count badge">3</span>
+                <div class="">
+                    @if (user != null && user.Role == OnlineShop.CommonConstants.Constants.AdminRole)
+                    {
+                        <div class="account">
+                            <a href="~/admin/dashboard" title="My account">
+                                <div class="icon">
+                                    <i class="icon-user"></i>
+                                </div>
+                                <p>Account</p>
+                            </a>
                         </div>
-                        <p>Wishlist</p>
-                    </a>
-                </div>*@
-                @if (user != null && user.Role == OnlineShop.CommonConstants.Constants.BuyerRole)
-                {
-                    <div class="account">
-                        <a href="~/order/purchasehistory" title="My account">
-                            <div class="icon">
-                                <i class="icon-user"></i>
-                            </div>
-                            <p>Account</p>
-                        </a>
-                    </div>
-                }
+                    }
+                    @if (user != null && user.Role == OnlineShop.CommonConstants.Constants.BuyerRole)
+                    {
+                        <div class="account">
+                            <a href="~/order/purchasehistory" title="My account">
+                                <div class="icon">
+                                    <i class="icon-user"></i>
+                                </div>
+                                <p>Account</p>
+                            </a>
+                        </div>
+                    }
+                </div>
 
                 <div id="minicartsection">
                     @Html.Partial("~/Views/Shared/_MiniCart.cshtml", new List<OnlineShop.Models.MiniCartModel>())
-                </div><!-- End .header-right -->
-            </div><!-- End .header-right -->
-        </div><!-- End .container -->
-    </div><!-- End .header-middle -->
-    <div class="header-bottom sticky-header">
-        <div id="categoriesMenu">
-                @Html.Partial("~/Views/Shared/_StickyHeaderMenu.cshtml", new List<OnlineShop.Models.ParentChildCategory>())
+                </div>
+            </div>
+            
+            <!-- End .header-right -->
         </div><!-- End .container -->
     </div>
+    <!--Header Middle Ends Here-->
+
+        <!--Categories Menu Starts Here-->
+        <div class="header-bottom sticky-header">
+            <div id="parentCategories">
+                @Html.Partial("~/Views/Shared/_StickyCategoriesMenu.cshtml", new List<OnlineShop.Models.ParentChildCategory>())
+            </div>
+        </div>
+        <!--Categories Menu Ends Here-->
+        @*<div class="header-bottom sticky-header">
+                <div id="categoriesMenu">
+                    @Html.Partial("~/Views/Shared/_StickyHeaderMenu.cshtml", new List<OnlineShop.Models.ParentChildCategory>())
+                </div>
+            </div>*@
+
 </header>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
@@ -111,7 +119,7 @@
             type: "Get",
             url: "/Product/Categories",
             success: function (data) {
-                $('#categoriesMenu').html(data);
+                $('#parentCategories').html(data);
             }
         })
     });

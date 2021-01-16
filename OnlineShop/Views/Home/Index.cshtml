@@ -1,181 +1,49 @@
 ﻿@model OnlineShop.Models.LandingPage
-@{
-    int MobilePhones = 33;
-    int electronics = 18;
-    int dryfruits = 28;
-    int Leather = 23;
-    int Samsung = 35;
-    int Apple = 34;
-    int Accessories = 18;
-    int SmartWatches = 32;
-}
 
 <main class="main">
-    <div class="intro-slider-container">
-        <div class="owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl" data-owl-options='{"nav": false}'>
 
-            <div class="intro-slide" style="background-image: url(Content/assets/images/demos/demo-2/slider/slide-m.jpg);">
-                <div class="container intro-content">
-                    <h3 class="intro-subtitle">Mobile Phones</h3><!-- End .h3 intro-subtitle -->
-                    <h1 class="intro-title">
-                        PTA Approved<br>Brand New Phones<br>
-                        <a href="~/product/shop?category=@MobilePhones&&main=true" class="btn btn-primary">
-                            <span>Shop Now</span>
-                            <i class="icon-long-arrow-right"></i>
-                        </a>
-                    </h1>
-                </div>
-            </div>
+    <!-- Carousal Banners Starts Here -->
+    @Html.Partial("~/Views/Home/_CarousalBanners.cshtml")
 
-            <div class="intro-slide" style="background-image: url(Content/assets/images/demos/demo-2/slider/slide-2.jpg);">
-                <div class="container intro-content">
-                    <h3 class="intro-subtitle">Druity Foods</h3><!-- End .h3 intro-subtitle -->
-                    <h1 class="intro-title">Packed Foods<br>Premium Quality<br><span class="text-primary">@*<sup>$</sup>49,99*@</span></h1><!-- End .intro-title -->
-                    <a href="~/product/shop?category=@dryfruits&&main=true" class="btn btn-primary">
-                        <span>Shop Now</span>
-                        <i class="icon-long-arrow-right"></i>
-                    </a>
-                </div><!-- End .container intro-content -->
-            </div><!-- End .intro-slide -->
-
-            <div class="intro-slide" style="background-image: url(Content/assets/images/demos/demo-2/slider/slide-1.jpg);">
-                <div class="container intro-content">
-                    <h3 class="intro-subtitle">Druity Electronics</h3><!-- End .h3 intro-subtitle -->
-                    <h1 class="intro-title">Choose wide range<br>of Accessories</h1><!-- End .intro-title -->
-                    <a href="~/product/shop?category=@electronics&&main=true" class="btn btn-primary">
-                        <span>Shop Now</span>
-                        <i class="icon-long-arrow-right"></i>
-                    </a>
-                </div><!-- End .container intro-content -->
-            </div><!-- End .intro-slide -->
-
-            <div class="intro-slide" style="background-image: url(Content/assets/images/demos/demo-2/slider/slide-3.jpg);">
-                <div class="container intro-content">
-                    <h3 class="intro-subtitle">Druity Delivery</h3><!-- End .h3 intro-subtitle -->
-                    <h1 class="intro-title">
-                        Get Fastest Delivery<br>Nationwide<br>
-                        @*<span class="text-primary">
-                                <sup class="text-white font-weight-light">from</sup><sup>$</sup>9,99
-                            </span>*@
-                    </h1><!-- End .intro-title -->
-                </div><!-- End .container intro-content -->
-            </div>
-
-        </div><!-- End .owl-carousel owl-simple -->
-        <span class="slider-loader text-white"></span><!-- End .slider-loader -->
-    </div><!-- End .intro-slider-container -->
-    <br />
     <!-- Popular Categories Starts Here -->
-    <div class="container">
-        <h2 class="title text-center mb-4">Explore Popular Categories</h2><!-- End .title text-center -->
+    @Html.Partial("~/Views/Home/_PopularCategories.cshtml")
 
-        <div class="cat-blocks-container">
-            <div class="row">
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <a href="~/product/shop?category=29" class="cat-block">
-                        <figure>
-                            <span>
-                                <img src="/Content/assets/images/demos/demo-4/cats/1.png" alt="Category image">
-                            </span>
-                        </figure>
-                        <h3 class="cat-block-title">Dry Fruits</h3><!-- End .cat-block-title -->
-                    </a>
-                </div><!-- End .col-sm-4 col-lg-2 -->
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <a href="~/product/shop?category=@Leather&&main=true" class="cat-block">
-                        <figure>
-                            <span>
-                                <img src="/Content/assets/images/demos/demo-4/cats/2.png" alt="Category image">
-                            </span>
-                        </figure>
-                        <h3 class="cat-block-title">Leather</h3><!-- End .cat-block-title -->
-                    </a>
-                </div><!-- End .col-sm-4 col-lg-2 -->
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <a href="~/product/shop?category=@Apple" class="cat-block">
-                        <figure>
-                            <span>
-                                <img src="/Content/assets/images/demos/demo-4/cats/3.png" alt="Category image">
-                            </span>
-                        </figure>
-                        <h3 class="cat-block-title">Apple</h3><!-- End .cat-block-title -->
-                    </a>
-                </div><!-- End .col-sm-4 col-lg-2 -->
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <a href="~/product/shop?category=@Samsung" class="cat-block">
-                        <figure>
-                            <span>
-                                <img src="/Content/assets/images/demos/demo-4/cats/4.png" alt="Category image">
-                            </span>
-                        </figure>
-                        <h3 class="cat-block-title">Samsung</h3><!-- End .cat-block-title -->
-                    </a>
-                </div><!-- End .col-sm-4 col-lg-2 -->
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <a href="~/product/shop?category=@SmartWatches" class="cat-block">
-                        <figure>
-                            <span>
-                                <img src="/Content/assets/images/demos/demo-4/cats/5.png" alt="Category image">
-                            </span>
-                        </figure>
-                        <h3 class="cat-block-title">Smartwatch</h3><!-- End .cat-block-title -->
-                    </a>
-                </div><!-- End .col-sm-4 col-lg-2 -->
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <a href="~/product/shop?category=@Accessories&&main=true" class="cat-block">
-                        <figure>
-                            <span>
-                                <img src="/Content/assets/images/demos/demo-4/cats/6.png" alt="Category image">
-                            </span>
-                        </figure>
-                        <h3 class="cat-block-title">Accessories</h3><!-- End .cat-block-title -->
-                    </a>
-                </div><!-- End .col-sm-4 col-lg-2 -->
-            </div><!-- End .row -->
-        </div><!-- End .cat-blocks-container -->
-    </div>
+    <!-- Deal Banners Start Here -->
+    @Html.Partial("~/Views/Home/_DealBanners.cshtml")
 
-    <div class="container">
-        <h2 class="title text-center mb-3"></h2><!-- End .title mb-2 -->
-        <div class="row">
-            <div class="col-md-6">
-                <div class="banner banner-cat">
-                    <a href="#">
-                        <img src="~/Content/assets/images/category/banner-1.jpg" alt="Banner">
-                    </a>
-                    <div class="banner-content">
-                        @*<h3 class="banner-title">Premium Feeling</h3>*@<!-- End .banner-title -->
-                        @*<h4 class="banner-subtitle">18 Products</h4>*@<!-- End .banner-subtitle -->
-                        @*<a href="#" class="banner-link">Download Now</a>*@
-                    </div><!-- End .banner-content -->
-                </div><!-- End .banner -->
-            </div><!-- End .col-md-6 -->
-            <div class="col-md-6">
-                <div class="banner banner-cat">
-                    <a href="#">
-                        <img src="~/Content/assets/images/category/banner-2.jpg" alt="Banner">
-                    </a>
-                    <div class="banner-content">
-                        @*<h3 class="banner-title">Sale</h3>*@<!-- End .banner-title -->
-                        @*<h4 class="banner-subtitle">12 Products</h4>*@<!-- End .banner-subtitle -->
-                        @*<a href="#" class="banner-link">Download Now</a>*@
-                    </div><!-- End .banner-content -->
-                </div><!-- End .banner -->
-            </div><!-- End .col-md-6 -->
-        </div><!-- End .row -->
-        <hr class="mb-4">
+    <!-- New Arrivals Start Here -->
+    @*@Html.Partial("~/Views/Home/_NewArrivals.cshtml")*@
 
-        @*@Html.Partial("~/Views/Home/_CarosalImages.cshtml", Model.products.Products)*@
-    </div>
+    <!-- Promotional Product -->
+    @*@Html.Partial("~/Views/Home/_PromotionalProduct.cshtml")*@
 
-    <div class="mb-3 mb-lg-5"></div>
-    <div class="mb-3"></div>
+    <!-- Limited Time Deals -->
+    @Html.Partial("~/Views/Home/_LimitedTimeDeals.cshtml")
+
+    <!-- Brand Logos -->
+    @*@Html.Partial("~/Views/Home/_BrandLogos.cshtml")*@
+
+    <!-- Trending Products -->
+    @*@Html.Partial("~/Views/Home/_TrendingProducts.cshtml")*@
+
+    <!-- Recommended Products -->
+    @Html.Partial("~/Views/Home/_RecommendedProducts.cshtml", Model)
+
+    <!-- Services TAG Starts Here -->
+    @Html.Partial("~/Views/Home/_ServicesTag.cshtml")
+
 
     @*@Html.Partial("~/Views/Home/_Products.cshtml", Model.products.Products)*@
-    @Html.Partial("~/Views/Home/_TopSellingProduct.cshtml", Model)
+
+    @*@Html.Partial("~/Views/Home/_TopSellingProduct.cshtml", Model)*@
+
+    <!-- Popup Screen Starts Here -->
+    @*@Html.Partial("~/Views/Home/_PopupScreen.cshtml")*@
+
     <div class="container">
         <hr class="mt-1 mb-6">
     </div>
+
 </main>
 
 

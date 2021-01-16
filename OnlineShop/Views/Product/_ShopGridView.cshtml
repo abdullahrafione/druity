@@ -45,7 +45,7 @@
                                 {
                                     <div class="product-price">
                                         <span class="new-price" style="color:black">@item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().ProductPrice</span>
-                                        <span class="old-price" style="color:red">@item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().OldProductPrice</span>
+                                        <span class="intro-old-price" style="color:red">@item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().OldProductPrice</span>
                                     </div>
                                 }
                                 else
@@ -54,8 +54,7 @@
                                         @item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().ProductPrice
                                     </div>
                                 }
-
-                                <div class="product-nav product-nav-dots">
+                                @*<div class="product-nav product-nav-dots">
                                     @{
                                         var dis = item.ProductStock.GroupBy(w => w.ColourName).Select(g => g.First()).ToList();
                                     }
@@ -63,8 +62,7 @@
                                     {
                                         <a href="#" class="active" title="@stock.ColourName" style="background: @stock.ColourCode;"><span class="sr-only">@stock.ColourName</span></a>
                                     }
-                                </div>
-
+                                </div>*@
                                 <div class="product-nav product-nav-thumbs">
 
                                     @if (item.Image.Any())
