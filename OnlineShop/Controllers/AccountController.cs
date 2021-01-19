@@ -3,10 +3,16 @@ using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System;
+using System.Threading.Tasks;
+using System.Configuration;
 
 namespace OnlineShop.Controllers
 {
@@ -57,8 +63,8 @@ namespace OnlineShop.Controllers
                 Session[CommonConstants.Constants.User] = MapUserToModel(user);
                 FormsAuthentication.SignOut();
                 FormsAuthentication.SetAuthCookie(user.EmailAddress, false);
-              //  return RedirectToAction("index","home");
-               return Redirect("~/Home/index");
+                //  return RedirectToAction("index","home");
+                return Redirect("~/Home/index");
 
             }
 
@@ -70,8 +76,8 @@ namespace OnlineShop.Controllers
             FormsAuthentication.SignOut();
             var user = Session[CommonConstants.Constants.User] as User;
             Response.Cookies[user.EmailAddress].Expires = DateTime.Now.AddDays(-1);
-            
-            Session[CommonConstants.Constants.User]=null;
+
+            Session[CommonConstants.Constants.User] = null;
             var user2 = Session[CommonConstants.Constants.User] as User;
             return RedirectToAction("Signin");
         }
@@ -85,28 +91,28 @@ namespace OnlineShop.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterSignin registerUser)
         {
-                if (!userProvider.IsUserExist(registerUser.EmailAddress))
+            if (!userProvider.IsUserExist(registerUser.EmailAddress))
+            {
+                string uniqueId = userProvider.Register(MapUserToDomain(registerUser));
+
+                try
                 {
-                    string uniqueId = userProvider.Register(MapUserToDomain(registerUser));
-
-                    try
-                    {
-                        SendEmail(registerUser.EmailAddress, "Your account has registered successfully");
-                    }
-                    catch (Exception ex)
-                    {
-                        TempData[CommonConstants.Constants.ErrorMessage] = "Email sending failed";
-                    }
-
-                    var user = userProvider.Authenticate(registerUser.EmailAddress, Encode(registerUser.Password));
-                    if (user != null)
-                    {
-                        FormsAuthentication.SetAuthCookie(user.EmailAddress, false);
-                        Session[CommonConstants.Constants.User] = MapUserToModel(user);
-                        return RedirectToAction("index", "home");
-                    }
+                    SendEmail(registerUser.EmailAddress,"Account Created | Druity", "Your account has registered successfully");
                 }
-                TempData["Error"] = "Email address alreay exists. Please try another email address";
+                catch (Exception ex)
+                {
+                    TempData[CommonConstants.Constants.ErrorMessage] = "Email sending failed";
+                }
+
+                var user = userProvider.Authenticate(registerUser.EmailAddress, Encode(registerUser.Password));
+                if (user != null)
+                {
+                    FormsAuthentication.SetAuthCookie(user.EmailAddress, false);
+                    Session[CommonConstants.Constants.User] = MapUserToModel(user);
+                    return RedirectToAction("index", "home");
+                }
+            }
+            TempData["Error"] = "Email address alreay exists. Please try another email address";
 
             return View(registerUser);
         }
@@ -127,7 +133,7 @@ namespace OnlineShop.Controllers
 
                 try
                 {
-                    SendEmail(model.EmailAddress, "This is a computer generated password you can login using : " + password);
+                    SendEmail(model.EmailAddress, "Password Reset | Druity", "This is a computer generated password you can login using : " + password);
                     TempData[CommonConstants.Constants.SuccessMessage] = "Email sent successfully";
                 }
                 catch (Exception ex)
@@ -163,7 +169,7 @@ namespace OnlineShop.Controllers
 
                 try
                 {
-                    SendEmail(user.EmailAddress, "Password changed successfully.");
+                    SendEmail(user.EmailAddress,"Druity", "Password changed successfully.");
                 }
                 catch (Exception ex)
                 { }
@@ -213,20 +219,20 @@ namespace OnlineShop.Controllers
 
         #region Private
 
-
-        private void SendEmail(string recipient, string message)
+        private void SendEmail(string receipent,string subject, string message)
         {
-            MailMessage mail = new MailMessage();
-            mail.To.Add(recipient);
-            mail.From = new MailAddress("myemail");
-            mail.Subject = "Forget Password";
-            mail.Body = message;// "send passsword in this body";
-            mail.IsBodyHtml = true;
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            System.Net.Mail.MailMessage mail = new MailMessage();
+            mail.To.Add(receipent);
+            mail.From = new MailAddress("support@druity.com");
+            mail.Subject = subject;
+            mail.Body = message;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.sendgrid.net";
+            smtp.Port = Convert.ToInt32(ConfigurationManager.AppSettings["smtpPort"]);
+            smtp.Credentials = new System.Net.NetworkCredential("apikey", "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");
             smtp.EnableSsl = true;
-            smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new System.Net.NetworkCredential("myemail", "password");
             smtp.Send(mail);
+
         }
 
         private User MapUserToModel(DomainEntities.User user)

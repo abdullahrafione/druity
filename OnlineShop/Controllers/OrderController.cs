@@ -6,7 +6,9 @@ using OnlineShop.Paypal;
 using PayPal.Api;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -20,12 +22,14 @@ namespace OnlineShop.Controllers
         private readonly OrderProvider orderProvider;
         private readonly UserProvider userProvider;
         private readonly ImageProvider imageProvider;
+        private readonly AccountController accountController;
         public OrderController()
         {
             orderProvider = new OrderProvider();
             productProvider = new ProductProvider();
             userProvider = new UserProvider();
             imageProvider = new ImageProvider();
+            accountController = new AccountController();
         }
 
         public ActionResult Index()
@@ -66,6 +70,7 @@ namespace OnlineShop.Controllers
                     orderProvider.ActivateOrder(orderid);
                     orderProvider.PaymentStatusChanged(orderid, "Approved");
                     DeleteCart();
+                    SendEmail(user.EmailAddress,"Order Placed", orderid);
                     return View("success");
                     //return RedirectToAction("PaymentWithPaypal", "order", new { orderid = orderid });
                 }
@@ -295,6 +300,23 @@ namespace OnlineShop.Controllers
             {
                 Response.Cookies[CommonConstants.Constants.cartcookieName].Expires = DateTime.Now.AddDays(-1);
             }
+        }
+
+        private void SendEmail(string receipent, string subject, int orderId)
+        {
+            string message = "Your Order has been placed successfully and your Order Id is: " + orderId;
+            System.Net.Mail.MailMessage mail = new MailMessage();
+            mail.To.Add(receipent);
+            mail.From = new MailAddress("support@druity.com");
+            mail.Subject = subject;
+            mail.Body = message;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.sendgrid.net";
+            smtp.Port = Convert.ToInt32(ConfigurationManager.AppSettings["smtpPort"]);
+            smtp.Credentials = new System.Net.NetworkCredential("apikey", "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");
+            smtp.EnableSsl = true;
+            smtp.Send(mail);
+
         }
         #endregion
     }
