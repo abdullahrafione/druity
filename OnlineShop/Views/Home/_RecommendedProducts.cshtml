@@ -9,16 +9,16 @@
     var Leather_products = Model.products.Products.Where(x => x.CategoryId == Leather_Products_Id || x.ParentCategoryId == Leather_Products_Id).Take(5).ToList();
     var Packed_Foods = Model.products.Products.Where(x => x.CategoryId == Packed_Foods_Id || x.ParentCategoryId == Packed_Foods_Id).Take(5).ToList();
 
-    var allProducts = Model.products.Products.Where(x => x.CategoryId == Packed_Foods_Id || x.ParentCategoryId == Packed_Foods_Id).ToList().Take(8);
+    var allProducts = Model.products.Products.Where(x => x.CategoryId == Accessories_Id || x.ParentCategoryId == Accessories_Id).ToList().Take(8);
 }
 
 <div class="container for-you">
     <div class="heading heading-flex mb-3">
         <div class="heading-left">
-            <h2 class="title">Dry fruits For You</h2>
+            <h2 class="title">Accessories For You</h2>
         </div>
         <div class="heading-right">
-            <a href="~/product/shop?category=29" class="title-link">View All <i class="icon-long-arrow-right"></i></a>
+            <a href="~/product/shop?category=18" class="title-link">View All <i class="icon-long-arrow-right"></i></a>
         </div>
     </div>
 

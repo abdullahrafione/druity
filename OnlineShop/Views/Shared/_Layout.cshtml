@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Druity - Pakistan's Best Online Shopping Center</title>
 
-    @*<meta name="keywords" content="HTML5 Template">
-        <meta name="description" content="Molla - Bootstrap eCommerce Template">
-        <meta name="author" content="p-themes">*@
-
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="~/Content/assets/images/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/icons/favicon-32x32.png">
@@ -23,6 +19,7 @@
     <meta name="msapplication-config" content="~/Content/assets/images/icons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="~/Content/assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <!-- Plugins CSS File -->
     <link rel="stylesheet" href="~/Content/assets/css/bootstrap.min.css">
@@ -36,7 +33,7 @@
     <link rel="stylesheet" href="~/Content/assets/css/demos/demo-4.css">
 
     <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
         (function () {
             var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
@@ -46,7 +43,7 @@
             s1.setAttribute('crossorigin', '*');
             s0.parentNode.insertBefore(s1, s0);
         })();
-    </script>
+    </script>*@
     <!--End of Tawk.to Script-->
     <!-- Facebook Pixel Code -->
     <script>
@@ -70,6 +67,27 @@
     </noscript>
     <!-- End Facebook Pixel Code -->
 
+    <style>
+        .float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+        }
+
+        .my-float {
+            margin-top: 16px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -79,6 +97,10 @@
         @Html.Partial("_Footer")
     </div>
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+    <a href="https://api.whatsapp.com/send?phone=+923248454279" class="float" target="_blank">
+        <i class="fa fa-whatsapp my-float"></i>
+    </a>
+
     @Html.Partial("_MobileMenu")
 
     @*@Html.Partial("_SigninRegister")*@
