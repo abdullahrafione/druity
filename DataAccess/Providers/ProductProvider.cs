@@ -24,6 +24,14 @@ namespace DataAccess.Providers
             }
         }
 
+        public List<Domain.Category> GetMainCategories()
+        {
+            using (DataDbContext context = new DataDbContext())
+            {
+                return context.Category.Where(x => x.IsDeleted == false && x.ParentCategoryId == 0).ToList();
+            }
+        }
+
         public Domain.Product GetProductByProductId(int productId)
         {
             using (DataDbContext context = new DataDbContext())

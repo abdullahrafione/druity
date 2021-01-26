@@ -1,0 +1,67 @@
+﻿@model ControlCenter.Models.Product
+@{
+    ViewBag.Title = "ScrapResponse";
+    var categories = (List<ControlCenter.Models.Category>)TempData["categories"];
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <h1 class="mr-2">Scrap Responses</h1>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-title mb-3">Edit Product</div>
+                        <form action="~/product/SaveProduct" method="post">
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="Category">Category</label>
+                                    <select name="CategoryId" class="form-control">
+                                        @foreach (var item in categories)
+                                        {
+                                            <option value=@item.CategoryId> @item.CategoryName </option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="title">Title</label>
+                                    <input type="text" name="Name" value="@Model.Name" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="description">Short Description</label>
+                                    <input type="text" name="ShortDescription" value="@Model.ShortDescription" class="form-control" placeholder="If mandatory then add otherwise ignore..">
+                                </div>
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="StockCount">Price</label>
+                                    <input type="number" name="CurrentPrice" value="@Model.CurrentPrice" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="StockCount">Old Price</label>
+                                    <input type="number" name="OldPrice" value="@Model.OldPrice" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="image">Image</label>
+                                    <input type="text" name="ImageUrl" value="@Model.ImageUrl" class="form-control">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

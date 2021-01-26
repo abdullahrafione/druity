@@ -128,6 +128,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -141,6 +142,11 @@
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductImage.cs" />
+    <Compile Include="Models\ScrapProductModel.cs" />
+    <Compile Include="Models\ScrapResponse\Category.cs" />
+    <Compile Include="Models\ScrapResponse\Category2.cs" />
+    <Compile Include="Models\ScrapResponse\Data.cs" />
+    <Compile Include="Models\ScrapResponse\Root.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\CookiesUtility.cs" />
@@ -312,6 +318,9 @@
     <Content Include="Views\User\MarketPlaceUsers.cshtml" />
     <Content Include="Views\Order\ViewOrders.cshtml" />
     <Content Include="Views\Product\EditProduct.cshtml" />
+    <Content Include="Views\Product\GetProduct.cshtml" />
+    <Content Include="Views\Product\ScrapResponse.cshtml" />
+    <Content Include="Views\Common\Category.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

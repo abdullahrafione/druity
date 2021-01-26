@@ -78,5 +78,18 @@ namespace DataAccess.Providers
         //}
 
         #endregion
+
+        #region Category
+
+        public void AddCategory(Domain.Category category)
+        {
+            using(DataDbContext context = new DataDbContext())
+            {
+                context.Category.Add(category);
+                context.SaveChanges();
+            }
+        }
+
+        #endregion
     }
 }

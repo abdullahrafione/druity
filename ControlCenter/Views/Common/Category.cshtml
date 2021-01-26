@@ -1,0 +1,72 @@
+﻿@model ControlCenter.Models.Category
+@{
+    ViewBag.Title = "Category";
+    var categories = (List<ControlCenter.Models.Category>)TempData["categories"];
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <h1 class="mr-2">Add Category</h1>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-title mb-3">Add Category</div>
+                        <form action="~/Common/AddMainCategory" method="post">
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="name">Name</label>
+                                    <input type="text" name="CategoryName" class="form-control">
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="name">Position Order</label>
+                                    <input type="number" name="DisplayOrder" class="form-control" placeholder="0 for Top, 1 for Below 0, 2 for Below 1 and so on..">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-title mb-3">Add Sub Category</div>
+                        <form action="~/Common/Category" method="post">
+                            <div class="row">
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="Category">Category</label>
+                                    <select name="ParentCategoryId" class="form-control">
+                                        @foreach (var item in categories)
+                                        {
+                                            <option value=@item.CategoryId> @item.CategoryName </option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="name">Name</label>
+                                    <input type="text" name="CategoryName" class="form-control">
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="name">Position Order</label>
+                                    <input type="number" name="DisplayOrder" class="form-control" placeholder="0 for Top, 1 for Below 0, 2 for Below 1 and so on..">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
