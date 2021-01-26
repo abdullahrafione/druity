@@ -3,11 +3,11 @@
 @{
     int Accessories_Id = Model.parentCategories.Where(x => x.CategoryName.ToLower() == "Accessories".ToLower()).FirstOrDefault().CategoryId;
     int Leather_Products_Id = Model.parentCategories.Where(x => x.CategoryName.ToLower() == "Leather Products".ToLower()).FirstOrDefault().CategoryId;
-    int Packed_Foods_Id = Model.parentCategories.Where(x => x.CategoryName.ToLower() == "Packed Foods".ToLower()).FirstOrDefault().CategoryId;
+    int Skin_Care_Id = Model.parentCategories.Where(x => x.CategoryName.ToLower() == "Skin Care".ToLower()).FirstOrDefault().CategoryId;
 
     var Accessories = Model.products.Products.Where(x => x.CategoryId == Accessories_Id || x.ParentCategoryId == Accessories_Id).Take(5).ToList();
     var Leather_products = Model.products.Products.Where(x => x.CategoryId == Leather_Products_Id || x.ParentCategoryId == Leather_Products_Id).Take(5).ToList();
-    var Packed_Foods = Model.products.Products.Where(x => x.CategoryId == Packed_Foods_Id || x.ParentCategoryId == Packed_Foods_Id).Take(5).ToList();
+    var Packed_Foods = Model.products.Products.Where(x => x.CategoryId == Skin_Care_Id || x.ParentCategoryId == Skin_Care_Id).Take(5).ToList();
 
     var allProducts = Model.products.Products.Where(x => x.CategoryId == Accessories_Id || x.ParentCategoryId == Accessories_Id).ToList().Take(8);
 }

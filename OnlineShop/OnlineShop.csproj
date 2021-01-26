@@ -519,12 +519,12 @@
     <Content Include="Content\assets\images\demos\demo-4\bg-1.jpg" />
     <Content Include="Content\assets\images\demos\demo-4\bg-5.jpg" />
     <Content Include="Content\assets\images\demos\demo-4\camera.png" />
+    <Content Include="Content\assets\images\demos\demo-4\cats\1.png" />
     <Content Include="Content\assets\images\demos\demo-4\cats\2.png" />
     <Content Include="Content\assets\images\demos\demo-4\cats\3.png" />
     <Content Include="Content\assets\images\demos\demo-4\cats\4.png" />
     <Content Include="Content\assets\images\demos\demo-4\cats\5.png" />
     <Content Include="Content\assets\images\demos\demo-4\cats\6.png" />
-    <Content Include="Content\assets\images\demos\demo-4\cats\alomnd.png" />
     <Content Include="Content\assets\images\demos\demo-4\deal\bg-1.png" />
     <Content Include="Content\assets\images\demos\demo-4\deal\bg-2.jpg" />
     <Content Include="Content\assets\images\demos\demo-4\logo-footer.png" />
