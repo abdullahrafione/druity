@@ -125,5 +125,13 @@ namespace DataAccess.Providers
                 return context.User.Include(o => o.Organisation).Where(x => x.Organisation.RoleName == "Buyer").ToList();
             }
         }
+
+        public User GetUserByUserId(int userId)
+        {
+            using(DataDbContext context = new DataDbContext())
+            {
+                return context.User.Where(x => x.Id == userId).FirstOrDefault();
+            }
+        }
     }
 }

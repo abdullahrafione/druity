@@ -10,9 +10,11 @@ namespace ControlCenter.Models.ScrapResponse
         public string title { get; set; }
         public string description { get; set; }
         public string image { get; set; }
-        public decimal price { get; set; }
+
+        //public decimal price { get; set; }
         public string currency { get; set; }
-        public bool isInStock { get; set; }
+
+       // public bool isInStock { get; set; }
         public string EAN13 { get; set; }
         public object ASIN { get; set; }
         public object ISBN { get; set; }

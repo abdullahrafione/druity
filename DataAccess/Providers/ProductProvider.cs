@@ -79,5 +79,13 @@ namespace DataAccess.Providers
                 context.SaveChanges();
             }
         }
+
+        public string GetProductName (int productId)
+        {
+            using(DataDbContext context = new DataDbContext())
+            {
+                return context.Product.Where(x => x.Id == productId).FirstOrDefault().Name;
+            }
+        }
     }
 }

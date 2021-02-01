@@ -32,6 +32,11 @@ namespace OnlineShop.DbFactory
         public DbSet<PaymentStatus> PaymentStatus { get; set; }
         public DbSet<Payment> Payment { get; set; }
         public DbSet<GenderTag> GenderTag { get; set; }
+        public DbSet<AccountHead> AccountHead { get; set; }
+        public DbSet<Expense> Expense { get; set; }
+        public DbSet<Income> Income { get; set; }
+        public DbSet<Ledger> Ledger { get; set; }
+        public DbSet<SaleInvoice> SaleInvoice { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

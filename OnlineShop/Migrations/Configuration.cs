@@ -23,8 +23,8 @@
             SeedPaymentStatus(context);
             SeedCategory(context);
             SeedGenderTags(context);
+            
         }
-
         private void SeedOrganisation(ShopDbContext context)
         {
             if (!context.Organisation.Any())

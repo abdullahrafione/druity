@@ -30,6 +30,13 @@ namespace DataAccess.DbFactory
         public DbSet<Payment> Payment { get; set; }
         public DbSet<GenderTag> GenderTag { get; set; }
 
+        //Finance Section
+        public DbSet<AccountHead> AccountHead { get; set; }
+        public DbSet<Expense> Expense { get; set; }
+        public DbSet<Income> Income { get; set; }
+        public DbSet<SaleInvoice> SaleInvoice { get; set; }
+        public DbSet<Ledger> Ledger { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // Tell Code First to ignore PluralizingTableName convention

@@ -129,6 +129,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\FinanceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -136,8 +137,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountHead.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\DashboardModel.cs" />
+    <Compile Include="Models\Expense.cs" />
+    <Compile Include="Models\Income.cs" />
+    <Compile Include="Models\InvoiceModel.cs" />
+    <Compile Include="Models\LedgerModel.cs" />
     <Compile Include="Models\OrderDetailModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\Product.cs" />
@@ -147,6 +153,7 @@
     <Compile Include="Models\ScrapResponse\Category2.cs" />
     <Compile Include="Models\ScrapResponse\Data.cs" />
     <Compile Include="Models\ScrapResponse\Root.cs" />
+    <Compile Include="Models\Search.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\CookiesUtility.cs" />
@@ -321,6 +328,15 @@
     <Content Include="Views\Product\GetProduct.cshtml" />
     <Content Include="Views\Product\ScrapResponse.cshtml" />
     <Content Include="Views\Common\Category.cshtml" />
+    <Content Include="Views\Finance\Invoice.cshtml" />
+    <Content Include="Views\Finance\AddExpense.cshtml" />
+    <Content Include="Views\Finance\AccountHeads.cshtml" />
+    <Content Include="Views\Finance\GetExpenses.cshtml" />
+    <Content Include="Views\Finance\GetReceivables.cshtml" />
+    <Content Include="Views\Finance\AddIncome.cshtml" />
+    <Content Include="Views\Finance\GetIncome.cshtml" />
+    <Content Include="Views\Finance\GetLedger.cshtml" />
+    <Content Include="Views\Shared\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

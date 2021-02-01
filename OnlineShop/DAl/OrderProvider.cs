@@ -45,7 +45,7 @@ namespace OnlineShop.DAL
 
             AddOrderDetail(detailList);
 
-            this.AddPayment(orderId, total);
+            //this.AddPayment(orderId, total);
 
             return orderId;
         }

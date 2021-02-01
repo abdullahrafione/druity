@@ -68,7 +68,8 @@ namespace OnlineShop.Controllers
                     productProvider.ReduceProductStock(cart);
                     int orderid = orderProvider.GenerateOrder(cart, userId);
                     orderProvider.ActivateOrder(orderid);
-                    orderProvider.PaymentStatusChanged(orderid, "Approved");
+
+                   // orderProvider.PaymentStatusChanged(orderid, "Approved");
                     DeleteCart();
                     SendEmail(user.EmailAddress,"Order Placed", orderid);
                     return View("success");
@@ -318,6 +319,8 @@ namespace OnlineShop.Controllers
             smtp.Send(mail);
 
         }
+
+
         #endregion
     }
 }

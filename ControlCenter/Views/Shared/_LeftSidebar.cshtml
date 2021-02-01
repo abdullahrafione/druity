@@ -17,6 +17,10 @@
                 <a class="nav-item-hold" href="#"><i class="nav-icon i-Computer-Secure"></i><span class="nav-text">Users</span></a>
                 <div class="triangle"></div>
             </li>
+            <li class="nav-item" data-item="finance">
+                <a class="nav-item-hold" href="#"><i class="nav-icon i-Computer-Secure"></i><span class="nav-text">Finances</span></a>
+                <div class="triangle"></div>
+            </li>
             <li class="nav-item" data-item="category">
                 <a class="nav-item-hold" href="#"><i class="nav-icon i-Computer-Secure"></i><span class="nav-text">Categories</span></a>
                 <div class="triangle"></div>
@@ -65,12 +69,21 @@
         </ul>
         <ul class="childNav" data-parent="category">
             <li class="nav-item"><a href="@Url.Action("Category","Common")"><i class="nav-icon i-Male"></i><span class="item-name">Category Management</span></a></li>
+            <li class="nav-item"><a href="@Url.Action("AccountHeads","Finance")"><i class="nav-icon i-Data-Financial"></i><span class="item-name">Register Account Head</span></a></li>
         </ul>
         <ul class="childNav" data-parent="orders">
             <li class="nav-item"><a href="@Url.Action("Index","Order")"><i class="nav-icon i-Male"></i><span class="item-name">View Orders</span></a></li>
         </ul>
         <ul class="childNav" data-parent="users">
             <li class="nav-item"><a href="@Url.Action("MarketPlaceUsers","User")"><i class="nav-icon i-Male"></i><span class="item-name">Marketplace Users</span></a></li>
+        </ul>
+        <ul class="childNav" data-parent="finance">
+            <li class="nav-item"><a href="@Url.Action("AddExpense","Finance")"><i class="nav-icon i-Financial"></i><span class="item-name">Add Expense</span></a></li>
+            <li class="nav-item"><a href="@Url.Action("GetExpenses","Finance")"><i class="nav-icon i-Male"></i><span class="item-name">View Expense Entries</span></a></li>
+            <li class="nav-item"><a href="@Url.Action("AddIncome","Finance")"><i class="nav-icon i-Male"></i><span class="item-name">Add Income</span></a></li>
+            <li class="nav-item"><a href="@Url.Action("GetIncome","Finance")"><i class="nav-icon i-Male"></i><span class="item-name">View Income Entries</span></a></li>
+            <li class="nav-item"><a href="@Url.Action("GetReceivables","Finance")"><i class="nav-icon i-Male"></i><span class="item-name">View Receivables</span></a></li>
+            <li class="nav-item"><a href="@Url.Action("GetLedger","Finance")"><i class="nav-icon i-Male"></i><span class="item-name">Ledger</span></a></li>
         </ul>
     </div>
     <div class="sidebar-overlay"></div>

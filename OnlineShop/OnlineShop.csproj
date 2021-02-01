@@ -158,11 +158,15 @@
     <Compile Include="DAL\ProductProvider.cs" />
     <Compile Include="DAL\UserProvider.cs" />
     <Compile Include="DbFactory\ShopDbContext.cs" />
+    <Compile Include="DomainEntities\AccountHead.cs" />
     <Compile Include="DomainEntities\BaseEntity.cs" />
     <Compile Include="DomainEntities\Category.cs" />
     <Compile Include="DomainEntities\Colour.cs" />
+    <Compile Include="DomainEntities\Expense.cs" />
     <Compile Include="DomainEntities\GenderTag.cs" />
     <Compile Include="DomainEntities\Image.cs" />
+    <Compile Include="DomainEntities\Income.cs" />
+    <Compile Include="DomainEntities\Ledger.cs" />
     <Compile Include="DomainEntities\Order.cs" />
     <Compile Include="DomainEntities\OrderDetail.cs" />
     <Compile Include="DomainEntities\OrderStatus.cs" />
@@ -172,6 +176,7 @@
     <Compile Include="DomainEntities\PaymentStatus.cs" />
     <Compile Include="DomainEntities\Product.cs" />
     <Compile Include="DomainEntities\ProductStock.cs" />
+    <Compile Include="DomainEntities\SaleInvoice.cs" />
     <Compile Include="DomainEntities\Size.cs" />
     <Compile Include="DomainEntities\User.cs" />
     <Compile Include="Enums\MessageType.cs" />
@@ -218,6 +223,14 @@
     <Compile Include="Migrations\202010291329187_gendertag.cs" />
     <Compile Include="Migrations\202010291329187_gendertag.designer.cs">
       <DependentUpon>202010291329187_gendertag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102010722357_finances.cs" />
+    <Compile Include="Migrations\202102010722357_finances.designer.cs">
+      <DependentUpon>202102010722357_finances.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102010738129_finances1.cs" />
+    <Compile Include="Migrations\202102010738129_finances1.designer.cs">
+      <DependentUpon>202102010738129_finances1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ColorsSizes.cs" />
@@ -1130,6 +1143,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010291329187_gendertag.resx">
       <DependentUpon>202010291329187_gendertag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102010722357_finances.resx">
+      <DependentUpon>202102010722357_finances.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102010738129_finances1.resx">
+      <DependentUpon>202102010738129_finances1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

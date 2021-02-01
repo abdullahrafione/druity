@@ -347,7 +347,7 @@ namespace ControlCenter.Controllers
             {
                 Name = obj.data.title,
                 ShortDescription = obj.data.description,
-                CurrentPrice = obj.data.price,
+                CurrentPrice = 0,
                 ImageUrl = obj.data.image
             };
         }
