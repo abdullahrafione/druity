@@ -45,12 +45,12 @@ namespace OnlineShop.DAL
 
         public bool IsUserExist(string emailAddress)
         {
-            using (ShopDbContext context = new ShopDbContext())
-            {
-                if (context.User.Where(x => x.EmailAddress == emailAddress).Any())
-                    return true;
-                return false;
-            }
+                using (ShopDbContext context = new ShopDbContext())
+                {
+                    if (context.User.Where(x => x.EmailAddress == emailAddress).Any())
+                        return true;
+                    return false;
+                }
         }
 
         public int GetUserId(string emailAddress)

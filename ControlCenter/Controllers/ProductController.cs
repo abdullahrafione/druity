@@ -12,6 +12,7 @@ using System.Configuration;
 
 namespace ControlCenter.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         #region Constructors

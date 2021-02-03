@@ -144,6 +144,7 @@
     <Compile Include="Models\Income.cs" />
     <Compile Include="Models\InvoiceModel.cs" />
     <Compile Include="Models\LedgerModel.cs" />
+    <Compile Include="Models\ManualOrderModel.cs" />
     <Compile Include="Models\OrderDetailModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\Product.cs" />
@@ -337,6 +338,9 @@
     <Content Include="Views\Finance\GetIncome.cshtml" />
     <Content Include="Views\Finance\GetLedger.cshtml" />
     <Content Include="Views\Shared\Search.cshtml" />
+    <Content Include="Views\Finance\UpdateShippingCharges.cshtml" />
+    <Content Include="Views\Order\ManualOrder.cshtml" />
+    <Content Include="Views\Common\UpdateScrapping.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

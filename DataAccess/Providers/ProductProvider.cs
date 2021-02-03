@@ -87,5 +87,21 @@ namespace DataAccess.Providers
                 return context.Product.Where(x => x.Id == productId).FirstOrDefault().Name;
             }
         }
+
+        public List<Domain.ProductStock> GetProducts()
+        {
+            using(DataDbContext context = new DataDbContext())
+            {
+                return context.ProductStock.Include("Product").ToList();
+            }
+        }
+
+        public Domain.ProductStock GetStockByProductId(int productId)
+        {
+            using(DataDbContext context = new DataDbContext())
+            {
+               return context.ProductStock.Where(x => x.ProductId == productId).FirstOrDefault();
+            }
+        }
     }
 }

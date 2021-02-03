@@ -133,5 +133,15 @@ namespace DataAccess.Providers
                 return context.User.Where(x => x.Id == userId).FirstOrDefault();
             }
         }
+
+        public int ManualUser(User user)
+        {
+            using (DataDbContext context = new DataDbContext())
+            {
+                var userEntry = context.User.Add(user);
+                context.SaveChanges();
+                return userEntry.Id;
+            }
+        }
     }
 }

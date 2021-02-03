@@ -1,12 +1,13 @@
 ﻿using DataAccess.Providers;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ControlCenter.Controllers
 {
+    [Authorize]
     public class FinanceController : Controller
     {
         #region Props
@@ -85,7 +86,7 @@ namespace ControlCenter.Controllers
         public ActionResult AddExpense(Models.Expense expense)
         {
             financeProvider.AddExpense(AddExpenseMapping(expense));
-            financeProvider.EntryinLedger(expense.Description,null,expense.Amount);
+            financeProvider.EntryinLedger(expense.Description, null, expense.Amount);
 
             return RedirectToAction("GetExpenses", "Finance");
         }
@@ -140,6 +141,23 @@ namespace ControlCenter.Controllers
             financeProvider.InvoicePaymentStatus(invoiceId);
 
             return RedirectToAction("GetReceivables", "Finance");
+        }
+
+        #endregion
+
+        #region Common
+
+        public ActionResult UpdateShippingCharges()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UpdateShippingCharges(Models.Expense expense)
+        {
+            UpdateShipping(expense.AccountHeadName);
+
+            return RedirectToAction("UpdateShippingCharges", "Finance");
         }
 
         #endregion
@@ -335,7 +353,7 @@ namespace ControlCenter.Controllers
             return mapped;
         }
 
-        private List<Models.Search> MappingSearch (List<DataAccess.Domain.Expense> expenses)
+        private List<Models.Search> MappingSearch(List<DataAccess.Domain.Expense> expenses)
         {
             List<Models.Search> mapped = new List<Models.Search>();
 
@@ -351,6 +369,18 @@ namespace ControlCenter.Controllers
             });
 
             return mapped;
+        }
+
+        protected void UpdateShipping(string shippingCharges)
+        {
+            Configuration objConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
+            AppSettingsSection objAppsettings = (AppSettingsSection)objConfig.GetSection("appSettings");
+
+            if (objAppsettings != null)
+            {
+                objAppsettings.Settings["ShippingCharges"].Value = shippingCharges;
+                objConfig.Save();
+            }
         }
 
         #endregion

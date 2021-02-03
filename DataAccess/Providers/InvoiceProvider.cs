@@ -49,7 +49,7 @@ namespace DataAccess.Providers
                 PaymentMode = "COD",
                 OrderTotal = order.TotalAmount,
                 UserId = order.UserId,
-                GrandTotal = order.TotalAmount + 150,
+                GrandTotal = order.TotalAmount + Convert.ToDecimal(ConfigurationManager.AppSettings["ShippingCharges"]),
                 OrderId = order.Id,
                 IsActive = true,
                 IsDeleted = false

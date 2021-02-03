@@ -77,7 +77,7 @@ namespace DataAccess.Providers
                 context.SaveChanges();
 
                 var reference = "Received against Invoice # " + invoiceId;
-                EntryinLedger(reference, row.GrandTotal, null);
+                EntryinLedger(reference, row.OrderTotal, null);
             }
         }
 

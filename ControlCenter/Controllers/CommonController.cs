@@ -1,12 +1,14 @@
 ﻿using DataAccess.Providers;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace ControlCenter.Controllers
 {
+    [Authorize]
     public class CommonController : Controller
     {
         #region Props
@@ -46,6 +48,20 @@ namespace ControlCenter.Controllers
             commonProvider.AddCategory(MapMainCategory(category));
 
             return RedirectToAction("Category");
+        }
+
+        public ActionResult UpdateScrapping()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UpdateScrapping(Models.UserModel model)
+        {
+            UpdateScrapping(model.FirstName, model.LastName);
+
+            return RedirectToAction("UpdateScrapping");
         }
 
         #region Private
@@ -89,6 +105,19 @@ namespace ControlCenter.Controllers
                 CreationTime = DateTime.Now,
                 Tag = category.CategoryName
             };
+        }
+
+        protected void UpdateScrapping(string userName, string apiKey)
+        {
+            Configuration objConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
+            AppSettingsSection objAppsettings = (AppSettingsSection)objConfig.GetSection("appSettings");
+
+            if (objAppsettings != null)
+            {
+                objAppsettings.Settings["ScrapBot_UserName"].Value = userName;
+                objAppsettings.Settings["ScrapBot_ApiKey"].Value = apiKey;
+                objConfig.Save();
+            }
         }
 
         #endregion

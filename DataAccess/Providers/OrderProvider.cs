@@ -31,5 +31,25 @@ namespace DataAccess.Providers
                 context.SaveChanges();
             }
         }
+
+        public int GenerateOrder (Domain.Order order)
+        {
+            using (DataDbContext context = new DataDbContext())
+            {
+                var orderAdded = context.Order.Add(order);
+                context.SaveChanges();
+
+                return orderAdded.Id;
+            }
+        }
+
+        public void GenerateOrderDetail (Domain.OrderDetail order)
+        {
+            using (DataDbContext context = new DataDbContext())
+            {
+                context.OrderDetail.Add(order);
+                context.SaveChanges();
+            }
+        }
     }
 }

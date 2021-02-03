@@ -7,6 +7,7 @@ using DataAccess.Providers;
 
 namespace ControlCenter.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         #region Constructors
