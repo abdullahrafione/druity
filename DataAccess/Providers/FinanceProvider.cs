@@ -97,6 +97,15 @@ namespace DataAccess.Providers
             }
         }
 
+        public decimal GetProfit(int productstockId)
+        {
+            using(DataDbContext context = new DataDbContext())
+            {
+                var row = context.ProductStock.Where(x => x.Id == productstockId).FirstOrDefault();
+                return (decimal)(row.CurrentPrice - row.Cost);
+            }
+        }
+
         #region Ledger
 
         public void EntryinLedger(string reference, decimal? income, decimal? expense)

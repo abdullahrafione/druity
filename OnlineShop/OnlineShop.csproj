@@ -184,53 +184,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004181953088_first.cs" />
-    <Compile Include="Migrations\202004181953088_first.designer.cs">
-      <DependentUpon>202004181953088_first.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004191918307_image_changes.cs" />
-    <Compile Include="Migrations\202004191918307_image_changes.designer.cs">
-      <DependentUpon>202004191918307_image_changes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004201811499_ParentCategoryID.cs" />
-    <Compile Include="Migrations\202004201811499_ParentCategoryID.designer.cs">
-      <DependentUpon>202004201811499_ParentCategoryID.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005040927309_product_ShortDescription.cs" />
-    <Compile Include="Migrations\202005040927309_product_ShortDescription.designer.cs">
-      <DependentUpon>202005040927309_product_ShortDescription.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202006091456281_Remove_Order_OrganisationRelation.cs" />
-    <Compile Include="Migrations\202006091456281_Remove_Order_OrganisationRelation.designer.cs">
-      <DependentUpon>202006091456281_Remove_Order_OrganisationRelation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009020934527_orderDetail_Decimal_Change.cs" />
-    <Compile Include="Migrations\202009020934527_orderDetail_Decimal_Change.designer.cs">
-      <DependentUpon>202009020934527_orderDetail_Decimal_Change.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009021000199_paymentMethodRemove.cs" />
-    <Compile Include="Migrations\202009021000199_paymentMethodRemove.designer.cs">
-      <DependentUpon>202009021000199_paymentMethodRemove.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009021010224_paymentMethodRemove1.cs" />
-    <Compile Include="Migrations\202009021010224_paymentMethodRemove1.designer.cs">
-      <DependentUpon>202009021010224_paymentMethodRemove1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009021104204_guidinorder.cs" />
-    <Compile Include="Migrations\202009021104204_guidinorder.designer.cs">
-      <DependentUpon>202009021104204_guidinorder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010291329187_gendertag.cs" />
-    <Compile Include="Migrations\202010291329187_gendertag.designer.cs">
-      <DependentUpon>202010291329187_gendertag.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102010722357_finances.cs" />
-    <Compile Include="Migrations\202102010722357_finances.designer.cs">
-      <DependentUpon>202102010722357_finances.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102010738129_finances1.cs" />
-    <Compile Include="Migrations\202102010738129_finances1.designer.cs">
-      <DependentUpon>202102010738129_finances1.cs</DependentUpon>
+    <Compile Include="Migrations\202103031046093_initial.cs" />
+    <Compile Include="Migrations\202103031046093_initial.designer.cs">
+      <DependentUpon>202103031046093_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ColorsSizes.cs" />
@@ -1006,6 +962,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1114,41 +1072,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004181953088_first.resx">
-      <DependentUpon>202004181953088_first.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004191918307_image_changes.resx">
-      <DependentUpon>202004191918307_image_changes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004201811499_ParentCategoryID.resx">
-      <DependentUpon>202004201811499_ParentCategoryID.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005040927309_product_ShortDescription.resx">
-      <DependentUpon>202005040927309_product_ShortDescription.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006091456281_Remove_Order_OrganisationRelation.resx">
-      <DependentUpon>202006091456281_Remove_Order_OrganisationRelation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009020934527_orderDetail_Decimal_Change.resx">
-      <DependentUpon>202009020934527_orderDetail_Decimal_Change.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009021000199_paymentMethodRemove.resx">
-      <DependentUpon>202009021000199_paymentMethodRemove.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009021010224_paymentMethodRemove1.resx">
-      <DependentUpon>202009021010224_paymentMethodRemove1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009021104204_guidinorder.resx">
-      <DependentUpon>202009021104204_guidinorder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010291329187_gendertag.resx">
-      <DependentUpon>202010291329187_gendertag.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102010722357_finances.resx">
-      <DependentUpon>202102010722357_finances.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102010738129_finances1.resx">
-      <DependentUpon>202102010738129_finances1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202103031046093_initial.resx">
+      <DependentUpon>202103031046093_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

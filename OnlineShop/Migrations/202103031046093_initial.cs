@@ -3,10 +3,22 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class first : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.AccountHead",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Type = c.String(),
+                        CreationTime = c.DateTime(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
             CreateTable(
                 "dbo.Category",
                 c => new
@@ -15,6 +27,7 @@
                         Name = c.String(),
                         Tag = c.String(),
                         DisplayOrder = c.Int(nullable: false),
+                        ParentCategoryId = c.Int(nullable: false),
                         CreationTime = c.DateTime(nullable: false),
                         IsActive = c.Boolean(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
@@ -26,19 +39,32 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 30),
+                        Name = c.String(nullable: false),
+                        ShortDescription = c.String(),
                         Detail = c.String(),
                         CategoryId = c.Int(nullable: false),
                         OrganisationId = c.Int(nullable: false),
+                        GenderTagId = c.Int(nullable: false),
                         CreationTime = c.DateTime(nullable: false),
                         IsActive = c.Boolean(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Category", t => t.CategoryId, cascadeDelete: true)
+                .ForeignKey("dbo.GenderTag", t => t.GenderTagId, cascadeDelete: true)
                 .ForeignKey("dbo.Organisation", t => t.OrganisationId, cascadeDelete: true)
                 .Index(t => t.CategoryId)
-                .Index(t => t.OrganisationId);
+                .Index(t => t.OrganisationId)
+                .Index(t => t.GenderTagId);
+            
+            CreateTable(
+                "dbo.GenderTag",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Image",
@@ -48,6 +74,9 @@
                         Name = c.String(),
                         Url = c.String(),
                         ProductId = c.Int(nullable: false),
+                        IsPrimary = c.Boolean(nullable: false),
+                        IsSizeGuide = c.Boolean(nullable: false),
+                        DisplayOrder = c.Int(nullable: false),
                         CreationTime = c.DateTime(nullable: false),
                         IsActive = c.Boolean(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
@@ -70,23 +99,46 @@
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Order",
+                "dbo.User",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        UserId = c.Int(nullable: false),
+                        FirstName = c.String(nullable: false, maxLength: 30),
+                        LastName = c.String(nullable: false, maxLength: 30),
+                        EmailAddress = c.String(nullable: false, maxLength: 50),
+                        Password = c.String(nullable: false),
+                        Phone = c.String(nullable: false, maxLength: 20),
+                        Street = c.String(nullable: false, maxLength: 50),
+                        PostalCode = c.String(nullable: false, maxLength: 20),
+                        Address = c.String(nullable: false, maxLength: 400),
+                        City = c.String(nullable: false, maxLength: 50),
+                        State = c.String(nullable: false, maxLength: 50),
+                        Country = c.String(nullable: false, maxLength: 50),
+                        UniqueId = c.String(),
                         OrganisationId = c.Int(nullable: false),
-                        TotalAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Note = c.String(),
                         CreationTime = c.DateTime(nullable: false),
                         IsActive = c.Boolean(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Organisation", t => t.OrganisationId, cascadeDelete: true)
-                .ForeignKey("dbo.User", t => t.UserId)
-                .Index(t => t.UserId)
                 .Index(t => t.OrganisationId);
+            
+            CreateTable(
+                "dbo.Order",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.Int(nullable: false),
+                        TotalAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Guid = c.String(),
+                        CreationTime = c.DateTime(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.User", t => t.UserId)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.OrderDetail",
@@ -97,7 +149,7 @@
                         ProductStockId = c.Int(nullable: false),
                         OrderStatusId = c.Int(nullable: false),
                         Quantity = c.Int(nullable: false),
-                        UnitSalePrice = c.Int(nullable: false),
+                        UnitSalePrice = c.Decimal(nullable: false, precision: 18, scale: 2),
                         CreationTime = c.DateTime(nullable: false),
                         IsActive = c.Boolean(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
@@ -140,6 +192,7 @@
                         Id = c.Int(nullable: false, identity: true),
                         CurrentPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
                         OldPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Cost = c.Decimal(precision: 18, scale: 2),
                         OnSale = c.Boolean(nullable: false),
                         IsFeatured = c.Boolean(nullable: false),
                         TopRated = c.Boolean(nullable: false),
@@ -187,7 +240,6 @@
                     {
                         Id = c.Int(nullable: false, identity: true),
                         PaymentStatusId = c.Int(nullable: false),
-                        PaymentMethodId = c.Int(nullable: false),
                         OrderId = c.Int(nullable: false),
                         Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
                         PaymentId = c.String(),
@@ -199,23 +251,9 @@
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Order", t => t.OrderId, cascadeDelete: true)
-                .ForeignKey("dbo.PaymentMethod", t => t.PaymentMethodId, cascadeDelete: true)
                 .ForeignKey("dbo.PaymentStatus", t => t.PaymentStatusId, cascadeDelete: true)
                 .Index(t => t.PaymentStatusId)
-                .Index(t => t.PaymentMethodId)
                 .Index(t => t.OrderId);
-            
-            CreateTable(
-                "dbo.PaymentMethod",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        CreationTime = c.DateTime(nullable: false),
-                        IsActive = c.Boolean(nullable: false),
-                        IsDeleted = c.Boolean(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.PaymentStatus",
@@ -227,42 +265,87 @@
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.User",
+                "dbo.Expense",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        FirstName = c.String(nullable: false, maxLength: 30),
-                        LastName = c.String(nullable: false, maxLength: 30),
-                        EmailAddress = c.String(nullable: false, maxLength: 50),
-                        Password = c.String(nullable: false),
-                        Phone = c.String(nullable: false, maxLength: 20),
-                        Street = c.String(nullable: false, maxLength: 50),
-                        PostalCode = c.String(nullable: false, maxLength: 20),
-                        Address = c.String(nullable: false, maxLength: 400),
-                        City = c.String(nullable: false, maxLength: 50),
-                        State = c.String(nullable: false, maxLength: 50),
-                        Country = c.String(nullable: false, maxLength: 50),
-                        UniqueId = c.String(),
-                        OrganisationId = c.Int(nullable: false),
+                        AccountHeadId = c.Int(nullable: false),
+                        Description = c.String(),
+                        Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
                         CreationTime = c.DateTime(nullable: false),
                         IsActive = c.Boolean(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Organisation", t => t.OrganisationId, cascadeDelete: true)
-                .Index(t => t.OrganisationId);
+                .ForeignKey("dbo.AccountHead", t => t.AccountHeadId)
+                .Index(t => t.AccountHeadId);
+            
+            CreateTable(
+                "dbo.Income",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        AccountHeadId = c.Int(nullable: false),
+                        Details = c.String(),
+                        Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        CreationTime = c.DateTime(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AccountHead", t => t.AccountHeadId)
+                .Index(t => t.AccountHeadId);
+            
+            CreateTable(
+                "dbo.Ledger",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Reference = c.String(),
+                        Income = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Expense = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Balance = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        CreationTime = c.DateTime(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.SaleInvoice",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.Int(nullable: false),
+                        OrderId = c.Int(nullable: false),
+                        OrderTotal = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        ShippingFee = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        GrandTotal = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        PaymentStatus = c.String(),
+                        PaymentMode = c.String(),
+                        CreationTime = c.DateTime(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Order", t => t.OrderId)
+                .ForeignKey("dbo.User", t => t.UserId)
+                .Index(t => t.UserId)
+                .Index(t => t.OrderId);
             
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.SaleInvoice", "UserId", "dbo.User");
+            DropForeignKey("dbo.SaleInvoice", "OrderId", "dbo.Order");
+            DropForeignKey("dbo.Income", "AccountHeadId", "dbo.AccountHead");
+            DropForeignKey("dbo.Expense", "AccountHeadId", "dbo.AccountHead");
             DropForeignKey("dbo.Product", "OrganisationId", "dbo.Organisation");
-            DropForeignKey("dbo.Order", "UserId", "dbo.User");
             DropForeignKey("dbo.User", "OrganisationId", "dbo.Organisation");
+            DropForeignKey("dbo.Order", "UserId", "dbo.User");
             DropForeignKey("dbo.Payment", "PaymentStatusId", "dbo.PaymentStatus");
-            DropForeignKey("dbo.Payment", "PaymentMethodId", "dbo.PaymentMethod");
             DropForeignKey("dbo.Payment", "OrderId", "dbo.Order");
-            DropForeignKey("dbo.Order", "OrganisationId", "dbo.Organisation");
             DropForeignKey("dbo.OrderDetail", "ProductStockId", "dbo.ProductStock");
             DropForeignKey("dbo.ProductStock", "SizeID", "dbo.Size");
             DropForeignKey("dbo.ProductStock", "ProductId", "dbo.Product");
@@ -271,10 +354,13 @@
             DropForeignKey("dbo.OrderDetail", "OrderStatusId", "dbo.OrderStatus");
             DropForeignKey("dbo.OrderDetail", "OrderId", "dbo.Order");
             DropForeignKey("dbo.Image", "ProductId", "dbo.Product");
+            DropForeignKey("dbo.Product", "GenderTagId", "dbo.GenderTag");
             DropForeignKey("dbo.Product", "CategoryId", "dbo.Category");
-            DropIndex("dbo.User", new[] { "OrganisationId" });
+            DropIndex("dbo.SaleInvoice", new[] { "OrderId" });
+            DropIndex("dbo.SaleInvoice", new[] { "UserId" });
+            DropIndex("dbo.Income", new[] { "AccountHeadId" });
+            DropIndex("dbo.Expense", new[] { "AccountHeadId" });
             DropIndex("dbo.Payment", new[] { "OrderId" });
-            DropIndex("dbo.Payment", new[] { "PaymentMethodId" });
             DropIndex("dbo.Payment", new[] { "PaymentStatusId" });
             DropIndex("dbo.ProductStock", new[] { "ProductId" });
             DropIndex("dbo.ProductStock", new[] { "SizeID" });
@@ -283,14 +369,17 @@
             DropIndex("dbo.OrderDetail", new[] { "OrderStatusId" });
             DropIndex("dbo.OrderDetail", new[] { "ProductStockId" });
             DropIndex("dbo.OrderDetail", new[] { "OrderId" });
-            DropIndex("dbo.Order", new[] { "OrganisationId" });
             DropIndex("dbo.Order", new[] { "UserId" });
+            DropIndex("dbo.User", new[] { "OrganisationId" });
             DropIndex("dbo.Image", new[] { "ProductId" });
+            DropIndex("dbo.Product", new[] { "GenderTagId" });
             DropIndex("dbo.Product", new[] { "OrganisationId" });
             DropIndex("dbo.Product", new[] { "CategoryId" });
-            DropTable("dbo.User");
+            DropTable("dbo.SaleInvoice");
+            DropTable("dbo.Ledger");
+            DropTable("dbo.Income");
+            DropTable("dbo.Expense");
             DropTable("dbo.PaymentStatus");
-            DropTable("dbo.PaymentMethod");
             DropTable("dbo.Payment");
             DropTable("dbo.Size");
             DropTable("dbo.Colour");
@@ -299,10 +388,13 @@
             DropTable("dbo.OrderStatus");
             DropTable("dbo.OrderDetail");
             DropTable("dbo.Order");
+            DropTable("dbo.User");
             DropTable("dbo.Organisation");
             DropTable("dbo.Image");
+            DropTable("dbo.GenderTag");
             DropTable("dbo.Product");
             DropTable("dbo.Category");
+            DropTable("dbo.AccountHead");
         }
     }
 }

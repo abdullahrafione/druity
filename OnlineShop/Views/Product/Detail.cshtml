@@ -40,9 +40,9 @@
                     </div>
                     <div class="col-md-6">
                         @*@if (error != null)
-                            {
-                                @Html.Partial("~/Views/Shared/_ErrorTempData.cshtml", error);
-                            }*@
+                    {
+                        @Html.Partial("~/Views/Shared/_ErrorTempData.cshtml", error);
+                    }*@
                         <div id="msg">
 
                         </div>
@@ -126,9 +126,14 @@
                         </div><!-- End .product-desc-content -->
                     </div><!-- .End .tab-pane -->
                 </div><!-- End .tab-content -->
-            </div>
+                @if (Model.ProductId == 293)
+                {
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe width="853" height="480" src="https://www.youtube.com/embed/xTRu4VZRrC8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+            }
 
-        </div>
+            </div>
     </div>
 </main>
 

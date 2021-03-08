@@ -10,8 +10,10 @@ namespace ControlCenter.Models
         public int ProductStockId { get; set; }
         public int OrderStatusId { get; set; }
         public int OrderDetailId { get; set; }
+        public int OrderId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
+        public decimal Profit { get; set; }
         public string Status { get; set; }
         public string ProductName { get; set; }
 

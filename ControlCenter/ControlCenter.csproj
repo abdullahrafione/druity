@@ -341,6 +341,7 @@
     <Content Include="Views\Finance\UpdateShippingCharges.cshtml" />
     <Content Include="Views\Order\ManualOrder.cshtml" />
     <Content Include="Views\Common\UpdateScrapping.cshtml" />
+    <Content Include="Views\Finance\ProfitStatement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

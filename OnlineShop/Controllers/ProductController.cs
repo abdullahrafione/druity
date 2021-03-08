@@ -1,12 +1,9 @@
-﻿
-using OnlineShop.DAL;
+﻿using OnlineShop.DAL;
 using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.WebControls.WebParts;
 
 namespace OnlineShop.Controllers
 {
@@ -80,6 +77,17 @@ namespace OnlineShop.Controllers
             }
 
             return PartialView("~/Views/Product/_ShopSideFilter.cshtml", model);
+        }
+
+        //Experiment Search Text
+        public JsonResult GetCustomers(string term)
+       {
+            DbFactory.ShopDbContext context = new DbFactory.ShopDbContext();
+           
+            List<string> Products =  context.Product.Where(x => x.Name.Contains(term))
+                .Select(y => y.Name).ToList();
+            
+            return Json(Products, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Shop(string searchText,int category = default(int), bool main = default(bool))

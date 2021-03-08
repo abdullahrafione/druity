@@ -17,64 +17,64 @@
     <div class="page-content">
         <div class="checkout">
             <div class="container">
-                    <div class="row">
-                        <div class="col-lg-9">
-                            <h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label>First Name *</label>
-                                    <input type="text" readonly class="form-control" value="@Model.FirstName" required="">
-                                </div><!-- End .col-sm-6 -->
+                <div class="row">
+                    <div class="col-lg-9">
+                        <h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>First Name *</label>
+                                <input type="text" readonly class="form-control" value="@Model.FirstName" required="">
+                            </div><!-- End .col-sm-6 -->
 
-                                <div class="col-sm-6">
-                                    <label>Last Name *</label>
-                                    <input type="text" readonly class="form-control" value="@Model.LastName" required="">
-                                </div><!-- End .col-sm-6 -->
-                            </div><!-- End .row -->
-                            <label>Country *</label>
-                            <input type="text" value="@Model.Country" readonly class="form-control" required="">
+                            <div class="col-sm-6">
+                                <label>Last Name *</label>
+                                <input type="text" readonly class="form-control" value="@Model.LastName" required="">
+                            </div><!-- End .col-sm-6 -->
+                        </div><!-- End .row -->
+                        <label>Country *</label>
+                        <input type="text" value="@Model.Country" readonly class="form-control" required="">
 
-                            <label>Street address *</label>
-                            <input type="text" value="@Model.Address" readonly class="form-control" placeholder="House number and Street name" required="">
-                            <input type="text" value="@Model.Street" readonly class="form-control" placeholder="Appartments, suite, unit etc ..." required="">
+                        <label>Street address *</label>
+                        <input type="text" value="@Model.Address" readonly class="form-control" placeholder="House number and Street name" required="">
+                        <input type="text" value="@Model.Street" readonly class="form-control" placeholder="Appartments, suite, unit etc ..." required="">
 
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label>City *</label>
-                                    <input type="text" value="@Model.City" readonly class="form-control" required="">
-                                </div><!-- End .col-sm-6 -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>City *</label>
+                                <input type="text" value="@Model.City" readonly class="form-control" required="">
+                            </div><!-- End .col-sm-6 -->
 
-                                <div class="col-sm-6">
-                                    <label>State *</label>
-                                    <input type="text" value="@Model.State" readonly class="form-control" required="">
-                                </div><!-- End .col-sm-6 -->
-                            </div><!-- End .row -->
+                            <div class="col-sm-6">
+                                <label>State *</label>
+                                <input type="text" value="@Model.State" readonly class="form-control" required="">
+                            </div><!-- End .col-sm-6 -->
+                        </div><!-- End .row -->
 
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label>Postcode / ZIP *</label>
-                                    <input type="text" value="@Model.PostalCode" readonly class="form-control" required="">
-                                </div><!-- End .col-sm-6 -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Postcode / ZIP *</label>
+                                <input type="text" value="@Model.PostalCode" readonly class="form-control" required="">
+                            </div><!-- End .col-sm-6 -->
 
-                                <div class="col-sm-6">
-                                    <label>Phone *</label>
-                                    <input type="tel" value="@Model.Phone" readonly class="form-control" required="">
-                                </div><!-- End .col-sm-6 -->
-                            </div><!-- End .row -->
+                            <div class="col-sm-6">
+                                <label>Phone *</label>
+                                <input type="tel" value="@Model.Phone" readonly class="form-control" required="">
+                            </div><!-- End .col-sm-6 -->
+                        </div><!-- End .row -->
 
-                            <label>Email address *</label>
-                            <input type="email" value="@Model.EmailAddress" readonly class="form-control" required="">
+                        <label>Email address *</label>
+                        <input type="email" value="@Model.EmailAddress" readonly class="form-control" required="">
 
-                             </div>
-                        <aside class="col-lg-3">
-                            <div class="summary">
-                                <h3 class="summary-title">Your Order</h3>
-                                <div id="PlaceOrder">
-                                    @Html.Partial("~/Views/Order/_PlaceOrder.cshtml", new List<OnlineShop.Models.MiniCartModel>())
-                                </div>
-                            </div>
-                        </aside>
                     </div>
+                    <aside class="col-lg-3">
+                        <div class="summary">
+                            <h3 class="summary-title">Your Order</h3>
+                            <div id="PlaceOrder">
+                                @Html.Partial("~/Views/Order/_PlaceOrder.cshtml", new List<OnlineShop.Models.MiniCartModel>())
+                            </div>
+                        </div>
+                    </aside>
+                </div>
             </div>
         </div>
     </div>

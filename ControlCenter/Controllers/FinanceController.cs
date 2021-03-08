@@ -143,11 +143,34 @@ namespace ControlCenter.Controllers
             return RedirectToAction("GetReceivables", "Finance");
         }
 
-        #endregion
+        public ActionResult ProfitStatement()
+        {
+            var orders = orderProvider.GetAllOrders();
+            List<Models.OrderDetailModel> detailModels = new List<Models.OrderDetailModel>();
+            orders.ForEach(x =>
+            {
+                var orderDetails = orderProvider.GetOrderDetailByOrderId(x.Id);
+                orderDetails.ForEach(y =>
+                {
+                    Models.OrderModel models = new Models.OrderModel();
+                    var profit = Profit(y.UnitSalePrice, y.ProductStock.Cost);
+                    detailModels.Add(new Models.OrderDetailModel
+                    {
+                        Profit = profit,
+                        OrderDetailId = y.Id,
+                        OrderId = y.OrderId
+                    });
+                });
+            });
 
-        #region Common
+            return View(detailModels);
+        }
 
-        public ActionResult UpdateShippingCharges()
+    #endregion
+
+    #region Common
+
+    public ActionResult UpdateShippingCharges()
         {
             return View();
         }
@@ -163,6 +186,30 @@ namespace ControlCenter.Controllers
         #endregion
 
         #region Private
+
+        //private List<Models.OrderModel> MappingOrderModel(List<Models.OrderDetailModel> models)
+        //{
+        //    List<Models.OrderModel> mapped = new List<Models.OrderModel>();
+        //    var orders = orderProvider.GetAllOrders();
+
+        //    orders.ForEach(x =>
+        //    {
+        //        var orderDetails = orderProvider.GetOrderDetailByOrderId(x.Id);
+
+        //        mapped.Add(new Models.OrderModel
+        //        {
+        //            OrderId = x.Id,
+        //            TotalAmount = x.TotalAmount,
+        //            Profit = 
+        //        });
+        //    });
+
+        //}
+
+        private decimal Profit(decimal currentPrice, decimal? Cost)
+        {
+            return (decimal)(currentPrice - Cost);
+        }
 
         private decimal PerPersonShare(decimal Balance)
         {

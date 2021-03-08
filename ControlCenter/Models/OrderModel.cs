@@ -10,6 +10,6 @@ namespace ControlCenter.Models
         public int OrderId { get; set; }
         public DateTime CreatedOn { get; set; }
         public string UserEmail { get; set; }
-
+        public int Profit { get; set; }
     }
 }

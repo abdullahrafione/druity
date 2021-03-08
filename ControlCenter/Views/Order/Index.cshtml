@@ -9,6 +9,25 @@
             <h1>All Orders</h1>
         </div>
         <div class="separator-breadcrumb border-top"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form action="~/finance/SearchByAccountHead" method="post">
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="AccountHeadId">Search by Account Head</label>
+                                    <input class="" />
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row mb-4">
             <div class="col-md-12 mb-4">
                 <div class="card text-left">
@@ -29,18 +48,18 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                    <tr>
-                                        <td>@item.OrderId</td>
-                                        <td>@item.TotalAmount</td>
-                                        <td>@item.CreatedOn</td>
-                                        <td>@item.UserEmail</td>
-                                        <td class="text-left" style="">
-                                            <a href="@Url.Action("ViewOrders", "Order", new {orderId = item.OrderId} )">View</a>
-                                        </td>
-                                        <td class="text-left" style="">
-                                            <a href="@Url.Action("GetInvoice", "Finance", new {orderId = item.OrderId} )">Invoice</a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>@item.OrderId</td>
+                                            <td>@item.TotalAmount</td>
+                                            <td>@item.CreatedOn.ToString("dd-MMM-yyyy")</td>
+                                            <td>@item.UserEmail</td>
+                                            <td class="text-left" style="">
+                                                <a href="@Url.Action("ViewOrders", "Order", new {orderId = item.OrderId} )">View</a>
+                                            </td>
+                                            <td class="text-left" style="">
+                                                <a href="@Url.Action("GetInvoice", "Finance", new {orderId = item.OrderId} )">Invoice</a>
+                                            </td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>

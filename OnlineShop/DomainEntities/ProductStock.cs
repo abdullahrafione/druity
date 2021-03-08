@@ -9,6 +9,7 @@ namespace OnlineShop.DomainEntities
     {
         public decimal CurrentPrice { get; set; }
         public decimal OldPrice { get; set; }
+        public decimal? Cost { get; set; }
         public bool OnSale { get; set; }
         public bool IsFeatured { get; set; }
         public bool TopRated { get; set; }

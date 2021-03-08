@@ -35,6 +35,7 @@ namespace OnlineShop.Controllers
             return PartialView("~/Views/ShoppingCart/_GetItemsInCart.cshtml", productsInCart);
         }
 
+        
         public PartialViewResult GetItemsPlaceOrder()
         {
             var cart = this.GetCartItems();
