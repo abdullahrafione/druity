@@ -36,6 +36,71 @@ namespace OnlineShop.Controllers
             return View(users);
         }
 
+        #region LandingPage
+
+        public ActionResult UploadBanner()
+        {
+            var bannerImages = MaptoGeneralimages(imageProvider.GetGeneralImages());
+
+            return View(bannerImages);
+        }
+
+        public ActionResult UploadImageBanner()
+        {
+            return View();
+        }
+
+        public PartialViewResult UploadBannerImage(GeneralImages image)
+        {
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        HttpPostedFileBase file = files[i];
+                        string fname;
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                        }
+
+                        string uniqueness = Guid.NewGuid().ToString();
+                        fname = Path.GetFileName(file.FileName);
+
+                        var path = Path.Combine(Server.MapPath("~/Uploads"), uniqueness + fname);
+                        file.SaveAs(path);
+
+                        image.Url = System.Configuration.ConfigurationManager.AppSettings["WebUrl"] + "/Uploads/" + uniqueness + fname;
+                        image.Name = uniqueness + fname;
+                    }
+                    //var allImages = imageProvider.SaveImage(image);
+                    //return PartialView("~/Views/Admin/_ImagesList.cshtml", allImages);
+                    return null;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+            }
+            return PartialView();
+        }
+
+        public ActionResult ConfigureBanner(int image)
+        {
+
+            return RedirectToAction("UploadBanner");
+        }
+
+        #endregion
+
         #region Dashboard landing page
         public PartialViewResult GetStats()
         {
@@ -333,6 +398,22 @@ namespace OnlineShop.Controllers
         #endregion
 
         #region Private
+
+        private List<Models.GeneralImages> MaptoGeneralimages (List<DomainEntities.GeneralImages> images)
+        {
+            List<Models.GeneralImages> mapped = new List<GeneralImages>();
+            images.ForEach(x =>
+            {
+                mapped.Add(new GeneralImages
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Url = x.Url
+                });
+            });
+
+            return mapped;
+        }
         private OnlineShop.DomainEntities.Product MapToDomain(Product product)
         {
             return new DomainEntities.Product

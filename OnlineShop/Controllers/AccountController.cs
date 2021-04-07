@@ -58,6 +58,11 @@ namespace OnlineShop.Controllers
                 string ss = returnUrl;
             }
             var user = userProvider.Authenticate(model.EmailAddress, Encode(model.Password));
+            if (user == null)
+            {
+                TempData["Validation"] = "Invalid Username / Password ";
+            }
+
             if (user != null)
             {
                 Session[CommonConstants.Constants.User] = MapUserToModel(user);

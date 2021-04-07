@@ -342,6 +342,7 @@
     <Content Include="Views\Order\ManualOrder.cshtml" />
     <Content Include="Views\Common\UpdateScrapping.cshtml" />
     <Content Include="Views\Finance\ProfitStatement.cshtml" />
+    <Content Include="Views\Common\DruityBanners.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,9 +8,8 @@
     <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
         <div class="container d-flex align-items-center">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Products</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Default</li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><b>@Model.Name</b></li>
             </ol>
         </div>
     </nav>
@@ -164,6 +163,7 @@
                 "Quantity": Quantity
             }, success: function () {
                 location.reload(true);
+                window.location.replace("@Url.Action("Cart","shoppingcart")");
             }, error: function () {
                 alert("Product is out of stock");
             }

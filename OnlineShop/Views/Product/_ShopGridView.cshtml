@@ -2,59 +2,59 @@
 @{
     string primaryImage = string.Empty;
 }
-    
-    <div class="products mb-3">
-        <div class="row justify-content-center">
-            @if (Model.Products.Any())
+<div class="products mb-3">
+    <div class="row justify-content-center">
+        @if (Model.Products.Any())
+        {
+            foreach (var item in Model.Products)
             {
-                foreach (var item in Model.Products)
-                {
-                    <div class="col-6 col-md-4 col-lg-4">
-                        <div class="product product-7 text-center">
-                            <figure class="product-media">
-                                @if (item.ProductStock.FirstOrDefault().StockCount == 0)
-                                {
-                                    <span class="product-label label-sale" style="font-style:normal">Out of Stock</span>
+                <div class="col-6 col-md-4 col-lg-4">
+                    <div class="product product-7 text-center">
+                        <figure class="product-media">
+                            @if (item.ProductStock.FirstOrDefault().StockCount == 0)
+                            {
+                                <span class="product-label label-sale" style="font-style:normal">Out of Stock</span>
 
-                                }
-                                else
+                            }
+                            else
+                            {
+                                if (item.ProductStock.FirstOrDefault().Discount != 0)
                                 {
-                                    if (item.ProductStock.FirstOrDefault().Discount != 0)
-                                    {
-                                        <span class="product-label label-sale" style="font-style:normal">@item.ProductStock.FirstOrDefault().Discount% OFF</span>
-                                    }
+                                    <span class="product-label label-sale" style="font-style:normal">@item.ProductStock.FirstOrDefault().Discount% OFF</span>
                                 }
+                            }
 
-                                <a href="~/product/detail/@item.ProductId">
-                                    <img src="@item.Image.FirstOrDefault().Url" id="@("set"+item.ProductId)" alt="Product image" class="product-image">
-                                </a>
-                            @if(item.ProductStock.FirstOrDefault().StockCount != 0) { 
+                            <a href="~/product/detail/@item.ProductId">
+                                <img src="@item.Image.FirstOrDefault().Url" id="@("set"+item.ProductId)" alt="Product image" class="product-image">
+                            </a>
+                            @if (item.ProductStock.FirstOrDefault().StockCount != 0)
+                            {
                                 <div class="product-action">
                                     <a style="cursor:pointer" onclick="AddToCart(@item.ProductStock.FirstOrDefault().ProductStockId,1)" class="btn-product btn-cart"><span>add to cart</span></a>
                                 </div><!-- End .product-action -->
                             }
-                            </figure><!-- End .product-media -->
+                        </figure><!-- End .product-media -->
 
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">@item.CategoryName</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="~/product/detail/@item.ProductId">@item.Name</a></h3><!-- End .product-title -->
+                        <div class="product-body">
+                            <div class="product-cat">
+                                <a href="#">@item.CategoryName</a>
+                            </div><!-- End .product-cat -->
+                            <h3 class="product-title"><a href="~/product/detail/@item.ProductId">@item.Name</a></h3><!-- End .product-title -->
 
-                                @if (item.ProductStock.FirstOrDefault().OldProductPrice != "0")
-                                {
-                                    <div class="product-price">
-                                        <span class="new-price" style="color:black">@item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().ProductPrice</span>
-                                        <span class="intro-old-price" style="color:red">@item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().OldProductPrice</span>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="product-price" style="color:black">
-                                        @item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().ProductPrice
-                                    </div>
-                                }
-                                @*<div class="product-nav product-nav-dots">
+                            @if (item.ProductStock.FirstOrDefault().OldProductPrice != "0")
+                            {
+                                <div class="product-price">
+                                    <span class="new-price" style="color:black">@item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().ProductPrice</span>
+                                    <span class="intro-old-price" style="color:red">@item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().OldProductPrice</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="product-price" style="color:black">
+                                    @item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().ProductPrice
+                                </div>
+                            }
+                            @*<div class="product-nav product-nav-dots">
                                     @{
                                         var dis = item.ProductStock.GroupBy(w => w.ColourName).Select(g => g.First()).ToList();
                                     }
@@ -63,25 +63,25 @@
                                         <a href="#" class="active" title="@stock.ColourName" style="background: @stock.ColourCode;"><span class="sr-only">@stock.ColourName</span></a>
                                     }
                                 </div>*@
-                                <div class="product-nav product-nav-thumbs">
+                            <div class="product-nav product-nav-thumbs">
 
-                                    @if (item.Image.Any())
+                                @if (item.Image.Any())
+                                {
+                                    foreach (var img in item.Image.Where(x => x.IsPrimary == false).ToList())
                                     {
-                                        foreach (var img in item.Image.Where(x => x.IsPrimary == false).ToList())
-                                        {
-                                            <a onclick="SelectImage('@item.ProductId','@img.Url')">
-                                                <img src="@img.Url" alt="product desc">
-                                            </a>
-                                        }
+                                        <a onclick="SelectImage('@item.ProductId','@img.Url')">
+                                            <img src="@img.Url" alt="product desc">
+                                        </a>
                                     }
-                                </div>
+                                }
                             </div>
                         </div>
                     </div>
-                }
+                </div>
             }
-        </div>
+        }
     </div>
+</div>
 
 
 <nav aria-label="Page navigation">
@@ -100,17 +100,16 @@
     </ul>
 </nav>
 <script>
-    function AddToCart(stockId,qty)
-    {
+    function AddToCart(stockId, qty) {
         $.ajax({
             type: "Post",
             url: "/shoppingcart/addcart",
             data: {
                 "ProductStockId": stockId,
                 "Quantity": qty
-            }, success: function (data)
-            {
+            }, success: function (data) {
                 $('#minicartsection').html(data);
+                alert("Product added to cart!");
             }
         })
     }
@@ -122,15 +121,15 @@
     function PageChange(pageNumber) {
         var ParentCategories = "";
         $("#SelectedCategory :text").each(function () {
-            ParentCategories += "CategoryId:" +$(this).val() + "#";
+            ParentCategories += "CategoryId:" + $(this).val() + "#";
         });
         var sizes = "";
         $("#SelectedSize :text").each(function () {
-            sizes += "SizeId:" +$(this).val() + "#";
+            sizes += "SizeId:" + $(this).val() + "#";
         });
         var colours = "";
         $("#SelectedColours :text").each(function () {
-            colours += "colours:" +$(this).val() + "#";
+            colours += "colours:" + $(this).val() + "#";
         });
         var GenderTagId = $("#genderidText").val();
         $.ajax({

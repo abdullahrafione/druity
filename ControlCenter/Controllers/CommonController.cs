@@ -64,6 +64,17 @@ namespace ControlCenter.Controllers
             return RedirectToAction("UpdateScrapping");
         }
 
+        public ActionResult DruityBanners()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //public ActionResult DruityBanners()
+        //{
+        //    return View();
+        //}
+
         #region Private
         private List<Models.Category> MapCategoryToModel(List<DataAccess.Domain.Category> categories)
         {

@@ -164,6 +164,7 @@
     <Compile Include="DomainEntities\Colour.cs" />
     <Compile Include="DomainEntities\Expense.cs" />
     <Compile Include="DomainEntities\GenderTag.cs" />
+    <Compile Include="DomainEntities\GeneralImages.cs" />
     <Compile Include="DomainEntities\Image.cs" />
     <Compile Include="DomainEntities\Income.cs" />
     <Compile Include="DomainEntities\Ledger.cs" />
@@ -184,12 +185,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202103031046093_initial.cs" />
-    <Compile Include="Migrations\202103031046093_initial.designer.cs">
-      <DependentUpon>202103031046093_initial.cs</DependentUpon>
+    <Compile Include="Migrations\202104011245582_Initial.cs" />
+    <Compile Include="Migrations\202104011245582_Initial.designer.cs">
+      <DependentUpon>202104011245582_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ColorsSizes.cs" />
+    <Compile Include="Models\GeneralImages.cs" />
+    <Compile Include="Models\GuestUser.cs" />
     <Compile Include="Models\LandingPage.cs" />
     <Compile Include="Models\GenderTag.cs" />
     <Compile Include="Models\MiniCartModel.cs" />
@@ -1055,6 +1058,11 @@
     <Content Include="Views\Home\Faqs.cshtml" />
     <Content Include="Views\Product\_RelatedProducts.cshtml" />
     <Content Include="Views\Product\_AdProductDetail.cshtml" />
+    <Content Include="Views\Admin\UploadBanner.cshtml" />
+    <Content Include="Views\Admin\ConfigureBanner.cshtml" />
+    <Content Include="Views\Order\GuestCheckout.cshtml" />
+    <Content Include="Views\Order\_PlaceOrderForGuest.cshtml" />
+    <Content Include="Views\Order\SuccessOrderGuest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1072,8 +1080,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202103031046093_initial.resx">
-      <DependentUpon>202103031046093_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202104011245582_Initial.resx">
+      <DependentUpon>202104011245582_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

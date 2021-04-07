@@ -1,6 +1,7 @@
 ﻿using OnlineShop.DbFactory;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -65,12 +66,20 @@ namespace OnlineShop.DAL
                     modelList.Add(new Models.Image
                     {
                         Name = "default",
-                        Url = System.Configuration.ConfigurationManager.AppSettings["DefaultImageUrl"]
+                        Url = ConfigurationManager.AppSettings["DefaultImageUrl"]
                     });
                 }
                 return modelList;
             }
 
+        }
+
+        public List<DomainEntities.GeneralImages> GetGeneralImages()
+        {
+            using (ShopDbContext context = new ShopDbContext())
+            {
+               return context.GeneralImages.ToList();
+            }
         }
     }
 }

@@ -9,7 +9,7 @@
     @Html.Partial("~/Views/Home/_PopularCategories.cshtml")
 
     <!-- Deal Banners Start Here -->
-    @Html.Partial("~/Views/Home/_DealBanners.cshtml")
+    @*@Html.Partial("~/Views/Home/_DealBanners.cshtml")*@
 
     <!-- New Arrivals Start Here -->
     @*@Html.Partial("~/Views/Home/_NewArrivals.cshtml")*@
@@ -18,13 +18,13 @@
     @*@Html.Partial("~/Views/Home/_PromotionalProduct.cshtml")*@
 
     <!-- Limited Time Deals -->
-    @Html.Partial("~/Views/Home/_LimitedTimeDeals.cshtml")
+    @*@Html.Partial("~/Views/Home/_LimitedTimeDeals.cshtml")*@
 
     <!-- Brand Logos -->
     @*@Html.Partial("~/Views/Home/_BrandLogos.cshtml")*@
 
     <!-- Trending Products -->
-    @*@Html.Partial("~/Views/Home/_TrendingProducts.cshtml")*@
+    @Html.Partial("~/Views/Home/_TrendingProducts.cshtml", Model)
 
     <!-- Recommended Products -->
     @*@Html.Partial("~/Views/Home/_RecommendedProducts.cshtml", Model)*@

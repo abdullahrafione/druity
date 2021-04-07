@@ -28,7 +28,6 @@ namespace OnlineShop.DbFactory
         public DbSet<OrderDetail> OrderDetail { get; set; }
         public DbSet<OrderStatus> OrderStatus { get; set; }
         public DbSet<OrderStatusLogs> OrderStatusLogs { get; set; }
-       // public DbSet<PaymentMethod> PaymentMethod { get; set; }
         public DbSet<PaymentStatus> PaymentStatus { get; set; }
         public DbSet<Payment> Payment { get; set; }
         public DbSet<GenderTag> GenderTag { get; set; }
@@ -37,7 +36,8 @@ namespace OnlineShop.DbFactory
         public DbSet<Income> Income { get; set; }
         public DbSet<Ledger> Ledger { get; set; }
         public DbSet<SaleInvoice> SaleInvoice { get; set; }
-
+        public DbSet<GeneralImages> GeneralImages { get; set; }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // Tell Code First to ignore PluralizingTableName convention

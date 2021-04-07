@@ -56,16 +56,6 @@
             </table>
         </div>
         <div class="cart-bottom">
-            @*<div class="cart-discount">
-                <form action="#">
-                    <div class="input-group">
-                        <input type="text" class="form-control" required="" placeholder="coupon code">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>*@
 
             <a style="cursor:pointer" onclick="UpdateCart()" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i class="icon-refresh"></i></a>
         </div>
@@ -95,7 +85,6 @@
                 <a href="~/order/checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
             </div>
         }
-        <a href="@Url.Action("checkout","order")" class="btn btn-outline-dark-2 btn-block mb-3"><span>Proceed to Checkout</span></a> 
         <a href="~/product/shop" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
     </aside>
 </div>

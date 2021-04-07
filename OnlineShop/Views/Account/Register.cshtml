@@ -25,6 +25,7 @@
                 {
                     @Html.Partial("~/Views/Shared/_ErrorTempData.cshtml", error);
                 }
+                <h6>Already a member? <a href="@Url.Action("signin","account")">Sign In to your account</a></h6>
                 <form action="~/account/register" method="post">
                     @Html.AntiForgeryToken()
                     <div class="row">
@@ -66,8 +67,8 @@
                                 <div class="col-sm-6">
                                     <label>Confirm Password *</label>  @Html.ValidationMessageFor(x => Model.ConfirmPassword, "", new { @style = "color:red" })
                                     @Html.PasswordFor(x => x.ConfirmPassword, new { @Class = "form-control" })
-                                </div><!-- End .col-sm-6 -->
-                            </div><!-- End .row -->
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-outline-primary-2">
                                 <span>Register</span>
                                 <i class="icon-long-arrow-right"></i>

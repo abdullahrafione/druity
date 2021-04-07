@@ -124,6 +124,8 @@ namespace OnlineShop.Controllers
 
                 return View(shopResponse);
             }
+
+            
         }
 
         public ActionResult Detail(int id)

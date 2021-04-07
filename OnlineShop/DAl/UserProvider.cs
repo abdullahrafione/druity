@@ -10,6 +10,20 @@ namespace OnlineShop.DAL
 {
     public class UserProvider
     {
+        public int AddGuestUser(User user)
+        {
+            using(ShopDbContext context = new ShopDbContext())
+            {
+                //2 is the organisation id of Marketplace
+                user.OrganisationId = 2;
+
+                var AddedUser = context.User.Add(user);
+               context.SaveChanges();
+
+                return AddedUser.Id;
+            }
+        }
+
         public string Register(User user)
         {
             using (ShopDbContext context = new ShopDbContext())

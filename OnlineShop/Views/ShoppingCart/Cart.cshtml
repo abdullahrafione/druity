@@ -16,7 +16,7 @@
         <div class="cart">
             <div class="container">
                 <div id="shoppingcart">
-                    @Html.Partial("~/Views/ShoppingCart/_GetItemsInCart.cshtml",new List<OnlineShop.Models.MiniCartModel>());
+                    @Html.Partial("~/Views/ShoppingCart/_GetItemsInCart.cshtml", new List<OnlineShop.Models.MiniCartModel>());
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
 </main>
 
 <script>
-      $(document).ready(function () {
+    $(document).ready(function () {
         $.ajax({
             type: "Get",
             url: "/shoppingcart/GetItemsInCart",
@@ -32,7 +32,5 @@
                 $('#shoppingcart').html(data);
             }
         })
-      });
-
-  
+    });
 </script>

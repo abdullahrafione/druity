@@ -37,11 +37,58 @@ namespace OnlineShop.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult Checkout()
         {
             var user = (OnlineShop.Models.User)Session[CommonConstants.Constants.User];
-            return View(user);
+
+            if (user != null)
+            {
+                return View(user);
+            }
+
+            return View("~/Views/Order/GuestCheckout.cshtml");
         }
+
+        [AllowAnonymous]
+        public ActionResult PlaceOrderforGuest(Models.GuestUser guest)
+        {
+            try
+            {
+                var cart = this.GetCartItems();
+                var productsInCart = productProvider.GetCart(cart.Select(x => x.ProductStockId).ToList());
+                cart.ForEach(x =>
+                {
+                    x.Price = productsInCart.Where(c => c.ProductStockId == x.ProductStockId).FirstOrDefault().Price;
+                    x.ProductName = productsInCart.Where(c => c.ProductStockId == x.ProductStockId).FirstOrDefault().ProductName;
+                });
+
+                var userId = userProvider.AddGuestUser(MaptoUser(guest));
+                var validatedCart = AvailablityCheck(productsInCart, cart);
+
+                if (validatedCart != null)
+                {
+                    return RedirectToAction("cart", "shoppingcart");
+                }
+                else
+                {
+                    productProvider.ReduceProductStock(cart);
+                    int orderid = orderProvider.GenerateOrder(cart, userId);
+                    orderProvider.ActivateOrder(orderid);
+                    
+                    DeleteCart();
+                    //SendEmail(user.EmailAddress, "Order Placed", orderid);
+                    return View("~/Views/Order/SuccessOrderGuest.cshtml");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+
 
         public ActionResult PlaceOrder()
         {
@@ -162,10 +209,33 @@ namespace OnlineShop.Controllers
                 x.ImageUrl = imageProvider.GetImages(x.ProductId).FirstOrDefault().Url;
 
             });
-            return PartialView(history);
+            return PartialView("~/Views/Order/GetOrderHistory.cshtml",history);
         }
 
         #region Private
+
+        private OnlineShop.DomainEntities.User MaptoUser(Models.GuestUser guest)
+        {
+            return new DomainEntities.User
+            {
+                FirstName = guest.FirstName,
+                LastName = guest.LastName,
+                EmailAddress = guest.EmailAddress,
+                Password = Encode(guest.Password),
+                Phone = guest.PhoneNo,
+                Street = guest.Street,
+                Address = guest.Address,
+                State = "Default",
+                Country = "Pakistan",
+                IsActive = true,
+                IsDeleted = false,
+                CreationTime = DateTime.Now,
+                PostalCode = "Default",
+                UniqueId = Guid.NewGuid().ToString(),
+                City = guest.City
+            };
+        }
+
         private PayPal.Api.Payment payment;
         private Payment ExecutePayment(APIContext apiContext, string payerId, string paymentId)
         {
@@ -320,6 +390,11 @@ namespace OnlineShop.Controllers
 
         }
 
+        private static string Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
 
         #endregion
     }

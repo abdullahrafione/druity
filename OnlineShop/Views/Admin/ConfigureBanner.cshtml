@@ -1,0 +1,280 @@
+﻿
+@{
+    ViewBag.Title = "ConfigureBanner";
+}
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Product<span>Configuration</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="~/admin/products?currentPage=1">Product</a></li>
+                <li class="breadcrumb-item"><a href="#">Configuration</a></li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="cart">
+            <div class="container">
+                <div class="row">
+                    <aside class="col-lg-3">
+                        <div class="summary summary-cart" style="background-color:white">
+                            <h3 class="summary-title">Product Information</h3><!-- End .summary-title -->
+
+                            <form>
+                                <label>Select category</label>
+                                <select name="CategoryId" id="CategoryId" class="form-control">
+                                    <option value="@selectProductCategory.CategoryId" style="color:forestgreen">@selectProductCategory.CategoryName</option>
+                                    @foreach (var item in Model.Categories)
+                                    {
+                                        <option value="@item.CategoryId">@item.CategoryName</option>
+                                    }
+                                </select>
+
+                                <label>Product Name</label>
+                                <input type="text" name="Name" required id="Name" value="@Model.Product.Name" class="form-control">
+                                <label>Short Description *</label>
+                                <textarea class="form-control" id="ShortDescription" required name="ShortDescription"> @Model.Product.ShortDescription</textarea>
+                                <label>Detail *</label>
+                                <textarea class="form-control" id="Detail" rows="12" required name="Detail"> @Model.Product.Detail</textarea>
+
+                                <input onclick="UpdateProduct()" style="cursor:pointer" value="Save changes" class="btn btn-outline-primary-2 btn-order btn-block" />
+                            </form>
+
+
+                        </div>
+                        @if (Model.Product.isActive)
+                        {
+                            <a href="#" onclick="MarkAsDeActive(@Model.Product.ProductId)" class="btn btn-outline-dark-2 btn-block mb-3"><span>DeActivate</span><i class="icon-refresh"></i></a>
+                        }
+                        else
+                        {
+                            <a href="#" onclick="MarkAsActive(@Model.Product.ProductId)" class="btn btn-outline-dark-2 btn-block mb-3"><span>Publish on Marketplace</span><i class="icon-refresh"></i></a>
+                        }
+                    </aside>
+                    <div class="col-lg-9">
+                        <p style="color:red"> @TempData[OnlineShop.CommonConstants.Constants.ErrorMessage]</p>
+                        <p style="color:forestgreen"> @TempData[OnlineShop.CommonConstants.Constants.SuccessMessage]</p>
+
+                        <div class="col-md-12">
+                            <ul class="nav nav-tabs" id="tabs-2" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="tab-5-tab" data-toggle="tab" href="#tab-5" role="tab" aria-controls="tab-5" aria-selected="true">Stock</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="tab-6-tab" data-toggle="tab" href="#tab-6" role="tab" aria-controls="tab-6" aria-selected="false">Add Stock</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="tab-7-tab" data-toggle="tab" href="#tab-7" role="tab" aria-controls="tab-7" aria-selected="false">Images</a>
+                                </li>
+                                @*<li class="nav-item">
+                                        <a class="nav-link" id="tab-8-tab" data-toggle="tab" href="#tab-8" role="tab" aria-controls="tab-8" aria-selected="false">Tab 4</a>
+                                    </li>*@
+                            </ul>
+                            <div class="tab-content tab-content-border" id="tab-content-2">
+                                <div class="tab-pane fade active show" id="tab-5" role="tabpanel" aria-labelledby="tab-5-tab">
+                                    <h3 class="summary-title">Please update your stock</h3>
+                                    @{int counter = 0;
+                                        string toprated = "";
+                                        string sale = "";
+                                        string featured = "";
+                                    }
+                                    @foreach (var item in Model.ProductStock)
+                                    {
+                                        counter = counter + 1;
+                                        <a href="~/admin/DeleteStock?ProductId=@item.ProductId&&ProductStockId=@item.ProductStockId" class="btn-remove pull-right" title="Remove Product"><i class="icon-close"></i></a>
+                                        <span class="badge badge-info">Article # @counter</span>
+                                        <br />
+                                        <div class="product product-list">
+                                            <form action="~/admin/updatestock" class="abc" method="post">
+                                                <div class="row">
+
+
+                                                    <input type="text" name="ProductId" value="@item.ProductId" style="display:none" />
+                                                    <input type="text" name="ProductStockId" value="@item.ProductStockId" style="display:none" />
+                                                    <div class="col-md-3">
+                                                        <label>Colour</label>
+                                                        <select name="ColourId" class="form-control">
+                                                            <option style="color:@item.ColourCode" value="@item.ColourId">@item.ColourName</option>
+                                                            @foreach (var clr in Model.Colours)
+                                                            {
+                                                                <option value="@clr.ColourId">@clr.Name</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Size</label>
+                                                        <select name="SizeID" class="form-control">
+                                                            <option value="@item.SizeID">@item.SizeName</option>
+                                                            @foreach (var size in Model.Sizes)
+                                                            {
+                                                                <option value="@size.SizeId">@size.Name</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label>Stock</label>
+                                                        <input type="number" value="@item.StockCount" name="StockCount" class="form-control" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label> Old Price £</label>
+                                                        <input type="number" value="@item.OldPrice" name="OldPrice" class="form-control" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label>New Price £</label>
+                                                        <input type="number" value="@item.CurrentPrice" name="CurrentPrice" class="form-control" />
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        @if (item.TopRated)
+                                                        {
+                                                            toprated = "checked";
+                                                            <input type="text" id="@("TopRatedSet"+item.ProductStockId)" value="true" style="display:none" name="TopRated" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="text" id="@("TopRatedSet"+item.ProductStockId)" value="false" style="display:none" name="TopRated" />
+                                                            toprated = "";
+                                                        }
+                                                        @*@Html.CheckBoxFor(x => item.TopRated)&nbsp; &nbsp;<label>Top Rated</label>*@
+                                                        <input @toprated id="@("TopRated"+item.ProductStockId)" onclick="TopRatedFunction(@item.ProductStockId)" type="checkbox" />&nbsp; &nbsp;<label>Top Rated</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @if (item.IsFeatured)
+                                                        {
+                                                            featured = "checked";
+                                                            <input type="text" id="@("IsFeaturedSet"+item.ProductStockId)" value="true" style="display:none" name="IsFeatured" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="text" id="@("IsFeaturedSet"+item.ProductStockId)" value="false" style="display:none" name="IsFeatured" />
+                                                            featured = "";
+                                                        }
+                                                        <input id="@("IsFeatured"+item.ProductStockId)" onclick="IsFeaturedFunction(@item.ProductStockId)" @featured type="checkbox" />&nbsp;&nbsp;<label>Is Featured</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @if (item.OnSale)
+                                                        {
+                                                            sale = "checked";
+                                                            <input type="text" id="@("OnSaleSet"+item.ProductStockId)" style="display:none" value="true" name="OnSale" />
+                                                        }
+                                                        else
+                                                        {
+                                                            sale = "";
+                                                            <input type="text" id="@("OnSaleSet"+item.ProductStockId)" style="display:none" value="false" name="OnSale" />
+                                                        }
+                                                        <input id="@("OnSale"+item.ProductStockId)" onclick="OnSaleFunction(@item.ProductStockId)" @sale type="checkbox" /> &nbsp;&nbsp;<label>On Sale</label>
+
+
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="submit" value="Update Stock for article @counter" class="btn btn-outline-primary-2 btn-order btn-block col-12" />
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                            @*<div class="col-4" style="padding:0">
+                                                    <input type="submit" value="Update Stock for article @counter" class="btn btn-outline-primary-2 btn-order btn-block col-12" />
+                                                </div>*@
+                                        </div>
+                                    }
+                                </div><!-- .End .tab-pane -->
+                                <div class="tab-pane fade" id="tab-6" role="tabpanel" aria-labelledby="tab-6-tab">
+                                    <h3 class="summary-title">Please add your stock with different colours and sizes.</h3>
+
+
+                                    <input type="text" id="ProductId" value="@Model.Product.ProductId" style="display:none" />
+                                    <table class="table table-cart table-mobile">
+                                        <tbody>
+                                            <tr>
+                                                <td class="price-col">
+                                                    <label>Colour</label>
+                                                    <select id="ColourId" class="form-control">
+                                                        @foreach (var item in Model.Colours)
+                                                        {
+                                                            <option value="@item.ColourId">@item.Name</option>
+                                                        }
+                                                    </select>
+                                                </td>
+                                                <td class="price-col">
+                                                    <label>Size</label>
+                                                    <select id="SizeID" class="form-control">
+                                                        @foreach (var item in Model.Sizes)
+                                                        {
+                                                            <option value="@item.SizeId">@item.Name</option>
+                                                        }
+                                                    </select>
+                                                </td>
+                                                <td class="price-col">
+                                                    <label>Stock</label>
+                                                    <input type="number" id="StockCount" value="10" class="form-control" />
+                                                </td>
+                                                <td class="price-col">
+                                                    <label>Old Price</label>
+                                                    <input type="number" id="OldPrice" value="1" class="form-control" />
+                                                </td>
+                                                <td class="price-col">
+                                                    <label>New Price</label>
+                                                    <input type="number" id="CurrentPrice" value="1" class="form-control" />
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td class="price-col"><label style="color:#a6c76c">on sale and featured are optional</label></td>
+                                                <td class="price-col"><label>Top Rated</label>&nbsp;&nbsp;&nbsp;<input name="TopRated" value="1" id="TopRated" type="checkbox" /></td>
+                                                <td class="price-col"><label>Is Featured</label>&nbsp;&nbsp;&nbsp;<input id="IsFeatured" type="checkbox" /></td>
+                                                <td class="price-col"><label>On Sale</label>&nbsp;&nbsp;&nbsp;<input id="OnSale" type="checkbox" /></td>
+                                                <td class="price-col">
+                                                    <input type="button" onclick="save()" value="Add" class="btn btn-outline-primary-2 btn-order btn-block" />
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                    @*</form>*@
+                                </div><!-- .End .tab-pane -->
+                                <div class="tab-pane fade" id="tab-7" role="tabpanel" aria-labelledby="tab-7-tab">
+                                    <div class="cart-bottom">
+                                        <div class="cart-discount">
+                                            <h3 class="summary-title">Upload images</h3>
+
+                                            <input type="checkbox" onclick="IsSizeGuideFunction()" id="IsSizeGuide" />&nbsp;&nbsp;<label>Is Size guide</label>
+                                            <input type="text" name="IsSizeGuide" id="IsSizeGuideSet" readonly style="display:none" />
+                                            <br />
+                                            <input type="checkbox" onclick="IsPrimaryFunction()" id="IsPrimary" />&nbsp;&nbsp;<label>Is Primary Image</label>
+                                            <input type="text" name="IsPrimary" id="IsPrimarySet" readonly style="display:none" />
+                                            <br />
+                                            <label>Display order</label><br />
+                                            <input type="number" name="DisplayOrder" placeholder="Exp: 1 or 2 " id="DisplayOrder" class="form-control" />
+                                            <p>Recommended image size is 300 X 300</p>
+                                            <br />
+                                            <div class="input-group">
+
+                                                <input type="file" class="form-control" id="FileUpload1" required accept="image/*" placeholder="coupon code">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-primary-2" id="btnUpload" type="submit">&nbsp;&nbsp;Save<i class="icon-long-arrow-right"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="images" class="images">
+                                        @Html.Partial("~/Views/Admin/_ImagesList.cshtml", Model.Images)
+                                    </div>
+                                </div><!-- End .tab-content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+

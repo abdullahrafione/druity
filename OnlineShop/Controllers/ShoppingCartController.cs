@@ -23,7 +23,7 @@ namespace OnlineShop.Controllers
             return View();
         }
 
-        public PartialViewResult GetItemsInCart()
+        public ActionResult GetItemsInCart()
         {
             var cart = this.GetCartItems();
             var productsInCart = productProvider.GetCart(cart.Select(x => x.ProductStockId).ToList());
@@ -35,7 +35,18 @@ namespace OnlineShop.Controllers
             return PartialView("~/Views/ShoppingCart/_GetItemsInCart.cshtml", productsInCart);
         }
 
-        
+        public PartialViewResult GetItemsPlaceGuestOrder()
+        {
+            var cart = this.GetCartItems();
+            var productsInCart = productProvider.GetCart(cart.Select(x => x.ProductStockId).ToList());
+            productsInCart.ForEach(x =>
+            {
+                x.Quantity = cart.Where(c => c.ProductStockId == x.ProductStockId).ToList().Sum(v => v.Quantity);
+                x.ImageUrl = imageProvider.GetImages(x.ProductId).FirstOrDefault().Url;
+            });
+            return PartialView("~/Views/Order/_PlaceOrderForGuest.cshtml", productsInCart);
+        }
+
         public PartialViewResult GetItemsPlaceOrder()
         {
             var cart = this.GetCartItems();
@@ -97,7 +108,7 @@ namespace OnlineShop.Controllers
         }
 
         [HttpGet]
-        public PartialViewResult AddTocartFromDetail(OnlineShop.Models.MiniCartModel model)
+        public void AddTocartFromDetail(OnlineShop.Models.MiniCartModel model)
         {
             int stockid = productProvider.GetProductStockbyColorSize(model.ProductId,model.Quantity);
             if (stockid > default(int))
@@ -110,13 +121,6 @@ namespace OnlineShop.Controllers
                     this.UpdateCookie(model);
                 }
             }
-            //if (stockid <= default(int))
-            //{
-            //    //string msg= "Product is out of stock";
-            //    throw new Exception("Product is out of stock with selected colour and size");
-            //    //return PartialView("~/Views/Shared/_ErrorTempData.cshtml", msg);
-            //}
-
             var cart =  this.GetCartItems(); ;
             var productsInCart = productProvider.GetCart(cart.Select(x => x.ProductStockId).ToList());
             productsInCart.ForEach(x =>
@@ -125,7 +129,8 @@ namespace OnlineShop.Controllers
                 x.ImageUrl = imageProvider.GetImages(x.ProductId).FirstOrDefault().Url;
             });
 
-            return PartialView("~/Views/Shared/_MiniCart.cshtml", productsInCart);
+            Cart();
+            //return PartialView("~/Views/Shared/_MiniCart.cshtml", productsInCart);
         }
 
         [HttpGet]
@@ -161,7 +166,7 @@ namespace OnlineShop.Controllers
                 x.Quantity = cart.Where(c=>c.ProductStockId==x.ProductStockId).ToList().Sum(v=>v.Quantity);
                 x.ImageUrl = imageProvider.GetImages(x.ProductId).FirstOrDefault().Url;
             });
-            
+
             return PartialView("~/Views/Shared/_MiniCart.cshtml", productsInCart);
         }
 
