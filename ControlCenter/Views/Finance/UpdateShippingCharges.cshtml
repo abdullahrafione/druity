@@ -1,0 +1,35 @@
+﻿@model ControlCenter.Models.Expense
+
+@{
+    ViewBag.Title = "UpdateShippingCharges";
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <h1 class="mr-2">Add Shipping Charges | Current Shipping Charges Set to Rs. @System.Configuration.ConfigurationManager.AppSettings["ShippingCharges"]</h1>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-title mb-3">Update Shipping</div>
+                        <form action="~/finance/UpdateShippingCharges" method="post">
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="name">Shipping Charges</label>
+                                    <input type="text" name="AccountHeadName" class="form-control">
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

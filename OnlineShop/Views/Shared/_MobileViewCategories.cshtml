@@ -1,0 +1,6 @@
+﻿@model List<OnlineShop.Models.ParentChildCategory>
+
+@foreach (var item in Model.FirstOrDefault().ParentCategories)
+{
+    <li><a href="~/product/shop?category=@item.CategoryId&&main=true">@item.CategoryName</a></li>
+}

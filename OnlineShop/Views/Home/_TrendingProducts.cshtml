@@ -1,0 +1,78 @@
+﻿@model OnlineShop.Models.LandingPage
+@{
+    var allProducts = Model.products.Products.Where(x => x.CategoryId == 55).ToList();
+    var smartHome = 54;
+}
+<div class="bg-light pt-5 pb-6">
+    <div class="container trending-products">
+        <div class="heading heading-flex mb-3">
+            <div class="heading-left">
+                <h2 class="title">Smart Home (Druity Special)</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-5col d-none d-xl-block">
+                <div class="banner">
+                    <a href="~/product/shop?category=@smartHome&&main=true">
+                        <img src="/Content/assets/images/demos/demo-4/banners/banner-4.jpg" alt="banner">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-xl-4-5col">
+                <div class="tab-content tab-content-carousel just-action-icons-sm">
+                    <div class="tab-pane p-0 fade show active" id="trending-top-tab" role="tabpanel" aria-labelledby="trending-top-link">
+                        <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                             data-owl-options='{
+                                            "nav": true,
+                                            "dots": false,
+                                            "margin": 20,
+                                            "loop": false,
+                                            "responsive": {
+                                                "0": {
+                                                    "items":2
+                                                },
+                                                "480": {
+                                                    "items":2
+                                                },
+                                                "768": {
+                                                    "items":3
+                                                },
+                                                "992": {
+                                                    "items":4
+                                                }
+                                            }
+                                        }'>
+
+                            @foreach (var item in allProducts)
+                            {
+                                <div class="product product-2">
+                                    <figure class="product-media">
+                                        <a href="~/product/detail/@item.ProductId">
+                                            <img src="@item.Image.FirstOrDefault().Url" alt="Product image" class="product-image">
+                                        </a>
+                                        @*<div class="product-action">
+                                            <a style="cursor:pointer" onclick="AddToCart(@item.ProductStock.FirstOrDefault().ProductStockId,1)" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a>
+                                        </div>*@
+                                    </figure>
+                                    <div class="product-body">
+                                        <div class="product-cat">
+                                            <a href="#">@item.CategoryName</a>
+                                        </div>
+                                        <h3 class="product-title"><a href="~/product/detail/@item.ProductId">@item.Name</a></h3>
+                                        <div class="product-price">
+                                            Rs. @item.ProductStock.FirstOrDefault().CurrentPrice
+                                        </div>
+                                        <a class="btn btn-primary btn-round" href="~/product/detail/@item.ProductId">Buy Now</a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mb-5"></div>

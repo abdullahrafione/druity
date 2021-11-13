@@ -1,0 +1,82 @@
+﻿@model OnlineShop.Models.ColorsSizes
+
+<input type="text" style="display:none" id="colortxt" value="0"/>
+<input type="text" style="display:none" id="sizetxt" value="0"/>
+
+<div class="details-filter-row details-row-size">
+    <label>Color:</label>
+
+    <div class="filter-colors" id="color">
+        @if (Model != null)
+        {
+            foreach (var item in Model.Colours)
+            {
+                <a class="" onclick="ColourChecked(@item.ColourId)" id="@("getcolourId"+item.ColourId)" style="border:solid;border-color:#a6c76c;border;border-style: double;background-color: @item.Code;cursor:pointer" title="@item.Name"><span class="sr-only">@item.Name</span></a>
+                <input type="text" id="@("setcolourId"+item.ColourId)" style="display:none"/>
+            }
+        }
+    </div>
+</div>
+<div class="details-filter-row details-row-size mb-md-1">
+    <label>Size:</label>
+
+    <div class="product-size"id="size">
+        @if (Model != null)
+        {
+            foreach (var item in Model.Sizes)
+            {
+                <a style="cursor:pointer" class="" id="@("sizeId"+item.SizeId)" onclick="SizeChecked(@item.SizeId)" title="Small">@item.Name</a>
+                <input type="text" style="display:none" id="@("sizeIdSet"+item.SizeId)" value="0"/>
+            }
+        }
+        @*<a href="#" title="Small">S</a>
+        <a href="#" title="Medium" class="active">M</a>
+        <a href="#" title="Large" class="disabled">L</a>
+        <a href="#" title="Extra Large">XL</a>*@
+    </div>
+
+    <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a>
+</div>
+<script>
+    function SizeChecked(sizeId) {
+        $('#size a.active').removeClass('active');
+
+        $('#size').find('input:text').each(function () {
+            $('input:text[id=' + $(this).attr('id') + ']').val('0');
+        }
+        );
+
+        var element = document.getElementById("sizeId" + sizeId);
+        element.classList.toggle("active");
+        if ($('#sizeId' + sizeId).hasClass("active")) {
+            $("#sizeIdSet" + sizeId).val(sizeId);
+          
+
+        }
+        else {
+            $("#sizeIdSet" + sizeId).val("0");
+        }
+        $("#sizetxt").val(sizeId);
+    }
+
+    function ColourChecked(colourId) {
+        $('#color a.selected').removeClass('selected');
+
+        $('#color').find('input:text').each(function () {
+            $('input:text[id=' + $(this).attr('id') + ']').val('0');
+        }
+        );
+
+        var element = document.getElementById("getcolourId" + colourId);
+        element.classList.toggle("selected");
+        if ($('#getcolourId' + colourId).hasClass('selected')) {
+            $("#setcolourId" + colourId).val(colourId)
+            
+        }
+        else {
+            $("#setcolourId" + colourId).val("0")
+        }
+        $("#colortxt").val(colourId)
+    }
+
+</script>

@@ -1,0 +1,68 @@
+﻿@model List<ControlCenter.Models.Expense>
+@{
+    ViewBag.Title = "GetExpenses";
+}
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <h1>Total Expenses <b>(Rs. @Model.Sum(x => x.Amount).ToString("##,##0"))</b></h1>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form action="~/finance/SearchByAccountHead" method="post">
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="AccountHeadId">Search by Account Head</label>
+                                    <select name="AccountHeadId" class="form-control">
+                                        @foreach (var item in Model)
+                                        {
+                                            <option value=@item.AccountHeadId> @item.AccountHeadName </option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-12 mb-4">
+                <div class="card text-left">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="display table table-striped table-bordered" id="zero_configuration_table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Account Head Name</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>Creation Time</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.AccountHeadName</td>
+                                            <td>@item.Description</td>
+                                            <td>@item.Amount.ToString("##,##0")</td>
+                                            <td>@item.CreatedOn.ToString("dd-MMM-yyyy")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

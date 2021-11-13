@@ -1,0 +1,132 @@
+﻿@model List<OnlineShop.Models.MiniCartModel>
+@{
+    decimal total = 0;
+    if (Model.Any())
+    {
+        Model.ForEach(x =>
+        {
+            total += x.Quantity * x.Price;
+        });
+    }
+}
+<div class="row">
+    <div class="col-lg-9">
+        <div id="cart">
+            <table class="table table-cart table-mobile">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var price = item.Price * item.Quantity;
+                        <tr>
+                            <td class="product-col">
+                                <div class="product">
+                                    <figure class="product-media">
+                                        <a href="~/product/detail/@item.ProductId">
+                                            <img src="@item.ImageUrl" alt="Product image">
+                                        </a>
+                                    </figure>
+
+                                    <h3 class="product-title">
+                                        <a href="~/product/detail/@item.ProductId">@item.ProductName</a> - @item.ColorName - @item.SizeName
+                                    </h3><!-- End .product-title -->
+                                </div><!-- End .product -->
+                            </td>
+                            <td class="price-col">@item.CurrencySymbol@item.Price</td>
+                            <td class="quantity-col">
+                                <div class="cart-product-quantity">
+                                    <input type="number" value="@item.ProductStockId" style="display:none" />
+                                    <input type="number" class="form-control" min="1" value="@item.Quantity" />
+                                </div><!-- End .cart-product-quantity -->
+                            </td>
+                            <td class="total-col">@item.CurrencySymbol@price</td>
+                            <td class="remove-col"><a href="~/shoppingcart/DeleteFromMainCart?productStockId=@item.ProductStockId" class="btn-remove"><i class="icon-close"></i></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="cart-bottom">
+
+            <a style="cursor:pointer" onclick="UpdateCart()" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i class="icon-refresh"></i></a>
+        </div>
+    </div>
+    <aside class="col-lg-3">
+        @if (Model.Any())
+        {
+            <div class="summary summary-cart">
+
+                <h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
+
+                <table class="table table-summary">
+                    <tbody>
+                        <tr class="summary-subtotal">
+                            <td>Subtotal:</td>
+                            <td>@Model.FirstOrDefault().CurrencySymbol@total</td>
+                        </tr><!-- End .summary-subtotal -->
+
+
+
+                        <tr class="summary-total">
+                            <td>Total:</td>
+                            <td>@Model.FirstOrDefault().CurrencySymbol@total</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="~/order/checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+            </div>
+        }
+        <a href="~/product/shop" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
+    </aside>
+</div>
+<script>
+    function DeleteFromCart(productStockId) {
+        $.ajax({
+            type: "Get",
+            url: "/shoppingcart/DeleteFromMainCart",
+            data: {
+                "productStockId": productStockId,
+            },
+            success: function () {
+                window.location.reload(true);
+            },
+            error: function () {
+                alert("error");
+            }
+        })
+    }
+
+    function UpdateCart() {
+        var count = 0;
+        var cart = "";
+        $('#cart input[type=number]').each(function () {
+            count = count + 1;
+            if (count % 2 == 0) {
+                cart += $(this).val() + "#";
+            }
+            else {
+                cart += $(this).val() + ",";
+            }
+        });
+
+
+        $.ajax({
+            type: "Get",
+            url: "/shoppingcart/Updatecart",
+            data: { "cart": cart },
+            success: function () {
+                window.location.reload(true);
+            }
+        })
+    }
+
+</script>

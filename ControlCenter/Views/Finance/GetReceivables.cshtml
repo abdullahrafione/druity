@@ -1,0 +1,60 @@
+﻿@model List<ControlCenter.Models.InvoiceModel>
+@{
+    ViewBag.Title = "GetReceivables";
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <h1>Total Receivable Amount <b>(Rs. @Model.Sum(x => x.OrderTotal).ToString("##,##0"))</b></h1>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row mb-4">
+            <div class="col-md-12 mb-4">
+                <div class="card text-left">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="display table table-striped table-bordered" id="zero_configuration_table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Invoice Id</th>
+                                        <th>Order Id</th>
+                                        <th>Order Total</th>
+                                        <th>Shipping Fee</th>
+                                        <th>Grand Total</th>
+                                        <th>Payment Status</th>
+                                        <th>Invoice</th>
+                                        <th>Adjust Invoice</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                    <tr>
+                                        <td>@item.InvoiceId</td>
+                                        <td>@item.OrderId</td>
+                                        <td>@item.OrderTotal.ToString("##,##0")</td>
+                                        <td>@item.ShippingFee.ToString("##,##0")</td>
+                                        <td>@item.GrandTotal.ToString("##,##0")</td>
+                                        <td>@item.PaymentStatus</td>
+                                        <td class="text-left" style="">
+                                            <a href="@Url.Action("GetInvoice", "Finance", new {orderId = item.OrderId} )">View</a>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("InvoiceStatus","Finance", new {invoiceId =  item.InvoiceId })">
+                                                Click to Receive
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

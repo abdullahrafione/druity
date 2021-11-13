@@ -1,0 +1,63 @@
+﻿@using OnlineShop.Enums
+
+@{
+    string containerClass = string.Empty;
+    string iconClass = string.Empty;
+
+    // Read the message and type from TempData
+    string message = (string)(TempData[StateConstants.TempDataMessageKey] ?? string.Empty);
+    MessageType messageType = (MessageType)(TempData[StateConstants.TempDataMessageTypeKey] ?? MessageType.Information);
+
+    switch (messageType)
+    {
+        case MessageType.Confirmation:
+            containerClass = "alert-success";
+            iconClass = "fa fa-check";
+            break;
+
+        case MessageType.Information:
+            containerClass = "alert-info";
+            iconClass = "fa fa-info";
+            break;
+
+        case MessageType.Warning:
+            containerClass = "alert-warning";
+            iconClass = "fa fa-warning";
+            break;
+
+        case MessageType.Error:
+            containerClass = "alert-danger";
+            iconClass = "icon fa fa-ban";
+            break;
+
+        case MessageType.Alert:
+            containerClass = "alert-Alert";
+            iconClass = "icon fa fa-ban";
+            break;
+    }
+
+}
+<style>
+    #messageregister:hover {
+        pointer-events: none !important;
+        color: #000 !important
+    }
+
+    .alert-Alert {
+        background-color: #FF9614;
+    }
+</style>
+@if (!string.IsNullOrEmpty(message))
+{
+    <div style="text-align:center" class="alert @containerClass alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>
+            <i style="color:black" class="icon @iconClass"></i>
+            <a id="messageregister" class="text-dark">@Html.Raw(message)</a>
+        </span>
+    </div>
+
+    // Clear temp data to prevent duplicate messages being displayed.
+    TempData[StateConstants.TempDataMessageKey] = null;
+    TempData[StateConstants.TempDataMessageTypeKey] = null;
+}

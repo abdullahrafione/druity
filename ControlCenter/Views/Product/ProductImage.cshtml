@@ -1,0 +1,31 @@
+﻿@model DataAccess.Domain.Image
+@{
+    ViewBag.Title = "UpdateProductImage";
+    var productId = TempData["ProductId"];
+}
+
+<div class="main-content">
+    <h1>Update Image</h1>
+    <div class="separator-breadcrumb border-top"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body" style="margin-left: 230px;">
+                    <h4 class="card-title">Image width must be 500px and height must be 600px</h4>
+                    @using (Html.BeginForm("SaveImage", "product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input type="number" value="@productId" style="display:none" name="ProductId">
+                        <div class="form-group">
+                            <input type="file" onchange="readURL(this)" required name="file" class="form-control" id="file" aria-describedby="inputGroupPrepend2">
+                        </div>
+                        <div id="errormessage"></div>
+                        <div class="form-group m-lg-1">
+                            <button type="submit" class="btn btn-primary btn-form">Save</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

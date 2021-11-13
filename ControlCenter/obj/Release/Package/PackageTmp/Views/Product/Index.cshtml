@@ -1,0 +1,52 @@
+﻿@model List<ControlCenter.Models.Product>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <h1>All Products</h1>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row mb-4">
+            <div class="col-md-12 mb-4">
+                <div class="card text-left">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="display table table-striped table-bordered" id="zero_configuration_table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Detail</th>
+                                        <th>Category</th>
+                                        <th>Created On</th>
+                                        <th>Click to Edit</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.Detail</td>
+                                        <td>@item.CategoryId</td>
+                                        <td>@item.CreatedOn</td>
+                                        <td class="text-left" style="">
+                                            <a href="@Url.Action("EditProduct","Product", new {productId = item.productId})">Product</a> |
+                                            <a href="#">Stock</a> |
+                                            <a href="#">Images</a>
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

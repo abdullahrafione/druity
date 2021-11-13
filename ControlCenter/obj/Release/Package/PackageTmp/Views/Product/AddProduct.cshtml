@@ -1,0 +1,58 @@
+﻿@model ControlCenter.Models.Product
+
+@{
+    ViewBag.Title = "AddProduct";
+    var categories = (List<ControlCenter.Models.Category>)TempData["categories"];
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <h1 class="mr-2">Add New Product</h1>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-title mb-3">Add Product</div>
+                        <form action="~/product/AddProduct" method="post">
+                            <div class="row">
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="Category">Category</label>
+                                    <select name="CategoryId" class="form-control">
+                                        @foreach (var item in categories)
+                                        {
+                                            <option value=@item.CategoryId> @item.CategoryName </option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="name">Name</label>
+                                    <input type="text" name="Name" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="name">Short Description</label>
+                                    <input type="text" name="shortDescription" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="name">Detail</label>
+                                    <textarea class="form-control" name="Detail"></textarea>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

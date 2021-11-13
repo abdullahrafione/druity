@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="facebook-domain-verification" content="jn3cu3lcf0t9fbujshb599pi1lt5xh" />
+    <title>Druity - Pakistan's Best Online Shopping Center</title>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="~/Content/assets/images/icons/site.html">
+    <link rel="mask-icon" href="~/Content/assets/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="~/Content/assets/images/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Druity">
+    <meta name="application-name" content="Druity">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="~/Content/assets/images/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="~/Content/assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="~/Content/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/assets/css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="~/Content/assets/css/plugins/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="~/Content/assets/css/plugins/jquery.countdown.css">
+
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <link rel="stylesheet" href="~/Content/assets/css/skins/skin-demo-4.css">
+    <link rel="stylesheet" href="~/Content/assets/css/demos/demo-4.css">
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '146004400864207');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+             src="https://www.facebook.com/tr?id=146004400864207&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+
+
+    <style>
+        .float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+        }
+
+        .my-float {
+            margin-top: 16px;
+        }
+    </style>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-189314419-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-189314419-1');
+    </script>
+
+</head>
+
+<body>
+    <div class="page-wrapper">
+        @Html.Partial("_Header")
+        @RenderBody()
+        @Html.Partial("_Footer")
+    </div>
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+    <a href="https://api.whatsapp.com/send?phone=+923248454279" class="float" target="_blank">
+        <i class="fa fa-whatsapp my-float"></i>
+    </a>
+
+    @Html.Partial("_MobileMenu")
+
+    @*@Html.Partial("_SigninRegister")*@
+    @Scripts.Render("~/Content/assets")
+    <!-- Plugins JS File -->
+    <script src="~/content/assets/js/jquery.min.js"></script>
+    <script src="~/content/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/content/assets/js/jquery.hoverintent.min.js"></script>
+    <script src="~/content/assets/js/jquery.waypoints.min.js"></script>
+    <script src="~/content/assets/js/superfish.min.js"></script>
+    <script src="~/content/assets/js/owl.carousel.min.js"></script>
+    <script src="~/content/assets/js/bootstrap-input-spinner.js"></script>
+    <script src="~/content/assets/js/jquery.elevatezoom.min.js"></script>
+    <script src="~/content/assets/js/jquery.plugin.min.js"></script>
+    <script src="~/content/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/content/assets/js/jquery.countdown.min.js"></script>
+    <script src="~/content/assets/js/main.js"></script>
+    <script src="~/content/assets/js/demos/demo-4.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
+
+
+
+
+    <script>
+        $body = $("body");
+        $(document).on({
+            ajaxStart: function () { $body.addClass("loading"); },
+            ajaxStop: function () { $body.removeClass("loading"); }
+        });
+    </script>
+</body>
+</html>

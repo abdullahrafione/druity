@@ -1,0 +1,54 @@
+﻿@model List<OnlineShop.Models.OrderHistory>
+<div class="products">
+
+
+</div>
+
+@if (!Model.Any()) { }
+else
+{
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                var price = item.Quantity * item.UnitPrice;
+                <div class="col-6 col-md-4 col-lg-4 col-xl-3">
+                    <div class="product">
+                        <figure class="product-media">
+                            <span class="product-label label-new">Status : @item.Status </span>
+                            <a href="~/product/detail/@item.ProductId">
+                                <img src="@item.ImageUrl" alt="Product image" class="product-image">
+                            </a>
+
+
+                        </figure><!-- End .product-media -->
+
+                        <div class="product-body">
+                            <div class="product-cat">
+                                <a href="#">@item.CreationDate</a>
+                            </div><!-- End .product-cat -->
+                            <h3 class="product-title"><a href="~/product/detail/@item.ProductId">@item.ProductName</a></h3><!-- End .product-title -->
+                            <div class="product-price">
+                                @item.CurrencySymbol @item.UnitPrice X @item.Quantity = @item.CurrencySymbol @price
+                            </div><!-- End .product-price -->
+                            <div class="ratings-container">
+
+                                <span>
+                                    <p>@item.SizeName</p>
+                                </span>&nbsp; &nbsp;
+                                <span> @item.ColorName</span>
+                            </div><!-- End .rating-container -->
+
+                            <div class="product-nav product-nav-dots">
+
+                            </div><!-- End .product-nav -->
+                        </div><!-- End .product-body -->
+                    </div><!-- End .product -->
+                </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
+            }
+        </div>
+        }
+
+
+
+

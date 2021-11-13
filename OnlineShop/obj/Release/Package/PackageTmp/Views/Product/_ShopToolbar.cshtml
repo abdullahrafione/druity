@@ -1,0 +1,32 @@
+﻿<div class="toolbox">
+    <div class="toolbox-left">
+        <div class="toolbox-info">
+            Showing <span>9 of 56</span> Products
+        </div><!-- End .toolbox-info -->
+    </div><!-- End .toolbox-left -->
+
+    <div class="toolbox-right">
+
+        <div class="toolbox-sort">
+
+            <label for="sortby">Sort by:</label>
+            <div id="gender">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "Get",
+            url: "/Product/Getgendertags",
+            success: function (data) {
+                $('#gender').html(data);
+            }
+        })
+    });
+
+   
+</script>

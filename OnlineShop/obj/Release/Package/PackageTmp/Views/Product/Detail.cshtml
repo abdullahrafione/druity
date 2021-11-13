@@ -1,0 +1,223 @@
+﻿@model OnlineShop.Models.Product
+
+@{
+    string error = (string)TempData["Error"];
+}
+<input type="text" value="@Model.ProductId" id="productId" style="display:none" />
+<main class="main">
+    <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+        <div class="container d-flex align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+            </ol>
+        </div>
+    </nav><br />
+    <div class="page-content">
+        <div class="container">
+            <div class="product-details-top">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="product-gallery product-gallery-vertical">
+                            <div class="row">
+                                <figure class="product-main-image">
+                                    <img id="product-zoom" src="@Model.Image.FirstOrDefault().Url" data-zoom-image="@Model.Image.FirstOrDefault().Url" alt="product image">
+                                    <a href="#" id="btn-product-gallery" class="btn-product-gallery">
+                                        <i class="icon-arrows"></i>
+                                    </a>
+                                </figure><!-- End .product-main-image -->
+                                <div id="product-zoom-gallery" class="product-image-gallery">
+                                    @foreach (var item in Model.Image)
+                                    {
+                                        <a class="product-gallery-item active" href="#" data-image="@item.Url" data-zoom-image="@item.Url">
+                                            <img src="@item.Url" alt="product side">
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        @*@if (error != null)
+                    {
+                        @Html.Partial("~/Views/Shared/_ErrorTempData.cshtml", error);
+                    }*@
+                        <div id="msg">
+
+                        </div>
+                        <div class="product-details">
+                            <h1 class="product-title" style="font-size:xx-large">@Model.Name</h1>
+                            <div class="ratings-container">
+                            </div>
+                            @if (Model.ProductStock.FirstOrDefault().OldProductPrice != "0")
+                            {
+                                <div class="product-price">
+                                    <span class="new-price" style="color:black">@Model.ProductStock.FirstOrDefault().CurrencySymbol @Model.ProductStock.FirstOrDefault().ProductPrice</span>
+                                    <span class="intro-old-price" style="color:red">@Model.ProductStock.FirstOrDefault().CurrencySymbol @Model.ProductStock.FirstOrDefault().OldProductPrice</span>
+                                </div>
+
+                                if (Model.ProductStock.FirstOrDefault().StockCount == 0)
+                                {
+                                    <span class="new-price" style="font-style:normal">Out of Stock</span>
+
+                                }
+                                else
+                                {
+                                    if (Model.ProductStock.FirstOrDefault().Discount != 0)
+                                    {
+                                        <span style="font-size:large;color:red; font-family:Arial;border:double">@Model.ProductStock.FirstOrDefault().Discount% OFF</span>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <div class="product-price" style="color:black">
+                                    @Model.ProductStock.FirstOrDefault().CurrencySymbol @Model.ProductStock.FirstOrDefault().ProductPrice
+                                </div>
+                            }
+                            <div class="product-content">
+                                <p style="font-size:large">@Model.ShortDescription</p>
+                            </div>
+                            <div id="colorSize">
+                                @*@Html.Partial("~/Views/Product/_DetailSizeColorActions.cshtml", new OnlineShop.Models.ColorsSizes())*@
+                            </div>
+                            <div class="details-filter-row details-row-size">
+                                <label for="qty">Qty:</label>
+                                <div class="product-details-quantity">
+                                    <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required="">
+                                </div>
+                            </div>
+
+                            @if (Model.ProductStock.FirstOrDefault().StockCount != 0)
+                            {
+                                <div class="product-details-action">
+                                    <a style="cursor:pointer;color:white" onclick="AddToCartFromDetail()" class="btn btn-primary"><span>Add to cart</span></a>
+                                </div>
+                            }
+                            <div class="product-details-footer">
+                                <div class="product-cat">
+                                    <span>Category:</span>
+                                    <a href="#">@Model.CategoryName</a>,
+                                </div>
+                                <div class="social-icons social-icons-sm">
+                                    <span class="social-label">Share:</span>
+                                    <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                                    <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                                    <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                                    <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-details-tab">
+                <ul class="nav nav-pills justify-content-center" role="tablist">
+                    <li class="nav-item">
+                        @*<a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Details</a>*@
+                        <a style="font-size:xx-large; color:blue" >Details</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
+                        <div class="product-desc-content">
+                            <p style="font-size:medium; font-family:Arial; color:dimgray">@Model.Detail</p>
+                        </div><!-- End .product-desc-content -->
+                    </div><!-- .End .tab-pane -->
+                </div><!-- End .tab-content -->
+                @if (Model.ProductId == 293)
+                {
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe width="853" height="480" src="https://www.youtube.com/embed/xTRu4VZRrC8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+            }
+
+            </div>
+    </div>
+</main>
+
+<script>
+    $(document).ready(function () {
+        var productId = $("#productId").val();
+
+        $.ajax({
+            type: "Get",
+            url: "/Product/GetSizesColours",
+            data: {
+                "productId": productId,
+            },
+            success: function (data) {
+                $('#colorSize').html(data);
+            }
+        })
+    });
+
+    function AddToCartFromDetail() {
+        var ProductId = $("#productId").val();
+        var Quantity = $("#qty").val();
+        $.ajax({
+            type: "Get",
+            url: "/shoppingcart/AddTocartFromDetail",
+            data: {
+                "ProductId": ProductId,
+                "Quantity": Quantity
+            }, success: function () {
+                location.reload(true);
+                window.location.replace("@Url.Action("Cart","shoppingcart")");
+            }, error: function () {
+                alert("Product is out of stock");
+            }
+        })
+    }
+
+</script>
+
+
+
+
+@*<script>
+        $(document).ready(function () {
+            var productId = $("#productId").val();
+
+            $.ajax({
+                type: "Get",
+                url: "/Product/GetSizesColours",
+                data: {
+                    "productId": productId,
+                },
+                success: function (data) {
+                    $('#colorSize').html(data);
+                }
+            })
+        });
+
+        function AddToCartFromDetail() {
+            var ProductId = $("#productId").val();
+            var SizeId = $("#sizetxt").val();
+            var ColorId = $("#colortxt").val();
+            var Quantity = $("#qty").val();
+            if (SizeId == 0) {
+                alert("Select Size")
+            }
+            if (ColorId == 0) {
+                alert("Select Color")
+            }
+            else if (ColorId > 0 && SizeId > 0) {
+                $.ajax({
+                    type: "Get",
+                    url: "/shoppingcart/AddTocartFromDetail",
+                    data: {
+                        "ProductId": ProductId,
+                        "SizeId": SizeId,
+                        "ColorId": ColorId,
+                        "Quantity": Quantity
+                    }, success: function () {
+                        location.reload(true);
+                    }, error: function () {
+                        alert("product is out of stock with selected color and size");
+                    }
+                })
+            }
+        }
+
+    </script>*@

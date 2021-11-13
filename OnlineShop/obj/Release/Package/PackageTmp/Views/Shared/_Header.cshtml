@@ -1,0 +1,158 @@
+﻿@using OnlineShop.Entension;
+@{
+    var user = (OnlineShop.Models.User)Session[OnlineShop.CommonConstants.Constants.User];
+}
+<header class="header header-intro-clearance header-4">
+
+    <!-- Header Top Starts Here -->
+    <div class="header-top">
+        <div class="container">
+            <div class="header-left">
+                <a href="tel:#"><i class="icon-shopping-cart"></i>Shop over 1000+ Products</a>
+            </div>
+            <div class="header-right">
+                <ul class="top-menu">
+                    <li>
+                        <a href="#">Login / Register</a>
+                        <ul>
+                            <li>
+                                <div class="">
+                                    <a>@Html.GetCurrentUserName()</a>
+                                </div>
+                            </li>
+                            @if (user != null)
+                            {
+                                <li><a href="~/account/signout">Logout</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="~/account/signin">Login</a></li>
+                                <li><a href="~/account/register">Register</a></li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Header Top Ends Here -->
+    <!--Header Middle Starts Here-->
+    <div class="header-middle">
+        <div class="container">
+            <div class="header-left">
+                <button class="mobile-menu-toggler">
+                    <span class="sr-only">Toggle mobile menu</span>
+                    <i class="icon-bars"></i>
+                </button>
+
+                <a href="~/home/index" class="logo">
+                    <img src="~/Content/Icons/logonew.png" alt="Druity Logo" width="180" height="25">
+                </a>
+            </div><!-- End .header-left -->
+            <!--Starting Search Suggestions-->
+            @*<div class="form-group">
+            SEARCH:
+            @Html.TextBox("searchTerm", null, new { id = "txtSearch", Class = "autosuggest" })
+        </div>*@
+
+
+            <div class="header-center">
+                <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
+                    <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                    <form action="~/product/Shop" method="get">
+                        <div class="header-search-wrapper search-wrapper-wide">
+                            <label for="q" class="sr-only">Search</label>
+                            <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+                            @*@Html.TextBox("searchTerm", null, new { id = "txtSearch", Class = "form-control" })*@
+                            <input type="search" class="form-control" name="searchtext" id="searchtext" placeholder="Search product ..." required>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="">
+                    @if (user != null && user.Role == OnlineShop.CommonConstants.Constants.AdminRole)
+                    {
+                        <div class="account">
+                            <a href="~/admin/dashboard" title="My account">
+                                <div class="icon">
+                                    <i class="icon-user"></i>
+                                </div>
+                                <p>Account</p>
+                            </a>
+                        </div>
+                    }
+                    @if (user != null && user.Role == OnlineShop.CommonConstants.Constants.BuyerRole)
+                    {
+                        <div class="account">
+                            <a href="~/order/purchasehistory" title="My account">
+                                <div class="icon">
+                                    <i class="icon-user"></i>
+                                </div>
+                                <p>Account</p>
+                            </a>
+                        </div>
+                    }
+                </div>
+
+                <div id="minicartsection">
+                    @Html.Partial("~/Views/Shared/_MiniCart.cshtml", new List<OnlineShop.Models.MiniCartModel>())
+                </div>
+            </div>
+
+            <!-- End .header-right -->
+        </div><!-- End .container -->
+    </div>
+    <!--Header Middle Ends Here-->
+
+        <!--Categories Menu Starts Here-->
+        <div class="header-bottom sticky-header">
+            <div id="parentCategories">
+                @Html.Partial("~/Views/Shared/_StickyCategoriesMenu.cshtml", new List<OnlineShop.Models.ParentChildCategory>())
+            </div>
+        </div>
+        <!--Categories Menu Ends Here-->
+        @*<div class="header-bottom sticky-header">
+                <div id="categoriesMenu">
+                    @Html.Partial("~/Views/Shared/_StickyHeaderMenu.cshtml", new List<OnlineShop.Models.ParentChildCategory>())
+                </div>
+            </div>*@
+
+</header>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "Get",
+            url: "/Product/Categories",
+            success: function (data) {
+                $('#parentCategories').html(data);
+            }
+        })
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "Get",
+            url: "/shoppingcart/GetCart",
+            success: function (data) {
+                $('#minicartsection').html(data);
+            }
+        })
+    });
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $("#searchtext").autocomplete({
+
+            source: '@Url.Action("GetCustomers", "Product")',
+
+            minLength: 1
+
+        });
+    });
+
+</script>

@@ -1,0 +1,78 @@
+﻿@model OnlineShop.Models.LandingPage
+
+@{
+    int Accessories_Id = Model.parentCategories.Where(x => x.CategoryName.ToLower() == "Accessories".ToLower()).FirstOrDefault().CategoryId;
+    int Leather_Products_Id = Model.parentCategories.Where(x => x.CategoryName.ToLower() == "Leather Products".ToLower()).FirstOrDefault().CategoryId;
+
+    var Accessories = Model.products.Products.Where(x => x.CategoryId == Accessories_Id || x.ParentCategoryId == Accessories_Id).Take(5).ToList();
+    var Leather_products = Model.products.Products.Where(x => x.CategoryId == Leather_Products_Id || x.ParentCategoryId == Leather_Products_Id).Take(5).ToList();
+
+    var allProducts = Model.products.Products.Where(x => x.CategoryId == Accessories_Id || x.ParentCategoryId == Accessories_Id).ToList().Take(8);
+}
+<div class="container for-you">
+    <div class="heading heading-flex mb-3">
+        <div class="heading-left">
+            <h2 class="title">Accessories For You</h2>
+        </div>
+        <div class="heading-right">
+            <a href="~/product/shop?category=18" class="title-link">View All <i class="icon-long-arrow-right"></i></a>
+        </div>
+    </div>
+
+    <div class="products">
+        <div class="row justify-content-center">
+            @foreach (var item in allProducts)
+            {
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="product product-2">
+                        <figure class="product-media">
+                            @if (item.ProductStock.FirstOrDefault().StockCount == 0)
+                            {
+                                <span class="product-label label-sale">Out Of Stock</span>
+                            }
+                            else
+                            {
+                                if (item.ProductStock.FirstOrDefault().Discount != 0)
+                                {
+                                    <span class="product-label label-sale">@item.ProductStock.FirstOrDefault().Discount% OFF</span>
+                                }
+                            }
+                            <a href="~/product/detail/@item.ProductId">
+                                <img src="@item.Image.FirstOrDefault().Url" id="@("set"+item.ProductId)" alt="Product image" class="product-image">
+                            </a>
+                            @if (item.ProductStock.FirstOrDefault().StockCount != 0)
+                            {
+                                <div class="product-action">
+                                    <a style="cursor:pointer" onclick="AddToCart(@item.ProductStock.FirstOrDefault().ProductStockId,1)" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a>
+                                </div>
+                            }
+                            </figure>
+
+                        <div class="product-body">
+                            <div class="product-cat">
+                                <a href="#">@item.CategoryName</a>
+                            </div><!-- End .product-cat -->
+                            <h3 class="product-title"><a href="~/product/detail/@item.ProductId">@item.Name</a></h3>
+
+                            @if (item.ProductStock.FirstOrDefault().OldProductPrice != "0")
+                            {
+                                <div class="product-price">
+                                    <span class="new-price" style="color:black">@item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().ProductPrice</span>
+                                    <span class="intro-old-price" style="color:red">@item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().OldProductPrice</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="product-price">
+                                    <span class="new-price">@item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().ProductPrice</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            </div>
+    </div>
+</div>
+
+<div class="mb-4"></div>

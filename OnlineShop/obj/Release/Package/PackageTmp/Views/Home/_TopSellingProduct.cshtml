@@ -1,0 +1,233 @@
+﻿@model OnlineShop.Models.LandingPage
+
+@{
+
+    int Accessories_Id = Model.parentCategories.Where(x => x.CategoryName.ToLower() == "Accessories".ToLower()).FirstOrDefault().CategoryId;
+    int Leather_Products_Id = Model.parentCategories.Where(x => x.CategoryName.ToLower() == "Leather Products".ToLower()).FirstOrDefault().CategoryId;
+    int Packed_Foods_Id = Model.parentCategories.Where(x => x.CategoryName.ToLower() == "Packed Foods".ToLower()).FirstOrDefault().CategoryId;
+
+    var Accessories = Model.products.Products.Where(x => x.CategoryId == Accessories_Id || x.ParentCategoryId == Accessories_Id).Take(5).ToList();
+    var Leather_products = Model.products.Products.Where(x => x.CategoryId == Leather_Products_Id || x.ParentCategoryId == Leather_Products_Id).Take(5).ToList();
+    var Packed_Foods = Model.products.Products.Where(x => x.CategoryId == Packed_Foods_Id || x.ParentCategoryId == Packed_Foods_Id).Take(5).ToList();
+
+    var allProducts = Model.products.Products.Where(x => x.CategoryId == Packed_Foods_Id || x.ParentCategoryId == Packed_Foods_Id).ToList();
+}
+
+<div class="container">
+    <div class="heading heading-center mb-3">
+        <h2 class="title">Dry Fruits</h2><!-- End .title -->
+        @*<ul class="nav nav-pills nav-border-anim justify-content-center" role="tablist">
+
+            @foreach (var item in Model.parentCategories)
+            {
+                string active = item.CategoryName == "All" ? "active" : "";
+
+                string id = item.CategoryId + "_" + item.CategoryName.Replace(" ", "_");
+                <li class="nav-item">
+                    <a class="nav-link @active" id="@id" data-toggle="tab" href="#@item.CategoryName.Replace(" ","_")" role="tab" aria-controls="@item.CategoryName.Replace(" ","_")" aria-selected="true">@item.CategoryName</a>
+                </li>
+            }
+
+        </ul>*@
+    </div><!-- End .heading -->
+    <div class="tab-content">
+        <div class="tab-pane p-0 fade show active" id="All" role="tabpanel" aria-labelledby="-1_All">
+            <div class="products">
+                <div class="row justify-content-center">
+
+
+                    @foreach (var item in allProducts)
+                    {
+                        <div class="col-6 col-md-4 col-lg-3 col-xl-5col">
+                            <div class="product product-7 text-center">
+                                <figure class="product-media">
+                                    @if (item.ProductStock.FirstOrDefault().StockCount == 0)
+                                    {
+                                        <span class="product-label label-sale" style="font-style:normal">Out of Stock</span>
+
+                                    }
+                                    else
+                                    {
+                                        if (item.ProductStock.FirstOrDefault().Discount != 0)
+                                        {
+                                            <span class="product-label label-sale" style="font-style:normal">@item.ProductStock.FirstOrDefault().Discount% OFF</span>
+                                        }
+                                    }
+
+                                    <a href="~/product/detail/@item.ProductId">
+                                        <img src="@item.Image.FirstOrDefault().Url" id="@("set"+item.ProductId)" alt="Product image" class="product-image">
+                                    </a>
+                                    @if (item.ProductStock.FirstOrDefault().StockCount != 0)
+                                    {
+                                        <div class="product-action">
+                                            <a style="cursor:pointer" onclick="AddToCart(@item.ProductStock.FirstOrDefault().ProductStockId,1)" class="btn-product btn-cart"><span>add to cart</span></a>
+                                        </div><!-- End .product-action -->
+                                    }
+                                </figure><!-- End .product-media -->
+
+                                <div class="product-body">
+                                    <div class="product-cat">
+                                        <a href="#">@item.CategoryName</a>
+                                    </div><!-- End .product-cat -->
+                                    <h3 class="product-title"><a href="~/product/detail/@item.ProductId">@item.Name</a></h3><!-- End .product-title -->
+
+                                    @if (item.ProductStock.FirstOrDefault().OldProductPrice != "0")
+                                    {
+                                        <div class="product-price">
+                                            <span class="new-price" style="color:black">@item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().ProductPrice</span>
+                                            <span class="old-price" style="color:red">@item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().OldProductPrice</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="product-price" style="color:black">
+                                            @item.ProductStock.FirstOrDefault().CurrencySymbol @item.ProductStock.FirstOrDefault().ProductPrice
+                                        </div>
+                                    }
+
+                                    <div class="product-nav product-nav-dots">
+                                        @{
+                                            var dis = item.ProductStock.GroupBy(w => w.ColourName).Select(g => g.First()).ToList();
+                                        }
+                                        @foreach (var stock in dis)
+                                        {
+                                            <a href="#" class="active" title="@stock.ColourName" style="background: @stock.ColourCode;"><span class="sr-only">@stock.ColourName</span></a>
+                                        }
+                                    </div>
+
+                                    <div class="product-nav product-nav-thumbs">
+
+                                        @if (item.Image.Any())
+                                        {
+                                            foreach (var img in item.Image.Where(x => x.IsPrimary == false).ToList())
+                                            {
+                                                <a onclick="SelectImage('@item.ProductId','@img.Url')">
+                                                    <img src="@img.Url" alt="product desc">
+                                                </a>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
+
+                    }
+                </div><!-- End .row -->
+            </div><!-- End .products -->
+        </div><!-- .End .tab-pane -->
+
+        <div class="tab-pane p-0 fade" id="Apparel" role="tabpanel" aria-labelledby="8_Apparel">
+            <div class="products">
+                <div class="row justify-content-center">
+
+                    @foreach (var item in Accessories)
+                    {
+                        <div class="col-6 col-md-4 col-lg-3 col-xl-5col">
+                            <div class="product product-11 text-center">
+                                <figure class="product-media">
+                                    <a href="@Url.Action("detail","product",new {id = item.ProductId })">
+                                        <img src="@item.Image.FirstOrDefault().Url" alt="Product image" class="product-image">
+                                    </a>
+                                    @*<div class="product-action-vertical">
+                                            <a href="#" class="btn-product-icon btn-wishlist "><span>add to wishlist</span></a>
+                                        </div>*@<!-- End .product-action-vertical -->
+                                </figure><!-- End .product-media -->
+                                <div class="product-body">
+                                    <div class="product-cat">
+                                        <a href="#">@item.CategoryName</a>
+                                    </div><!-- End .product-cat -->
+                                    <h3 class="product-title"><a href="@Url.Action("detail","product",new {id = item.ProductId })">@item.Name</a></h3><!-- End .product-title -->
+                                    <div class="product-price">
+                                        @item.ProductStock.FirstOrDefault().CurrentPrice @item.ProductStock.FirstOrDefault().CurrencySymbol
+                                    </div><!-- End .product-price -->
+                                </div><!-- End .product-body -->
+                                @*<div class="product-action">
+                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                    </div>*@<!-- End .product-action -->
+                            </div><!-- End .product -->
+                        </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
+
+                    }
+
+                </div><!-- End .row -->
+            </div><!-- End .products -->
+        </div><!-- .End .tab-pane -->
+
+        <div class="tab-pane p-0 fade" id="Boxing_Gear" role="tabpanel" aria-labelledby="4_Boxing_Gear">
+            <div class="products">
+                <div class="row justify-content-center">
+
+                    @foreach (var item in Leather_products)
+                    {
+                        <div class="col-6 col-md-4 col-lg-3 col-xl-5col">
+                            <div class="product product-11 text-center">
+                                <figure class="product-media">
+                                    <a href="@Url.Action("detail","product",new {id = item.ProductId })">
+                                        <img src="@item.Image.FirstOrDefault().Url" alt="Product image" class="product-image">
+                                    </a>
+                                    @*<div class="product-action-vertical">
+                                            <a href="#" class="btn-product-icon btn-wishlist "><span>add to wishlist</span></a>
+                                        </div>*@<!-- End .product-action-vertical -->
+                                </figure><!-- End .product-media -->
+                                <div class="product-body">
+                                    <div class="product-cat">
+                                        <a href="#">@item.CategoryName</a>
+                                    </div><!-- End .product-cat -->
+                                    <h3 class="product-title"><a href="@Url.Action("detail","product",new {id = item.ProductId })">@item.Name</a></h3><!-- End .product-title -->
+                                    <div class="product-price">
+                                        @item.ProductStock.FirstOrDefault().CurrentPrice @item.ProductStock.FirstOrDefault().CurrencySymbol
+                                    </div><!-- End .product-price -->
+                                </div><!-- End .product-body -->
+                                @*<div class="product-action">
+                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                    </div>*@<!-- End .product-action -->
+                            </div><!-- End .product -->
+                        </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
+
+                    }
+
+                </div><!-- End .row -->
+            </div><!-- End .products -->
+        </div><!-- .End .tab-pane -->
+
+        <div class="tab-pane p-0 fade" id="Fitness" role="tabpanel" aria-labelledby="13_Fitness">
+            <div class="products">
+                <div class="row justify-content-center">
+
+                    @foreach (var item in Packed_Foods)
+                    {
+                        <div class="col-6 col-md-4 col-lg-3 col-xl-5col">
+                            <div class="product product-11 text-center">
+                                <figure class="product-media">
+                                    <a href="@Url.Action("detail","product",new {id = item.ProductId })">
+                                        <img src="@item.Image.FirstOrDefault().Url" alt="Product image" class="product-image">
+                                    </a>
+                                    @*<div class="product-action-vertical">
+                                            <a href="#" class="btn-product-icon btn-wishlist "><span>add to wishlist</span></a>
+                                        </div>*@<!-- End .product-action-vertical -->
+                                </figure><!-- End .product-media -->
+                                <div class="product-body">
+                                    <div class="product-cat">
+                                        <a href="#">@item.CategoryName</a>
+                                    </div><!-- End .product-cat -->
+                                    <h3 class="product-title"><a href="@Url.Action("detail","product",new {id = item.ProductId })">@item.Name</a></h3><!-- End .product-title -->
+                                    <div class="product-price">
+                                        @item.ProductStock.FirstOrDefault().CurrentPrice @item.ProductStock.FirstOrDefault().CurrencySymbol
+                                    </div><!-- End .product-price -->
+                                </div><!-- End .product-body -->
+                                @*<div class="product-action">
+                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                    </div>*@<!-- End .product-action -->
+                            </div><!-- End .product -->
+                        </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
+
+                    }
+
+                </div><!-- End .row -->
+            </div><!-- End .products -->
+        </div><!-- .End .tab-pane -->
+
+        <!-- .End .tab-pane -->
+
+    </div><!-- End .tab-content -->
+</div><!-- End .container -->

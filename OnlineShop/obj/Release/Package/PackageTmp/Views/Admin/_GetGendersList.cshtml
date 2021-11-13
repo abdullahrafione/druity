@@ -1,0 +1,8 @@
+﻿@model List<OnlineShop.Models.GenderTag>
+<label>Select Gender Tag</label>
+<select name="GenderTagId" class="form-control">
+    @foreach (var item in Model)
+    {
+        <option value="@item.GenderId">@item.GenderName</option>
+    }
+</select>

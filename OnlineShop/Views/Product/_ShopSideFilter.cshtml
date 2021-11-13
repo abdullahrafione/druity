@@ -1,0 +1,204 @@
+﻿@model OnlineShop.Models.CategoriesSizeColoursFilter
+@{
+    var isMainSelected = Model.IsMainSelected;
+    var isChildSelected = Model.IsChildSelected;
+    var childSelectedCategoryId = Model.ChildSelectedCategory;
+}
+<div id="ShopFilter">
+    <div id="SelectedCategory">
+        @if (isMainSelected)
+        {
+            <div class="widget widget-collapsible">
+                <h3 class="widget-title">
+                    <a data-toggle="collapse" href="#widget-0" role="button" aria-expanded="true" aria-controls="widget-1" class="">
+                        <m>Related categories</m>
+                    </a>
+                </h3>
+                <div class="collapse show" id="widget-0" style="">
+                    <div class="widget-body">
+                        <div class="filter-items filter-items-count">
+                            <div id="SelectedCategory">
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model.RetlatedCategories)
+                                    {
+                                        <div class="filter-item">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" checked class="custom-control-input" onclick="CategoryChecked(@item.CategoryId); Filter();" id="@("categoryId" + item.CategoryId)">
+
+                                                <label class="custom-control-label" for="@("categoryId"+item.CategoryId)">@item.CategoryName</label>
+                                                <input type="text" id="@("categoryIdSet"+item.CategoryId)" value="0" style="display:none" />
+                                            </div>
+                                            @*<span class="item-count">3</span>*@
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div><!-- End .filter-items -->
+                    </div><!-- End .widget-body -->
+                </div>
+            </div><!-- End .widget -->
+        }
+        <div class="widget widget-collapsible">
+            <h3 class="widget-title">
+                <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1" class="">
+                    <m>Category</m>
+                </a>
+            </h3>
+            <div class="collapse show" id="widget-1" style="">
+                <div class="widget-body">
+                    <div class="filter-items filter-items-count">
+
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model.Categories)
+                            {
+                                <div class="filter-item">
+                                    <div class="custom-control custom-checkbox">
+                                        @if (item.CategoryId == childSelectedCategoryId)
+                                        {
+                                            <input type="checkbox" checked class="custom-control-input" onclick="CategoryChecked(@item.CategoryId); Filter();" id="@("categoryId" + item.CategoryId)">
+                                            <label class="custom-control-label" for="@("categoryId" + item.CategoryId)">@item.CategoryName</label>
+                                            <input type="text" id="@("categoryIdSet" + item.CategoryId)" value="@item.CategoryId" style="display:none" />
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" class="custom-control-input" onclick="CategoryChecked(@item.CategoryId); Filter();" id="@("categoryId" + item.CategoryId)">
+                                            <label class="custom-control-label" for="@("categoryId" + item.CategoryId)">@item.CategoryName</label>
+                                            <input type="text" id="@("categoryIdSet" + item.CategoryId)" value="0" style="display:none" />
+                                        }
+                                    </div>
+                                    @*<span class="item-count">3</span>*@
+                                </div>
+                            }
+                        }
+                    </div>
+                </div><!-- End .filter-items -->
+            </div><!-- End .widget-body -->
+        </div>
+    </div><!-- End .widget -->
+
+    @*<div class="widget widget-collapsible">
+        <h3 class="widget-title">
+            <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
+                Size
+            </a>
+        </h3><!-- End .widget-title -->
+
+        <div class="collapse show" id="widget-2">
+            <div class="widget-body">
+                <div class="filter-items">
+                    <div id="SelectedSize">
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model.Sizes)
+                            {
+                                <div class="filter-item">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" onclick="SizeChecked(@item.SizeId);Filter();" id="@("sizeId"+item.SizeId)">
+                                        <label class="custom-control-label" for="@("sizeId"+item.SizeId)">@item.Name</label>
+                                        <input type="text" id="@("sizeIdSet"+item.SizeId)" value="0" style="display:none" />
+                                    </div><!-- End .custom-checkbox -->
+                                </div>
+                            }
+                        }
+                    </div>
+                </div><!-- End .filter-items -->
+            </div><!-- End .widget-body -->
+        </div><!-- End .collapse -->
+    </div>*@
+
+    @*<div class="widget widget-collapsible">
+        <h3 class="widget-title">
+            <a data-toggle="collapse" href="#widget-3" role="button" aria-expanded="true" aria-controls="widget-3">
+                Colour
+            </a>
+        </h3>
+        <div id="SelectedColours">
+            <div class="collapse show" id="widget-3">
+                <div class="widget-body">
+                    <div class="filter-colors">
+
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model.Colours)
+                            {
+                                <a class="" style="background:@item.Code;" onclick="ColourChecked(@item.ColourId); Filter()" id="@("getcolourId"+item.ColourId)"><span class="sr-only">@item.Name</span></a>
+                                <input type="text" id="@("setcolourId"+item.ColourId)" value="0" style="display:none" />
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+</div>
+
+<script>
+    function CategoryChecked(categoryId) {
+        if ($('#categoryId' + categoryId).is(":checked")) {
+            $("#categoryIdSet" + categoryId).val(categoryId);
+        }
+        else {
+            $("#categoryIdSet" + categoryId).val("0");
+        }
+    }
+
+    function SizeChecked(sizeId) {
+
+        if ($('#sizeId' + sizeId).is(":checked")) {
+            $("#sizeIdSet" + sizeId).val(sizeId);
+        }
+        else {
+            $("#sizeIdSet" + sizeId).val("0");
+        }
+    }
+
+    function ColourChecked(colourId) {
+
+        var element = document.getElementById("getcolourId" + colourId);
+        element.classList.toggle("selected");
+        if ($('#getcolourId' + colourId).hasClass('selected')) {
+            $("#setcolourId" + colourId).val(colourId)
+        }
+        else {
+            $("#setcolourId" + colourId).val("0")
+        }
+    }
+
+    function Filter() {
+        var ParentCategories = "";
+        $("#SelectedCategory :text").each(function () {
+            ParentCategories += "CategoryId:" + +$(this).val() + "#";
+        });
+        var sizes = "";
+        $("#SelectedSize :text").each(function () {
+            sizes += "SizeId:" + +$(this).val() + "#";
+        });
+
+        var colours = "";
+        $("#SelectedColours :text").each(function () {
+            colours += "colours:" + +$(this).val() + "#";
+        });
+       
+        var GenderTagId = $("#genderidText").val();
+        $.ajax({
+            type: "Post",
+            url: "/product/Filter",
+            data: {
+                "ParentCategories": ParentCategories,
+                "ChildCategories": "CategoryId:0#",
+                "sizes": sizes,
+                "Colours": colours,
+                "GenderTagId": GenderTagId,
+            },
+            success: function (data) {
+                $('#gridforShop').html(data);
+                $('html, body').animate({
+                    scrollTop: $("#gridforShop").offset().top
+                }, 1000);  
+            }
+        })
+    }
+</script>

@@ -1,0 +1,116 @@
+﻿@model List<OnlineShop.Models.GeneralImages>
+@{
+    ViewBag.Title = "UploadBanner";
+}
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Druity Landing Page<span>Banners</span></h1>
+        </div>
+    </div>
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Admin</a></li>
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">My Account</li>
+            </ol>
+        </div>
+    </nav>
+    <div class="page-content">
+        <div class="dashboard">
+            <div class="container">
+                <div class="row">
+                    @Html.Partial("_AdminDashboardSideMenu")
+                    <div class="col-lg-6">
+                        <div class="card card-dashboard">
+                            <div class="card-body">
+                                <h3 class="card-title">Banners</h3>
+                                <table>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Action</th>
+                                        <th>Submit</th>
+                                    </tr>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td><img src="@item.Url" alt="Smiley face" height="50" width="50"></td>
+                                            <td>@item.Name</td>
+                                            <td><a href="@Url.Action("SaveCategoryImage","Category", new {CategoryId = item.Id})">Click to Update Image</a></td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('#btnUpload').click(function () {
+            // Checking whether FormData is available in browser
+            if (window.FormData !== undefined) {
+
+                var fileUpload = $("#FileUpload1").get(0);
+                var files = fileUpload.files;
+
+                // Create FormData object
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+                var DisplayOrder = $('#DisplayOrder').val();
+                var IsPrimary = $('#IsPrimarySet').val();
+                var IsSizeGuide = $('#IsSizeGuideSet').val();
+                var ProductId = $('#ProductId').val();
+                // Adding one more key to FormData object
+                fileData.append('DisplayOrder', DisplayOrder);
+                fileData.append('IsPrimary', IsPrimary);
+                fileData.append('IsSizeGuide', IsSizeGuide);
+                fileData.append('ProductId', ProductId);
+
+                $.ajax({
+                    url: '/admin/UploadBannerImage',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (result) {
+                        $('#images').html(result);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                });
+            } else {
+                alert("FormData is not supported.");
+            }
+        });
+    });
+</script>

@@ -1,0 +1,48 @@
+﻿@model List<OnlineShop.Models.GenderTag>
+<input type="text" style="display:none" id="genderidText" value="@Model.FirstOrDefault().GenderId" />
+<div class="select-custom">
+    <select id="sortby" name="gendertag" class="form-control">
+        @foreach (var item in Model)
+        {
+            <option value="@item.GenderId">@item.GenderName</option>
+        }
+    </select>
+</div>
+
+<script>
+    $('#sortby').on('change', function () {
+        var value = $(this).val();
+        $("#genderidText").val(value);
+        var GenderTagId = $("#genderidText").val();
+
+        var ParentCategories = "";
+        $("#SelectedCategory :text").each(function () {
+            ParentCategories += "CategoryId:" + +$(this).val() + "#";
+        });
+        var sizes = "";
+        $("#SelectedSize :text").each(function () {
+            sizes += "SizeId:" + +$(this).val() + "#";
+        });
+
+        var colours = "";
+        $("#SelectedColours :text").each(function () {
+            colours += "colours:" + +$(this).val() + "#";
+        });
+
+
+        $.ajax({
+            type: "Post",
+            url: "/product/Filter",
+            data: {
+                "ParentCategories": ParentCategories,
+                "ChildCategories": "CategoryId:0#",
+                "sizes": sizes,
+                "Colours": colours,
+                "GenderTagId": GenderTagId,
+            },
+            success: function (data) {
+                $('#gridforShop').html(data);
+            }
+        })
+    });
+</script>

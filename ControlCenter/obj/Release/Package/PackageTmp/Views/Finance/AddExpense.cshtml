@@ -1,0 +1,52 @@
+﻿@model ControlCenter.Models.Expense
+@{
+    ViewBag.Title = "AddExpense";
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <h1 class="mr-2">Add Expenses</h1>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-title mb-3">Add Expense</div>
+                        <form action="~/finance/AddExpense" method="post">
+                            <div class="row">
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="AccountHeadId">Account Head</label>
+                                    <select name="AccountHeadId" class="form-control">
+                                        @foreach (var item in Model.AccountHead)
+                                        {
+                                            <option value=@item.AccountHeadId> @item.AccountHeadName </option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="name">Description</label>
+                                    <input type="text" name="Description" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="name">Amount</label>
+                                    <input type="text" name="Amount" class="form-control">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

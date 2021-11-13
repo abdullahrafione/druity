@@ -1,0 +1,58 @@
+﻿@model List<OnlineShop.Models.MiniCartModel>
+
+@{
+    int Total = 0;
+    int shippingFee = 150;
+    foreach (var item in Model)
+    {
+        Total += Convert.ToInt32(item.Price) * Convert.ToInt32(item.Quantity);
+    }
+
+
+}
+@if (Model.Any())
+{
+    <table class="table table-summary">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><a href="#">@item.ProductName</a></td>
+                    <td>@item.CurrencySymbol@(item.Quantity * item.Price)</td>
+                </tr>
+            }
+            @if (Total < 500)
+            {
+                <tr class="summary-shipping">
+                    <td>Shipping Fee</td>
+                    <td>Rs. 150</td>
+                </tr>
+                <tr class="summary-subtotal">
+                    <td>Total:</td>
+                    <td>@Model.FirstOrDefault().CurrencySymbol @(Total + shippingFee)</td>
+                </tr>
+            }
+            else
+            {
+                <tr class="summary-subtotal">
+                    <td>Total:</td>
+                    <td>@Model.FirstOrDefault().CurrencySymbol@Total</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href="~/order/PlaceOrder" class="btn btn-outline-primary-2 btn-order btn-block">
+        <span class="btn-text">Place Order</span>
+        <span class="btn-hover-text">Place Order Now</span>
+    </a>
+}
+
+

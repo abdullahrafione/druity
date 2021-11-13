@@ -1,0 +1,61 @@
+﻿@model List<ControlCenter.Models.OrderDetailModel>
+@{ 
+    var orderNumber = TempData["OrderNumber"];
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <h1>Order Details for Order Number @orderNumber</h1>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row mb-4">
+            <div class="col-md-12 mb-4">
+                <div class="card text-left">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="display table table-striped table-bordered" id="zero_configuration_table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Unit Price</th>
+                                        <th>Quantity</th>
+                                        <th>Status</th>
+                                        <th>Change Status</th>
+                                        <th>Update Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <form action="~/Order/UpdateOrderStatus" method="post">
+                                            <input type="text" hidden name="OrderDetailId" value="@item.OrderDetailId" />
+                                            <tr>
+                                                <td>@item.ProductName</td>
+                                                <td>@item.UnitPrice</td>
+                                                <td>@item.Quantity</td>
+                                                <td>@item.Status</td>
+                                                <td class="text-left" style="">
+                                                    <select id="OrderStatusId" name="OrderStatusId" class="form-control">
+                                                        <option class="form-control" value="2">Confirm</option>
+                                                        <option class="form-control" value="3">In Process</option>
+                                                        <option class="form-control" value="4">Dispatched</option>
+                                                        <option class="form-control" value="5">Closed</option>
+                                                        <option class="form-control" value="6">Cancelled</option>
+                                                    </select>
+                                                </td>
+                                                <td><button type="submit" class="btn btn-info">Save</button></td>
+                                            </tr>
+                                            </form>
+                                            }
+                                    </tbody>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,102 @@
+﻿@model OnlineShop.Models.ProductReponse
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">My Account<span>Shop</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Admin</a></li>
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">My Account</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+    <div class="page-content">
+        <div class="dashboard">
+            <div class="container">
+                <div class="row">
+                    @Html.Partial("_AdminDashboardSideMenu")
+                    <div class="col-md-8 col-lg-9">
+                        <p>The following addresses will be used on the checkout page by default.</p>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card card-dashboard">
+                                    <div class="card-body">
+                                        <h3 class="card-title">Add new products</h3><!-- End .card-title -->
+                                        <p>
+                                            <a href="~/admin/addProduct">Add<i class="icon-edit"></i></a>
+                                        </p>
+                                    </div><!-- End .card-body -->
+                                </div><!-- End .card-dashboard -->
+                            </div><!-- End .col-lg-6 -->
+
+                            <div class="col-lg-12">
+                                <div class="card card-dashboard">
+                                    <div class="card-body">
+                                        <h3 class="card-title">Products</h3><!-- End .card-title -->
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Category</th>
+                                                <th>Name</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            @foreach (var item in Model.Products)
+                                            {
+                                            <tr>
+                                                <td><img src="@item.Image.FirstOrDefault().Url" alt="Smiley face" height="50" width="50"></td>
+                                                <td>@item.CategoryName</td>
+                                                <td>@item.Name</td>
+                                                <td>
+                                                    <a href="~/admin/configureproduct?productid=@item.ProductId" class="btn btn-primary btn-round btn-shadow">Configure</a>
+                                                  
+                                                </td>
+                                            </tr>
+                                            }
+                                        </table>
+                                        <nav aria-label="Page navigation">
+                                            <ul class="pagination">
+                                                @for (int i = 1; i <= Model.PageCount; i++)
+                                                {
+                                                    if (i != Model.CurrentPageIndex)
+                                                    {
+                                                        <li class="page-item"><a class="page-link" href="~/admin/products?currentPage=@i" style="color:black">@i</a></li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li class="page-item active" aria-current="page"><a class="page-link" href="#">@i</a></li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </nav>
+                                    </div><!-- End .card-body -->
+                                   
+                                </div><!-- End .card-dashboard -->
+                            </div><!-- End .col-lg-6 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .col-lg-9 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .dashboard -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>

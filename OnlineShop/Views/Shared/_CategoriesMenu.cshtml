@@ -1,0 +1,20 @@
+﻿@model List<OnlineShop.Models.Category>
+
+<div class="dropdown-menu">
+    <nav class="side-nav">
+        <ul class="menu-vertical sf-arrows">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <li><a href="~/product/shop?category=@item.CategoryId&&main=true">@item.CategoryName</a></li>
+                }
+            }
+        </ul>
+    </nav>
+</div>
+
+
+
+
+

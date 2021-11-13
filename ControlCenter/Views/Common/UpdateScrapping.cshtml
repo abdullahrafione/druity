@@ -1,0 +1,39 @@
+﻿
+@model ControlCenter.Models.UserModel
+@{
+    ViewBag.Title = "UpdateScrapping";
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <h1 class="mr-2">Add Shipping Charges | UserName : @System.Configuration.ConfigurationManager.AppSettings["ScrapBot_UserName"]</h1>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-title mb-3">Update Scrapping Credentials</div>
+                        <form action="~/common/UpdateScrapping" method="post">
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="name">User Name</label>
+                                    <input type="text" name="FirstName" class="form-control">
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="name">Api Key</label>
+                                    <input type="text" name="LastName" class="form-control">
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

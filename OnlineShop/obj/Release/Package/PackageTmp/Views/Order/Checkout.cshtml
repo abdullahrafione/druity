@@ -1,0 +1,93 @@
+﻿@model OnlineShop.Models.User
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('/Content/assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Checkout<span>Shop</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="checkout">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>First Name *</label>
+                                <input type="text" readonly class="form-control" value="@Model.FirstName" required="">
+                            </div><!-- End .col-sm-6 -->
+
+                            <div class="col-sm-6">
+                                <label>Last Name *</label>
+                                <input type="text" readonly class="form-control" value="@Model.LastName" required="">
+                            </div><!-- End .col-sm-6 -->
+                        </div><!-- End .row -->
+                        <label>Country *</label>
+                        <input type="text" value="@Model.Country" readonly class="form-control" required="">
+
+                        <label>Street address *</label>
+                        <input type="text" value="@Model.Address" readonly class="form-control" placeholder="House number and Street name" required="">
+                        <input type="text" value="@Model.Street" readonly class="form-control" placeholder="Appartments, suite, unit etc ..." required="">
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>City *</label>
+                                <input type="text" value="@Model.City" readonly class="form-control" required="">
+                            </div><!-- End .col-sm-6 -->
+
+                            <div class="col-sm-6">
+                                <label>State *</label>
+                                <input type="text" value="@Model.State" readonly class="form-control" required="">
+                            </div><!-- End .col-sm-6 -->
+                        </div><!-- End .row -->
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Postcode / ZIP *</label>
+                                <input type="text" value="@Model.PostalCode" readonly class="form-control" required="">
+                            </div><!-- End .col-sm-6 -->
+
+                            <div class="col-sm-6">
+                                <label>Phone *</label>
+                                <input type="tel" value="@Model.Phone" readonly class="form-control" required="">
+                            </div><!-- End .col-sm-6 -->
+                        </div><!-- End .row -->
+
+                        <label>Email address *</label>
+                        <input type="email" value="@Model.EmailAddress" readonly class="form-control" required="">
+
+                    </div>
+                    <aside class="col-lg-3">
+                        <div class="summary">
+                            <h3 class="summary-title">Your Order</h3>
+                            <div id="PlaceOrder">
+                                @Html.Partial("~/Views/Order/_PlaceOrder.cshtml", new List<OnlineShop.Models.MiniCartModel>())
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "Get",
+            url: "/shoppingcart/GetItemsPlaceOrder",
+            success: function (data) {
+                $('#PlaceOrder').html(data);
+            }
+        })
+    });
+</script>

@@ -1,0 +1,42 @@
+﻿@model List<ControlCenter.Models.OrderDetailModel>
+@{
+    ViewBag.Title = "ProfitStatement";
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <h1><b>Total Profit = Rs. @Model.Sum(x => x.Profit).ToString("##,##0")</b></h1>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row mb-4">
+            <div class="col-md-12 mb-4">
+                <div class="card text-left">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="display table table-striped table-bordered" id="zero_configuration_table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Order Id</th>
+                                        <th>Profit</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.OrderId</td>
+                                            <td>@item.Profit.ToString("##,##0")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
