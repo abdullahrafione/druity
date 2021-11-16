@@ -292,13 +292,13 @@ namespace ControlCenter.Controllers
             });
 
             mapped.CreationTime = sale.First().CreationTime;
-            mapped.GrandTotal = sale.Sum(x => x.GrandTotal);
+            mapped.ShippingFee = sale.First().ShippingFee;
+            mapped.GrandTotal = mapped.Products.Select(x => x.Amount).Sum() + mapped.ShippingFee;
             mapped.InvoiceId = sale.First().Id;
             mapped.OrderId = sale.First().OrderId;
             mapped.OrderTotal = sale.Sum(x => x.OrderTotal);
             mapped.PaymentMode = sale.First().PaymentMode;
             mapped.PaymentStatus = sale.First().PaymentStatus;
-            mapped.ShippingFee = sale.First().ShippingFee;
             mapped.UserId = sale.First().UserId;
 
             mapped.Address = user.Address;
