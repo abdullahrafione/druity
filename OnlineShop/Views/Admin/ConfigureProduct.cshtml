@@ -99,25 +99,28 @@
 
                                                     <input type="text" name="ProductId" value="@item.ProductId" style="display:none" />
                                                     <input type="text" name="ProductStockId" value="@item.ProductStockId" style="display:none" />
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-3 mb-2">
                                                         <label>Colour</label>
-                                                        <select name="ColourId" class="form-control">
+                                                        <select name="ColourId" class="form-control mb-0">
                                                             <option style="color:@item.ColourCode" value="@item.ColourId">@item.ColourName</option>
                                                             @foreach (var clr in Model.Colours)
                                                             {
                                                                 <option value="@clr.ColourId">@clr.Name</option>
                                                             }
                                                         </select>
+                                                        <a href="#" data-toggle="modal" data-target="#AddColorModel">Add Colour</a>
                                                     </div>
-                                                    <div class="col-md-3">
-                                                        <label>Size</label>
-                                                        <select name="SizeID" class="form-control">
+                                                    <div class="col-md-3 mb-2">
+                                                        <label>Models</label>
+                                                        <select name="SizeID" class="form-control mb-0">
                                                             <option value="@item.SizeID">@item.SizeName</option>
                                                             @foreach (var size in Model.Sizes)
                                                             {
                                                                 <option value="@size.SizeId">@size.Name</option>
                                                             }
                                                         </select>
+                                                        <a href="#" data-toggle="modal" data-target="#AddSizesModel">Add Models</a>
+
                                                     </div>
                                                     <div class="col-md-2">
                                                         <label>Stock</label>
@@ -196,23 +199,26 @@
                                     <table class="table table-cart table-mobile">
                                         <tbody>
                                             <tr>
-                                                <td class="price-col">
+                                                <td class="price-col mb-2">
                                                     <label>Colour</label>
-                                                    <select id="ColourId" class="form-control">
+                                                    <select id="ColourId" class="form-control mb-0">
                                                         @foreach (var item in Model.Colours)
                                                         {
                                                             <option value="@item.ColourId">@item.Name</option>
                                                         }
                                                     </select>
+                                                    <a href="#" data-toggle="modal" data-target="#AddColorModel">Add Colour</a>
                                                 </td>
-                                                <td class="price-col">
+                                                <td class="price-col mb-2">
                                                     <label>Size</label>
-                                                    <select id="SizeID" class="form-control">
+                                                    <select id="SizeID" class="form-control mb-0">
                                                         @foreach (var item in Model.Sizes)
                                                         {
                                                             <option value="@item.SizeId">@item.Name</option>
                                                         }
                                                     </select>
+                                                    <a href="#" data-toggle="modal" data-target="#AddSizesModel">Add Models</a>
+
                                                 </td>
                                                 <td class="price-col">
                                                     <label>Stock</label>
@@ -281,6 +287,87 @@
         </div>
     </div>
 </main>
+
+
+<div class="modal fade" id="AddColorModel" tabindex="-1" role="dialog" aria-labelledby="AddColorModalLabel" aria-hidden="true">
+    <form action="@Url.Action("SaveColor")" method="post">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddColorModalLabel">Add New Color</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12" style="padding:0px 20px;">
+
+
+                            <input type="hidden" name="productId" value="@Model.Product.ProductId" />
+
+                            <div class="form-group">
+                                <label for="ColorName" class="col-form-label">Colour Name</label>
+                                <input type="text" class="form-control" id="ColorName" name="ColorName">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="AddSizesModel" tabindex="-1" role="dialog" aria-labelledby="AddSizeModalLabel" aria-hidden="true">
+    <form action="@Url.Action("SaveSizes")" method="post">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddSizeModalLabel">Add New Model</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12" style="padding:0px 20px;">
+
+
+                            <input type="hidden" name="productId" value="@Model.Product.ProductId" />
+
+                            <div class="form-group">
+                                <label for="SizeName" class="col-form-label">Model Name</label>
+                                <input type="text" class="form-control" id="SizeName" name="SizeName">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
     function MarkAsActive(ProductId)

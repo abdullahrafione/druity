@@ -1,20 +1,20 @@
 ﻿@model OnlineShop.Models.LandingPage
 @{
-    var allProducts = Model.products.Products.Where(x => x.CategoryId == 55).ToList();
-    var smartHome = 54;
+    var allProducts = Model.products.Products.Where(x => x.CategoryId == 1008).ToList();
+    var Wireless = 1008;
 }
 <div class="bg-light pt-5 pb-6">
     <div class="container trending-products">
         <div class="heading heading-flex mb-3">
             <div class="heading-left">
-                <h2 class="title">Smart Home (Druity Special)</h2>
+                <h2 class="title">Druity Mobile App</h2>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xl-5col d-none d-xl-block">
                 <div class="banner">
-                    <a href="~/product/shop?category=@smartHome&&main=true">
+                    <a href="~/product/shop?category=1008">
                         <img src="/Content/assets/images/demos/demo-4/banners/banner-4.jpg" alt="banner">
                     </a>
                 </div>

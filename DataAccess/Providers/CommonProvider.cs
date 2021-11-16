@@ -83,7 +83,7 @@ namespace DataAccess.Providers
 
         public void AddCategory(Domain.Category category)
         {
-            using(DataDbContext context = new DataDbContext())
+            using (DataDbContext context = new DataDbContext())
             {
                 context.Category.Add(category);
                 context.SaveChanges();
@@ -91,5 +91,33 @@ namespace DataAccess.Providers
         }
 
         #endregion
+
+
+        #region Color
+
+        public void AddColor(Domain.Colour colour)
+        {
+            using (var db = new DataDbContext())
+            {
+                db.Colour.Add(colour);
+                db.SaveChanges();
+            }
+        }
+
+        #endregion
+
+        #region Sizes
+
+        public void AddSize(Domain.Size size)
+        {
+            using (var db = new DataDbContext())
+            {
+                db.Size.Add(size);
+                db.SaveChanges();
+            }
+        }
+
+        #endregion
+
     }
 }

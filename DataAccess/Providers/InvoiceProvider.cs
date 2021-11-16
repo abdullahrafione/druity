@@ -12,14 +12,31 @@ namespace DataAccess.Providers
     {
         public SaleInvoice GetInvoicebyOrderId(int orderId)
         {
-            using(DataDbContext context = new DataDbContext())
+            using (DataDbContext context = new DataDbContext())
             {
                 var order = context.SaleInvoice.Where(x => x.OrderId == orderId).FirstOrDefault();
 
-                if(order != null) { 
+                if (order != null)
+                {
 
-                return context.SaleInvoice.Where(x => x.OrderId == orderId).FirstOrDefault();
+                    return context.SaleInvoice.Where(x => x.OrderId == orderId).FirstOrDefault();
 
+                }
+
+                int saleinvoiceId = GenerateSaleInvoice(orderId);
+                return context.SaleInvoice.Where(x => x.Id == saleinvoiceId).FirstOrDefault();
+            }
+        }
+
+        public SaleInvoice GetInvoicebyOrderId(int[] orderId)
+        {
+            using (DataDbContext context = new DataDbContext())
+            {
+                var order = context.SaleInvoice.Where(x => orderId.Contains(x.OrderId)).ToList();
+
+                if (order != null && order.Count > 0)
+                {
+                    return context.SaleInvoice.Where(x => orderId.Contains(x.OrderId)).FirstOrDefault();
                 }
 
                 int saleinvoiceId = GenerateSaleInvoice(orderId);
@@ -39,7 +56,19 @@ namespace DataAccess.Providers
             }
         }
 
-        private SaleInvoice CreateObject (Order order)
+        public int GenerateSaleInvoice(int[] orderId)
+        {
+            using (DataDbContext context = new DataDbContext())
+            {
+                var order = context.Order.Where(x => orderId.Contains(x.Id)).FirstOrDefault();
+                var orderobject = CreateObject(order);
+                var saleinvoice = context.SaleInvoice.Add(orderobject);
+                context.SaveChanges();
+                return saleinvoice.Id;
+            }
+        }
+
+        private SaleInvoice CreateObject(Order order)
         {
             return new SaleInvoice
             {

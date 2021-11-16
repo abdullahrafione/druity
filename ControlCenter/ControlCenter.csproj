@@ -286,7 +286,6 @@
     <Content Include="Content\dist-assets\fonts\iconsmind\iconsmind4906.eot" />
     <Content Include="Content\dist-assets\fonts\iconsmind\iconsmind4906.ttf" />
     <Content Include="Content\dist-assets\fonts\iconsmind\iconsmind4906.woff" />
-    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -346,6 +345,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Uploads\ProductImages\" />
   </ItemGroup>
   <ItemGroup>

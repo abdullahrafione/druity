@@ -44,7 +44,7 @@
                             <td class="price-col">@item.CurrencySymbol@item.Price</td>
                             <td class="quantity-col">
                                 <div class="cart-product-quantity">
-                                <input type="number" value="@item.ProductStockId" style="display:none"/>
+                                    <input type="number" value="@item.ProductStockId" style="display:none" />
                                     <input type="number" class="form-control" min="1" value="@item.Quantity" />
                                 </div><!-- End .cart-product-quantity -->
                             </td>
@@ -74,7 +74,7 @@
                             <td>@Model.FirstOrDefault().CurrencySymbol@total</td>
                         </tr><!-- End .summary-subtotal -->
 
-                      
+
 
                         <tr class="summary-total">
                             <td>Total:</td>
@@ -99,8 +99,7 @@
             success: function () {
                 window.location.reload(true);
             },
-            error: function ()
-            {
+            error: function () {
                 alert("error");
             }
         })
@@ -114,19 +113,17 @@
             if (count % 2 == 0) {
                 cart += $(this).val() + "#";
             }
-            else
-            {
+            else {
                 cart += $(this).val() + ",";
             }
         });
-       
+
 
         $.ajax({
             type: "Get",
             url: "/shoppingcart/Updatecart",
             data: { "cart": cart },
-            success: function ()
-            {
+            success: function () {
                 window.location.reload(true);
             }
         })

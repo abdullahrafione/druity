@@ -32,42 +32,49 @@
             <div class="col-md-12 mb-4">
                 <div class="card text-left">
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="display table table-striped table-bordered" id="zero_configuration_table" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>OrderId</th>
-                                        <th>Total Amount</th>
-                                        <th>Created On</th>
-                                        <th>User Email</th>
-                                        <th>Click to View</th>
-                                        <th>Invoice</th>
-                                    </tr>
-                                </thead>
+                        <form action="@Url.Action("GetInvoiceMultipleOrderID", "Finance")" method="post">
 
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
+                            <button id="generate-invoice" type="submit" class="btn btn-primary">Generate Invoice</button>
+                            <br />
+                            <br />
+                            <div class="table-responsive">
+                                <table class="display table table-striped table-bordered" id="zero_configuration_table" style="width:100%">
+                                    <thead>
                                         <tr>
-                                            <td>@item.OrderId</td>
-                                            <td>@item.TotalAmount</td>
-                                            <td>@item.CreatedOn.ToString("dd-MMM-yyyy")</td>
-                                            <td>@item.UserEmail</td>
-                                            <td class="text-left" style="">
-                                                <a href="@Url.Action("ViewOrders", "Order", new {orderId = item.OrderId} )">View</a>
-                                            </td>
-                                            <td class="text-left" style="">
-                                                <a href="@Url.Action("GetInvoice", "Finance", new {orderId = item.OrderId} )">Invoice</a>
-                                            </td>
+                                            <th></th>
+                                            <th>OrderId</th>
+                                            <th>Total Amount</th>
+                                            <th>Created On</th>
+                                            <th>User Email</th>
+                                            <th>Click to View</th>
+                                            <th>Invoice</th>
                                         </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td><input type="checkbox" class="order-check" name="orderId" value="@item.OrderId" /></td>
+                                                <td>@item.OrderId</td>
+                                                <td>@item.TotalAmount</td>
+                                                <td>@item.CreatedOn.ToString("dd-MMM-yyyy")</td>
+                                                <td>@item.UserEmail</td>
+                                                <td class="text-left" style="">
+                                                    <a href="@Url.Action("ViewOrders", "Order", new {orderId = item.OrderId} )">View</a>
+                                                </td>
+                                                <td class="text-left" style="">
+                                                    <a href="@Url.Action("GetInvoice", "Finance", new {orderId = item.OrderId} )">Invoice</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

@@ -9,10 +9,10 @@
         <div class="container d-flex align-items-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><b>@Model.Name</b></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
             </ol>
         </div>
-    </nav>
+    </nav><br />
     <div class="page-content">
         <div class="container">
             <div class="product-details-top">
@@ -46,14 +46,14 @@
 
                         </div>
                         <div class="product-details">
-                            <h1 class="product-title">@Model.Name</h1>
+                            <h1 class="product-title" style="font-size:xx-large">@Model.Name</h1>
                             <div class="ratings-container">
                             </div>
                             @if (Model.ProductStock.FirstOrDefault().OldProductPrice != "0")
                             {
                                 <div class="product-price">
                                     <span class="new-price" style="color:black">@Model.ProductStock.FirstOrDefault().CurrencySymbol @Model.ProductStock.FirstOrDefault().ProductPrice</span>
-                                    <span class="old-price" style="color:red">Was @Model.ProductStock.FirstOrDefault().CurrencySymbol @Model.ProductStock.FirstOrDefault().OldProductPrice</span>
+                                    <span class="intro-old-price" style="color:red">@Model.ProductStock.FirstOrDefault().CurrencySymbol @Model.ProductStock.FirstOrDefault().OldProductPrice</span>
                                 </div>
 
                                 if (Model.ProductStock.FirstOrDefault().StockCount == 0)
@@ -65,7 +65,7 @@
                                 {
                                     if (Model.ProductStock.FirstOrDefault().Discount != 0)
                                     {
-                                        <span class="new-price">@Model.ProductStock.FirstOrDefault().Discount% OFF</span>
+                                        <span style="font-size:large;color:red; font-family:Arial;border:double">@Model.ProductStock.FirstOrDefault().Discount% OFF</span>
                                     }
                                 }
                             }
@@ -76,7 +76,7 @@
                                 </div>
                             }
                             <div class="product-content">
-                                <p>@Model.ShortDescription</p>
+                                <p style="font-size:large">@Model.ShortDescription</p>
                             </div>
                             <div id="colorSize">
                                 @*@Html.Partial("~/Views/Product/_DetailSizeColorActions.cshtml", new OnlineShop.Models.ColorsSizes())*@
@@ -114,14 +114,14 @@
             <div class="product-details-tab">
                 <ul class="nav nav-pills justify-content-center" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Details</a>
+                        @*<a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Details</a>*@
+                        <a style="font-size:xx-large; color:blue" >Details</a>
                     </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
                         <div class="product-desc-content">
-                            <h3>Product Information</h3>
-                            <p>@Model.Detail</p>
+                            <p style="font-size:medium; font-family:Arial; color:dimgray">@Model.Detail</p>
                         </div><!-- End .product-desc-content -->
                     </div><!-- .End .tab-pane -->
                 </div><!-- End .tab-content -->

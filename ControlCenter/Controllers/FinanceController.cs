@@ -125,6 +125,29 @@ namespace ControlCenter.Controllers
 
             return View("~/Views/Finance/Invoice.cshtml", model);
         }
+
+        [HttpPost]
+        public ActionResult GetInvoiceMultipleOrderID(int[] orderId)
+        {
+            List<DataAccess.Domain.OrderDetail> xl = new List<DataAccess.Domain.OrderDetail>();
+            DataAccess.Domain.User user = null;
+            List<DataAccess.Domain.SaleInvoice> invoice = new List<DataAccess.Domain.SaleInvoice>();
+
+            foreach (var item in orderId)
+            {
+                invoice.Add(invoiceProvider.GetInvoicebyOrderId(item));
+                xl.AddRange(orderProvider.GetOrderDetailByOrderId(item));
+
+                if (user == null)
+                    user = userProvider.GetUserByUserId(invoice.First().UserId);
+            }
+
+            var model = MaptoInvoiceModel(invoice, user, xl);
+
+            return View("~/Views/Finance/Invoice.cshtml", model);
+
+        }
+
         #endregion
 
         #region Finances
@@ -166,11 +189,11 @@ namespace ControlCenter.Controllers
             return View(detailModels);
         }
 
-    #endregion
+        #endregion
 
-    #region Common
+        #region Common
 
-    public ActionResult UpdateShippingCharges()
+        public ActionResult UpdateShippingCharges()
         {
             return View();
         }
@@ -241,6 +264,42 @@ namespace ControlCenter.Controllers
             mapped.PaymentStatus = sale.PaymentStatus;
             mapped.ShippingFee = sale.ShippingFee;
             mapped.UserId = sale.UserId;
+
+            mapped.Address = user.Address;
+            mapped.City = user.City;
+            mapped.EmailAddress = user.EmailAddress;
+            mapped.FirstName = user.FirstName;
+            mapped.LastName = user.LastName;
+            mapped.PhoneNumber = user.Phone;
+
+            return mapped;
+        }
+
+        private Models.InvoiceModel MaptoInvoiceModel(List<DataAccess.Domain.SaleInvoice> sale, DataAccess.Domain.User user, List<DataAccess.Domain.OrderDetail> orderDetail)
+        {
+            Models.InvoiceModel mapped = new Models.InvoiceModel();
+            mapped.Products = new List<Models.Product>();
+
+            orderDetail.ForEach(x =>
+            {
+                mapped.Products.Add(new Models.Product
+                {
+                    CurrentPrice = x.UnitSalePrice,
+                    Quantity = x.Quantity,
+                    Amount = x.Quantity * x.UnitSalePrice,
+                    Name = productProvider.GetProductName(x.ProductStock.ProductId)
+                });
+            });
+
+            mapped.CreationTime = sale.First().CreationTime;
+            mapped.GrandTotal = sale.Sum(x => x.GrandTotal);
+            mapped.InvoiceId = sale.First().Id;
+            mapped.OrderId = sale.First().OrderId;
+            mapped.OrderTotal = sale.Sum(x => x.OrderTotal);
+            mapped.PaymentMode = sale.First().PaymentMode;
+            mapped.PaymentStatus = sale.First().PaymentStatus;
+            mapped.ShippingFee = sale.First().ShippingFee;
+            mapped.UserId = sale.First().UserId;
 
             mapped.Address = user.Address;
             mapped.City = user.City;

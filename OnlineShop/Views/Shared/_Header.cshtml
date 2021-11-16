@@ -8,7 +8,7 @@
     <div class="header-top">
         <div class="container">
             <div class="header-left">
-                <a href="tel:#"><i class="icon-shopping-cart"></i>Shop over 1000+ Products</a>
+                <a href="tel:#"><i class="icon-shopping-cart"></i>Pakistan's First ever Wholesale marketplace</a>
             </div>
             <div class="header-right">
                 <ul class="top-menu">
@@ -46,7 +46,7 @@
                 </button>
 
                 <a href="~/home/index" class="logo">
-                    <img src="~/Content/Icons/logonew.png" alt="Druity Logo" width="105" height="25">
+                    <img src="~/Content/Icons/logonew.png" alt="Druity Logo" width="240" height="30">
                 </a>
             </div><!-- End .header-left -->
             <!--Starting Search Suggestions-->
@@ -119,7 +119,7 @@
             </div>*@
 
 </header>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
         $.ajax({
@@ -150,8 +150,14 @@
 
             source: '@Url.Action("GetCustomers", "Product")',
 
-            minLength: 1
+            minLength: 1,
+            select: function (e, ui) {
 
+                console.log(ui);
+            },
+            change: function (e, ui) { 
+                console.log(ui);
+            }
         });
     });
 

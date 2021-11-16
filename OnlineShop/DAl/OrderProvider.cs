@@ -134,14 +134,10 @@ namespace OnlineShop.DAL
                 var query = (from ord in context.Order
                              join dtl in context.OrderDetail on ord.Id equals dtl.OrderId
                              join ps in context.ProductStock on dtl.ProductStockId equals ps.Id
-                             join clr in context.Colour on ps.ColourId equals clr.Id
-                             join size in context.Size on ps.SizeID equals size.Id
                              join prod in context.Product on ps.ProductId equals prod.Id
-                             join pymt in context.Payment on ord.Id equals pymt.OrderId
 
                              where ord.IsActive == true
                              && ord.UserId == userId
-                             && pymt.PaymentStatusId == 2
 
                              select new { ord, prod, ps, dtl });
 

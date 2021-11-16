@@ -10,6 +10,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace OnlineShop.Controllers
 {
     [Authorize]
@@ -21,12 +22,15 @@ namespace OnlineShop.Controllers
         private readonly ImageProvider imageProvider;
         private readonly OrderProvider orderProvider;
         private readonly UserProvider userProvider;
+        private readonly CommonProvider commonProvider;
+
         public AdminController()
         {
             productProvider = new ProductProvider();
             imageProvider = new ImageProvider();
             orderProvider = new OrderProvider();
             userProvider = new UserProvider();
+            commonProvider = new CommonProvider();
         }
         // GET: Admin
         public ActionResult Dashboard()
@@ -148,7 +152,7 @@ namespace OnlineShop.Controllers
             {
                 orders.FirstOrDefault().OrderStatuses = status;
             }
-            return PartialView("_Orders",orders);
+            return PartialView("_Orders", orders);
         }
 
         public PartialViewResult ChangeStatus(int statusId, int orderDetailid)
@@ -215,9 +219,9 @@ namespace OnlineShop.Controllers
                 categories = categories.Where(x => x.ParentCategoryId == 0).ToList();
                 TempData["Error"] = "Please select sub category.";
                 return View(categories);
-               
+
             }
-          
+
         }
 
         [HttpPost]
@@ -245,7 +249,7 @@ namespace OnlineShop.Controllers
         public ActionResult Products(int currentPage)
         {
             var products = productProvider.GetProducts(currentPage);
-            products.Products.ForEach(x => 
+            products.Products.ForEach(x =>
             {
                 x.Image.Add(imageProvider.GetImages(x.ProductId).FirstOrDefault());
             });
@@ -255,13 +259,39 @@ namespace OnlineShop.Controllers
         public ActionResult ConfigureProduct(int productId)
         {
             var response = productProvider.ConfigureProduct(GetLogedInUser().OrganisationId, productId);
-            if(response!=null)
+            if (response != null)
             {
                 response.Images = imageProvider.GetImages(response.Product.ProductId);
             }
-           
+
             return View(response);
         }
+
+        [HttpPost]
+        public ActionResult SaveColor(string ColorName, int productId)
+        {
+
+            if (!string.IsNullOrEmpty(ColorName))
+            {
+                commonProvider.AddColor(ColorName);
+            }
+
+
+            return RedirectToAction("ConfigureProduct", new { productId });
+        }
+
+        [HttpPost]
+        public ActionResult SaveSizes(string SizeName, int productId)
+        {
+            if (!string.IsNullOrEmpty(SizeName))
+            {
+                commonProvider.AddSize(SizeName);
+            }
+
+            return RedirectToAction("ConfigureProduct", new { productId });
+        }
+
+
 
         [HttpPost]
         public ActionResult SaveProductStock(ProductStock stock)
@@ -282,7 +312,7 @@ namespace OnlineShop.Controllers
                     StockCount = stock.StockCount,
                     CurrencySymbol = CommonConstants.Constants.Pound
                 };
-                
+
                 productProvider.AddProductStock(productStock);
                 TempData[CommonConstants.Constants.SuccessMessage] = "Stock update successfully";
                 return RedirectToAction("ConfigureProduct", "admin", new { productId = stock.ProductId });
@@ -298,7 +328,7 @@ namespace OnlineShop.Controllers
         public ActionResult UpdateStock(ProductStock stock)
         {
             productProvider.UpdateStock(stock);
-            return RedirectToAction("ConfigureProduct","Admin",new { productId=stock.ProductId});
+            return RedirectToAction("ConfigureProduct", "Admin", new { productId = stock.ProductId });
         }
 
         public ActionResult DeleteStock(ProductStock stock)
@@ -310,10 +340,10 @@ namespace OnlineShop.Controllers
             }
             catch (Exception ex)
             {
-                TempData[CommonConstants.Constants.SuccessMessage]= ex.Message;
+                TempData[CommonConstants.Constants.SuccessMessage] = ex.Message;
                 return RedirectToAction("ConfigureProduct", "Admin", new { productId = stock.ProductId });
             }
-          
+
         }
 
         #endregion
@@ -347,7 +377,7 @@ namespace OnlineShop.Controllers
                         var path = Path.Combine(Server.MapPath("~/Uploads"), uniqueness + fname);
                         file.SaveAs(path);
 
-                        image.Url = System.Configuration.ConfigurationManager.AppSettings["WebUrl"]+ "/Uploads/" + uniqueness + fname;
+                        image.Url = System.Configuration.ConfigurationManager.AppSettings["WebUrl"] + "/Uploads/" + uniqueness + fname;
                         image.Name = uniqueness + fname;
 
                         //System.Drawing.Bitmap bmpPostedImage = new System.Drawing.Bitmap(file.InputStream);
@@ -364,8 +394,8 @@ namespace OnlineShop.Controllers
                         //SaveJpeg(path, canvasImage);
 
                     }
-                   var allImages = imageProvider.SaveImage(image);
-                    return PartialView("~/Views/Admin/_ImagesList.cshtml",allImages);
+                    var allImages = imageProvider.SaveImage(image);
+                    return PartialView("~/Views/Admin/_ImagesList.cshtml", allImages);
                 }
                 catch (Exception ex)
                 {
@@ -381,7 +411,7 @@ namespace OnlineShop.Controllers
         {
             try
             {
-                var imageName =imageProvider.DeleteImageAndReturnName(imageId);
+                var imageName = imageProvider.DeleteImageAndReturnName(imageId);
                 var path = Path.Combine(Server.MapPath("~/Uploads"));
                 if (System.IO.File.Exists(Path.Combine(path, imageName)))
                 {
@@ -399,7 +429,7 @@ namespace OnlineShop.Controllers
 
         #region Private
 
-        private List<Models.GeneralImages> MaptoGeneralimages (List<DomainEntities.GeneralImages> images)
+        private List<Models.GeneralImages> MaptoGeneralimages(List<DomainEntities.GeneralImages> images)
         {
             List<Models.GeneralImages> mapped = new List<GeneralImages>();
             images.ForEach(x =>
@@ -420,9 +450,9 @@ namespace OnlineShop.Controllers
             {
                 CategoryId = product.CategoryId,
                 Detail = product.Detail,
-                ShortDescription=product.ShortDescription,
+                ShortDescription = product.ShortDescription,
                 Name = product.Name,
-                GenderTagId=product.GenderTagId,
+                GenderTagId = product.GenderTagId,
                 OrganisationId = GetLogedInUser().OrganisationId
             };
         }
@@ -494,7 +524,8 @@ namespace OnlineShop.Controllers
 
             if (users.Any())
             {
-                users.ForEach(u => {
+                users.ForEach(u =>
+                {
                     User map = new User();
                     map.FirstName = u.FirstName;
                     map.LastName = u.LastName;
